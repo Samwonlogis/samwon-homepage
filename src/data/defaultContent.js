@@ -85,11 +85,11 @@ export const defaultContent = {
     eyebrow: 'CERTIFICATIONS',
     title: '국가와 국제 표준이 검증한 운영 품질',
     items: [
-      { code: 'CELC', title: '우수물류기업 인증', org: '국토교통부', desc: '운송 인프라, 안전관리, 정보시스템 전 분야 심사를 통과한 공인 품질 보증' },
-      { code: 'HACCP', title: '식품안전관리인증', org: '식품의약품안전처', desc: '신선식품·의약품의 입고부터 최종 배송까지 온도 이탈 없는 콜드체인 유지' },
-      { code: '9001', title: 'ISO 9001 품질경영', org: '국제표준', desc: '고객 요구 기반 품질 관리 체계 운영' },
-      { code: '14001', title: 'ISO 14001 환경경영', org: '국제표준', desc: '친환경 운송·배출 저감 관리 체계' },
-      { code: '45001', title: 'ISO 45001 안전보건', org: '국제표준', desc: '중대재해 예방·무사고 안전관리 체계' },
+      { code: 'CELC', name: '우수물류기업', org: '국토교통부', logo: '' },
+      { code: 'HACCP', name: 'HACCP', org: '식품의약품안전처', logo: '' },
+      { code: '9001', name: 'ISO 9001', org: '품질경영', logo: '' },
+      { code: '14001', name: 'ISO 14001', org: '환경경영', logo: '' },
+      { code: '45001', name: 'ISO 45001', org: '안전보건', logo: '' },
     ],
   },
 

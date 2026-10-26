@@ -132,8 +132,8 @@ export default function Home() {
           <div className="certs">
             {c.certifications.items.map((ct, i) => (
               <div className="cert" key={i} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
-                <div className="badge">{/^\d/.test(ct.code) ? <span>ISO<br />{ct.code}</span> : ct.code}</div>
-                <h3>{ct.title}</h3><div className="org">{ct.org}</div><p>{ct.desc}</p>
+                {ct.logo ? <div className="cert__logo"><img src={asset(ct.logo)} alt={ct.name} loading="lazy" /></div> : <div className="badge">{/^\d/.test(ct.code) ? <span>ISO<br />{ct.code}</span> : ct.code}</div>}
+                <h3>{ct.name}</h3><div className="org">{ct.org}</div>
               </div>
             ))}
           </div>

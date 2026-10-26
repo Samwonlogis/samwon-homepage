@@ -14,7 +14,7 @@ const SECTIONS = [
   { key: 'businessAreas', label: '사업영역 타일', hint: '메인·사업영역 개요의 5개 타일 (이미지 포함)' },
   { key: 'businessPages', label: '사업영역 상세', hint: '기업물류·유통물류·주선·창고·컨설팅 상세 페이지' },
   { key: 'network', label: '전국 네트워크', hint: '지도 거점(x,y는 지도상 % 위치)·설명' },
-  { key: 'certifications', label: '인증 현황', hint: '인증 배지 5종' },
+  { key: 'certifications', label: '인증 현황', hint: '인증 5종 — 로고 이미지를 업로드하면 배지 대신 로고가 표시됩니다 (이름은 줄바꿈 없이 짧게)' },
   { key: 'partnersSection', label: '거래처 섹션 문구', hint: '거래처 로고는 src/data/partners.js에서 관리' },
   { key: 'caseStudies', label: '운영 사례', hint: '산업별 사례 4종' },
   { key: 'cta', label: '상담 유도 배너', hint: '메인 하단 CTA' },
