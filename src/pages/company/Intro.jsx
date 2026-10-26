@@ -13,7 +13,7 @@ export default function Intro() {
   const it = c.intro, ceo = c.ceo
   return (
     <>
-      <PageHead label="COMPANY" title="회사개요" desc="1992년 창립 이래 34년, 6개 전문 계열사가 하나의 책임 단위로 움직이는 종합물류 그룹" crumb={['회사소개', '회사개요']} subnav={COMPANY_NAV} />
+      <PageHead label="COMPANY" title="회사개요" desc="1992년 창립 이래 34년, 6개 전문 계열사가 하나의 책임 단위로 움직이는 종합물류 그룹" image="img/banner_company.jpg" crumb={['회사소개', '회사개요']} subnav={COMPANY_NAV} />
       <section className="section">
         <div className="container split">
           <div data-reveal="">
@@ -24,13 +24,13 @@ export default function Intro() {
           <div className="photo" data-reveal=""><img src={asset(it.image)} alt="삼원종합물류 운송 차량" /></div>
         </div>
       </section>
-      <section className="section section--tint" style={{ paddingTop: 0 }}>
+      <section className="section section--soft" style={{ paddingTop: 0 }}>
         <div className="container">
-          <div className="vm-grid" style={{ marginTop: 0 }}>
-            <div className="vm" data-reveal=""><span className="eyebrow">VISION</span><h3>{it.vision.desc}</h3></div>
-            <div className="vm vm--navy" data-reveal="" style={{ transitionDelay: '.1s' }}><span className="eyebrow">MISSION</span><h3>{it.mission.desc}</h3></div>
+          <div className="vm" style={{ marginTop: 0 }}>
+            <div className="vm__box" data-reveal=""><span className="eyebrow">VISION</span><h3>{it.vision.desc}</h3></div>
+            <div className="vm__box vm__box--navy" data-reveal="" style={{ transitionDelay: '.1s' }}><span className="eyebrow">MISSION</span><h3>{it.mission.desc}</h3></div>
           </div>
-          <div className="card-grid card-grid--4" style={{ marginTop: 16 }}>
+          <div className="grid grid--4" style={{ marginTop: 16 }}>
             {it.values.map((v, i) => { const Ic = VI[i % VI.length]; return (
               <div className="card" key={i} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}><div className="card__icon"><Ic /></div><h3>{v.title}</h3><p>{v.desc}</p></div>) })}
           </div>
@@ -49,7 +49,7 @@ export default function Intro() {
           </div>
         </div>
       </section>
-      <section className="section section--tint" style={{ paddingTop: 0 }}>
+      <section className="section section--soft" style={{ paddingTop: 0 }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <Link className="btn btn--primary" to="/company/history">연혁 보기 <ArrowRight /></Link>
         </div>

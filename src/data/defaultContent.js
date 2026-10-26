@@ -28,7 +28,9 @@ export const defaultContent = {
     subtitle: '미들마일 간선 수송부터 라스트마일 배송, HACCP 콜드체인, 창고운영, SCM 컨설팅까지. 6개 전문 계열사와 1,500대 운송 네트워크가 귀사의 물류를 하나의 창구로 완결합니다.',
     primaryCta: '물류 상담 신청',
     secondaryCta: '사업영역 보기',
-    images: ['img/hero_main.jpg', 'img/hero_2.jpg', 'img/hero_3.jpg'],
+    video: 'video/hero.mp4',
+    poster: 'video/poster.jpg',
+    images: ['img/hero_1.jpg', 'img/hero_2.jpg', 'img/hero_3.jpg'],
   },
 
   stats: [

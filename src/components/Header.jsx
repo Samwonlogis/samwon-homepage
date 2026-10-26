@@ -7,17 +7,18 @@ import { Menu, X, Phone } from './Icons'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const transparentRoutes = ['/']
   const [open, setOpen] = useState(false)
   const { content } = useContent()
   const loc = useLocation()
-  useEffect(() => { const f = () => setScrolled(window.scrollY > 8); f(); window.addEventListener('scroll', f, { passive: true }); return () => window.removeEventListener('scroll', f) }, [])
+  useEffect(() => { const f = () => setScrolled(window.scrollY > 40); f(); window.addEventListener('scroll', f, { passive: true }); return () => window.removeEventListener('scroll', f) }, [])
   useEffect(() => { setOpen(false) }, [loc.pathname])
   useEffect(() => { document.body.style.overflow = open ? 'hidden' : ''; return () => { document.body.style.overflow = '' } }, [open])
   const isGroupActive = (g) => g.children.some(c => loc.pathname === c.to || (c.to !== '/business' && loc.pathname.startsWith(c.to))) || (g.to === '/business' && loc.pathname.startsWith('/business'))
 
   return (
     <>
-      <header className={`header ${scrolled ? 'is-scrolled' : ''}`}>
+      <header className={`header ${scrolled ? 'is-scrolled' : ''} ${transparentRoutes.includes(loc.pathname) ? '' : 'is-solid'}`}>
         <div className="container header__in">
           <Link to="/" className="header__logo" aria-label="삼원종합물류 홈"><img src={asset('samwon_logo.svg')} alt="SAMWON 삼원종합물류" /></Link>
           <nav className="nav" aria-label="주 메뉴">
@@ -31,7 +32,6 @@ export default function Header() {
             ))}
           </nav>
           <div className="header__right">
-            <a className="btn btn--ghost btn--sm header__cta" href={`tel:${content.company.phone}`}><Phone /> {content.company.phone}</a>
             <Link className="btn btn--primary btn--sm header__cta" to="/contact">물류 상담</Link>
             <button className="burger" aria-label="메뉴 열기" onClick={() => setOpen(true)}><Menu /></button>
           </div>

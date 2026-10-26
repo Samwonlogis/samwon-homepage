@@ -15,7 +15,7 @@ export default function Contact() {
   }
   return (
     <>
-      <PageHead label="CONTACT" title={cp.title} desc={cp.lead} crumb={['고객센터']} />
+      <PageHead label="CONTACT" title={cp.title} desc={cp.lead} image="img/banner_contact.jpg" crumb={['고객센터']} />
       <section className="section">
         <div className="container contact-grid">
           <div data-reveal="">
@@ -51,7 +51,7 @@ export default function Contact() {
           </form>
         </div>
       </section>
-      <section className="section section--tint">
+      <section className="section section--soft">
         <div className="container container--narrow">
           <SectionHead eyebrow="FAQ" title="자주 묻는 질문" />
           <div className="faq" data-reveal="">{cp.faqs.map((q, i) => <details key={i}><summary>{q.q}</summary><p>{q.a}</p></details>)}</div>

@@ -40,6 +40,7 @@ GitHub 웹에서 올리는 방법: 저장소 → `public` 폴더 → `content.js
 ## 4. 파일 구조
 ```
 public/
+  video/hero.mp4      # 메인 배경 영상 (관리자 > 메인 히어로에서 경로 변경·비우기 가능)
   content.json        # 관리자 수정본(전체 반영용). 비어 있으면 기본값 사용
   img/                # 사이트 이미지 (hero_*.jpg, biz_*.jpg, about.jpg, cta.jpg)
   samwon_logo.svg     # 로고
@@ -53,7 +54,7 @@ src/
 ```
 
 ## 5. 이미지·저작권
-- 사진은 모두 AI 생성 이미지(회사 보유분 활용·보정)이며, 외부 스톡 사진·타사 저작물은 사용하지 않았습니다.
+- 사진은 모두 Canva AI로 새로 생성한 이미지이며, 메인 배경 영상(public/video/hero.mp4)은 이 이미지들로 제작한 시네마틱 모션입니다. 외부 스톡·타사 저작물은 사용하지 않았습니다.
 - 아이콘·지도·인증 배지는 자체 제작 SVG입니다. ISO 공식 로고는 인증기관 마크를 받으시면 교체 가능합니다.
 - 글꼴: Pretendard(SIL Open Font License, 상업 이용 가능) CDN 로딩.
 - 거래처 로고의 권리는 각 사에 귀속되며, 변경·추가는 `src/data/partners.js`에서 합니다.

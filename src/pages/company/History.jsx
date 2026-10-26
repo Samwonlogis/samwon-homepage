@@ -7,7 +7,7 @@ export default function History() {
   const { content: c } = useContent()
   return (
     <>
-      <PageHead label="HISTORY" title="연혁" desc="34년, 한 번도 멈추지 않은 물류. 인증·인프라·디지털 전환으로 이어진 성장의 기록" crumb={['회사소개', '연혁']} subnav={COMPANY_NAV} />
+      <PageHead label="HISTORY" title="연혁" desc="34년, 한 번도 멈추지 않은 물류. 인증·인프라·디지털 전환으로 이어진 성장의 기록" image="img/banner_company.jpg" crumb={['회사소개', '연혁']} subnav={COMPANY_NAV} />
       <section className="section">
         <div className="container container--narrow">
           <SectionHead eyebrow="SINCE 1992" title="성장의 기록" />

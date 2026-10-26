@@ -8,7 +8,7 @@ import { asset, imageToDataUrl, downloadJson, deepMerge } from '../utils/storage
 // ─── 섹션 구성 (왼쪽 메뉴) ───────────────────────────────
 const SECTIONS = [
   { key: 'company', label: '회사 기본정보', hint: '회사명·연락처·주소 등 사이트 전체 공통 정보' },
-  { key: 'hero', label: '메인 히어로', hint: '메인 상단 문구·버튼·배경 이미지(슬라이드)' },
+  { key: 'hero', label: '메인 히어로', hint: '메인 상단 문구·버튼·배경 영상(비우면 이미지 슬라이드로 전환)' },
   { key: 'stats', label: '메인 핵심 수치', hint: '숫자 카운트 4종' },
   { key: 'why', label: 'Why 삼원', hint: '선택 이유 4가지' },
   { key: 'businessAreas', label: '사업영역 타일', hint: '메인·사업영역 개요의 5개 타일 (이미지 포함)' },
@@ -31,13 +31,13 @@ const SECTIONS = [
   { key: 'footer', label: '푸터', hint: '하단 소개 문구·저작권' },
 ]
 
-const IMG_KEYS = /^(image|images|photo|logo|bannerImage)$/
+const IMG_KEYS = /^(image|images|photo|logo|bannerImage|poster)$/
 const LONG_KEYS = /^(desc|overview|subtitle|lead|message|headline|slogan|a|result|hint|description|paragraphs|points|events)$/
 const LABELS = {
   name: '이름', nameEn: '영문명', title: '제목', subtitle: '부제', desc: '설명', eyebrow: '상단 라벨', lead: '리드 문장', image: '이미지', images: '이미지 목록', photo: '사진',
   slogan: '슬로건', overview: '개요', strengths: '핵심 역량', process: '프로세스', quote: '인용문', label: '라벨', en: '영문 라벨', short: '요약', items: '항목', points: '포인트',
   value: '숫자', suffix: '단위', sub: '보조 설명', num: '번호', phone: '전화', fax: '팩스', email: '이메일', quickPhone: '에스원퀵 번호', address: '주소', bizNumber: '사업자등록번호', ceo: '대표이사', founded: '설립일', revenue: '매출', creditRating: '신용등급', website: '웹사이트',
-  primaryCta: '주 버튼', secondaryCta: '보조 버튼', button: '버튼', year: '연도', events: '주요 사건', role: '역할', location: '소재지', range: '규모', type: '구분', groups: '차종 그룹', main: '대표 여부', region: '권역', x: 'X(%)', y: 'Y(%)', hubs: '거점', code: '코드', org: '기관',
+  primaryCta: '주 버튼', video: '배경 영상(mp4 경로)', videoWebm: '배경 영상(webm 경로)', poster: '영상 로딩 전 이미지', secondaryCta: '보조 버튼', button: '버튼', year: '연도', events: '주요 사건', role: '역할', location: '소재지', range: '규모', type: '구분', groups: '차종 그룹', main: '대표 여부', region: '권역', x: 'X(%)', y: 'Y(%)', hubs: '거점', code: '코드', org: '기관',
   client: '고객', service: '서비스', result: '성과', vision: '비전', mission: '미션', values: '핵심 가치', paragraphs: '본문 문단', headline: '헤드라인', subway: '지하철', bus: '버스', parking: '주차', mapQuery: '지도 검색어', note: '하단 주석',
   openings: '채용 공고', dept: '부서', deadline: '마감', driverIntro: '차주 소개 문구', driverJobs: '차주 공고', vehicle: '차량', area: '구간', hours: '시간', driverRequirements: '지원 자격', driverBenefits: '파트너 지원', processSteps: '상담 절차', faqs: 'FAQ', q: '질문', a: '답변', description: '소개 문구', copyright: '저작권 표기',
   corporate: '기업물류', distribution: '유통물류', brokerage: '주선 · 에스원퀵', warehouse: '창고운영', consulting: '물류컨설팅',

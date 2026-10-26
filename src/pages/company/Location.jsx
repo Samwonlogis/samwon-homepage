@@ -9,7 +9,7 @@ export default function Location() {
   const q = encodeURIComponent(d.mapQuery || c.company.address)
   return (
     <>
-      <PageHead label="LOCATION" title="오시는 길" desc="서울 본사 및 사업장 안내" crumb={['회사소개', '오시는 길']} subnav={COMPANY_NAV} />
+      <PageHead label="LOCATION" title="오시는 길" desc="서울 본사 및 사업장 안내" image="img/banner_company.jpg" crumb={['회사소개', '오시는 길']} subnav={COMPANY_NAV} />
       <section className="section">
         <div className="container split" style={{ alignItems: 'start' }}>
           <div className="map-embed" data-reveal="">
@@ -31,10 +31,10 @@ export default function Location() {
           </div>
         </div>
       </section>
-      <section className="section section--tint">
+      <section className="section section--soft">
         <div className="container container--narrow">
           <SectionHead eyebrow="OFFICES" title="사업장 안내" />
-          <div className="office-list">
+          <div className="grid" style={{ gridTemplateColumns: '1fr' }}>
             {c.offices.map((o, i) => <div className={`office ${o.main ? 'main' : ''}`} key={i} data-reveal=""><b>{o.name}</b><span>{o.address}</span></div>)}
           </div>
         </div>
