@@ -1,0 +1,22 @@
+{
+  "name": "samwon-site-2026",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/postbuild.mjs",
+    "build:preview": "VITE_PREVIEW=1 vite build --mode preview --outDir dist-preview",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.8",
+    "vite-plugin-singlefile": "^2.0.2"
+  }
+}
