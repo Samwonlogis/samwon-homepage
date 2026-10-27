@@ -10,16 +10,16 @@ export default function Status() {
   const { content: c } = useContent(); const f = c.fleet
   return (
     <>
-      <PageHead label="STATUS" title="주요현황" desc="1,500대 운송 네트워크와 30개 이상의 장기 파트너사가 만드는 물류 인프라를 소개합니다" image="img/banner_business.jpg" crumb={['회사소개', '주요현황']} subnav={COMPANY_NAV} />
+      <PageHead label="STATUS" title="주요현황" desc="1,000대 이상의 운송 네트워크와 30개 이상의 장기 파트너사가 만드는 물류 인프라를 소개합니다" image="img/banner_business.jpg" crumb={['회사소개', '주요현황']} subnav={COMPANY_NAV} />
 
       <section className="section">
         <div className="wrap">
           <SectionHead center eyebrow="EQUIPMENT FLEET" title={f.title} lead={f.lead} />
           <div className="fleet-total" data-reveal="">
             <span className="fleet-total__label">TOTAL ACTIVE FLEET</span>
-            <div className="fleet-total__num"><CountUp value={Number(String(f.total || '1500').replace(/,/g, ''))} /><small>대</small></div>
+            <div className="fleet-total__num"><CountUp value={Number(String(f.total || '1000').replace(/,/g, ''))} /><small>대 이상</small></div>
             <p>{f.totalDesc}</p>
-            <div className="fleet-total__split"><span>기업물류 <b>600대</b></span><span>유통물류 <b>900대</b></span></div>
+            <div className="fleet-total__split"><span>기업물류</span><span>유통물류</span><span>콜드체인</span><span>특수화물</span></div>
           </div>
           <div className="grid grid--4">
             {f.groups.map((g, i) => (
