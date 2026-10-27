@@ -43,17 +43,14 @@ export default function Intro() {
             <h2 className="h-section">{ceo.headline}</h2>
             <div style={{ marginTop: 24, display: 'grid', gap: 16, color: 'var(--ink-2)', fontSize: '1.02rem' }}>{ceo.paragraphs.map((p, i) => <p key={i}>{p}</p>)}</div>
             <p style={{ marginTop: 28, fontWeight: 800 }}>{c.company.name} {ceo.title} <span className="t-blue" style={{ fontSize: '1.25rem', marginLeft: 6 }}>{ceo.name}</span></p>
+            <Link className="btn btn--ghost" to="/company/history" style={{ marginTop: 24 }}>연혁 보기 <ArrowRight /></Link>
           </div>
-          <div className="photo photo--portrait" data-reveal="" style={{ maxWidth: 420 }}>
-            {ceo.photo ? <img src={asset(ceo.photo)} alt={`${ceo.title} ${ceo.name}`} /> : <div className="placeholder">대표이사 사진 (관리자에서 등록)</div>}
-          </div>
+          {ceo.photo
+            ? <div className="photo photo--portrait" data-reveal="" style={{ maxWidth: 420 }}><img src={asset(ceo.photo)} alt={`${ceo.title} ${ceo.name}`} /></div>
+            : <div className="photo" data-reveal=""><img src={asset('img/banner_business.jpg')} alt="삼원종합물류 물류센터" /></div>}
         </div>
       </section>
-      <section className="section section--soft" style={{ paddingTop: 0 }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <Link className="btn btn--primary" to="/company/history">연혁 보기 <ArrowRight /></Link>
-        </div>
-      </section>
+
     </>
   )
 }

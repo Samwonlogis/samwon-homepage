@@ -27,10 +27,6 @@ export default function Contact() {
               <div><Fax /><div><b>팩스</b>{co.fax}</div></div>
               <div><Pin /><div><b>본사</b>{co.address}</div></div>
             </div>
-            <h3 className="h-sub" style={{ margin: '40px 0 16px' }}>상담 진행 절차</h3>
-            <div className="steps" style={{ gridTemplateColumns: '1fr' }}>
-              {cp.processSteps.map((s, i) => <div className="step" key={i} style={{ display: 'grid', gridTemplateColumns: '70px 1fr', gap: 12 }}><div className="step__n">STEP {i + 1}</div><div><h3 style={{ marginTop: 0 }}>{s.title}</h3><p>{s.desc}</p></div></div>)}
-            </div>
           </div>
           <form className="form" onSubmit={submit} data-reveal="">
             <h3 className="h-sub">온라인 문의</h3>
@@ -52,6 +48,14 @@ export default function Contact() {
         </div>
       </section>
       <section className="section section--soft">
+        <div className="container">
+          <SectionHead eyebrow="PROCESS" title="상담 진행 절차" />
+          <div className="steps">
+            {cp.processSteps.map((s, i) => <div className="step" key={i} data-reveal=""><div className="step__n">STEP {i + 1}</div><h3>{s.title}</h3><p>{s.desc}</p></div>)}
+          </div>
+        </div>
+      </section>
+      <section className="section">
         <div className="container container--narrow">
           <SectionHead eyebrow="FAQ" title="자주 묻는 질문" />
           <div className="faq" data-reveal="">{cp.faqs.map((q, i) => <details key={i}><summary>{q.q}</summary><p>{q.a}</p></details>)}</div>

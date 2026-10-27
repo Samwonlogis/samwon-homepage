@@ -18,13 +18,13 @@ export default function KoreaMap({ hubs = [] }) {
       ))}
       {pts.map((h, i) => {
         const [x, y] = h.p
-        const L = { '서울': ['end', -3.8, -2.2], '인천': ['end', -3.6, 2.2], '이천': ['start', 3.6, 4.2], '연천': ['start', 3.6, 1.3], '원주': ['start', 3.6, 1.3], '강릉': ['end', -3.6, 1.3] }[h.city]
+        const L = { '서울': ['end', -4, -3], '인천': ['end', -3.8, 3.2], '이천': ['start', 3.6, 4.2], '연천': ['start', 3.6, 1.3], '원주': ['start', 3.6, 1.3], '강릉': ['end', -3.6, 1.3] }[h.city]
         const [anchor, dx, dy] = L || (x > 55 ? ['end', -3.6, 1.3] : ['start', 3.6, 1.3])
         return (
           <g key={i} className="map__hub">
             {h.main && <circle className="pulse" cx={x} cy={y} r="4" fill="none" stroke="#054592" strokeWidth=".9" />}
             <circle cx={x} cy={y} r={h.main ? 2.6 : 1.8} fill={h.main ? '#054592' : '#fff'} stroke="#054592" strokeWidth="1" />
-            <text x={x + dx} y={y + dy} textAnchor={anchor} fontSize={h.main ? 3.8 : 3.3} fontWeight={h.main ? 800 : 600}>{h.name}</text>
+            <text x={x + dx} y={y + dy} textAnchor={anchor} fontSize={h.main ? 4.4 : 3.9} fontWeight={h.main ? 800 : 600}>{h.name}</text>
           </g>
         )
       })}

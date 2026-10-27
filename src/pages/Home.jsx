@@ -112,7 +112,7 @@ export default function Home() {
         <div className="wrap intro">
           <div data-reveal="">
             <span className="eyebrow">{c.why.eyebrow}</span>
-            <h2 className="h-section pre">{c.why.title}</h2>
+            <h2 className="h-section pre">{c.why.title.replace('네 가지', '네\u00a0가지')}</h2>
             <p className="lead">{c.why.lead}</p>
             <div className="why" style={{ marginTop: 32 }}>
               {c.why.items.map((w, i) => (
@@ -142,8 +142,8 @@ export default function Home() {
       {/* 6. 파트너 (컬러) */}
       <section className="section section--soft">
         <div className="wrap"><SectionHead center eyebrow={c.partnersSection.eyebrow} title={c.partnersSection.title} lead={c.partnersSection.lead} /></div>
-        <div className="marquee"><div className="marquee__track">{loop.map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt={p.name} loading="lazy" /></div>)}</div></div>
-        <div className="marquee marquee--rev"><div className="marquee__track">{[...loop].reverse().map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt={p.name} loading="lazy" /></div>)}</div></div>
+        <div className="marquee"><div className="marquee__track">{loop.map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt={p.name} /></div>)}</div></div>
+        <div className="marquee marquee--rev"><div className="marquee__track">{[...loop].reverse().map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt={p.name} /></div>)}</div></div>
         <div className="wrap"><p className="small muted" style={{ marginTop: 24, textAlign: 'center' }}>{c.partnersSection.note}</p></div>
       </section>
 
