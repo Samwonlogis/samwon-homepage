@@ -30,7 +30,6 @@ function Hero({ hero }) {
           : imgs.map((src, k) => <img key={k} src={asset(src)} alt="" className={k === i ? 'is-active' : ''} loading={k === 0 ? 'eager' : 'lazy'} />)}
       </div>
       <div className="hero__in">
-        <div className="hero__eyebrow" data-reveal="fade">{hero.eyebrow}</div>
         <h1 className="h-display hero__title pre" data-reveal="">{hero.title}</h1>
         <p className="hero__sub" data-reveal="" style={{ transitionDelay: '.15s' }}>{hero.subtitle}</p>
         <div className="hero__actions" data-reveal="" style={{ transitionDelay: '.3s' }}>

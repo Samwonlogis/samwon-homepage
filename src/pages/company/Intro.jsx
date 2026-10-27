@@ -38,7 +38,7 @@ export default function Intro() {
       <section className="section section--soft">
         <div className="wrap">
           <SectionHead center eyebrow="CORE COMPETENCIES" title="핵심 역량" />
-          <div className="grid grid--4">
+          <div className="grid grid--4 grid--m1">
             {(it.coreValues || []).map((v, i) => (
               <div className="card" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
                 {v.logo ? <div className="card__logo"><img src={asset(v.logo)} alt={v.title} /></div> : <div className="card__icon"><Leaf /></div>}

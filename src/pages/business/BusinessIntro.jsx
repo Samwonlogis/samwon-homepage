@@ -16,9 +16,9 @@ export default function BusinessIntro() {
           <SectionHead eyebrow="END-TO-END" title={'공급망 전 구간을 책임지는\n5대 사업영역'} lead="각 영역은 전문 법인이 운영하고 삼원종합물류가 통합 관제합니다. 세부 내용은 영역별 페이지에서 확인하실 수 있습니다." />
           <div className="biz-index">
             {c.businessAreas.map((b, i) => (
-              <Link to={`/business/${b.id}`} className="biz-card" key={b.id} data-reveal="" style={{ transitionDelay: `${i * .07}s` }}>
+              <Link to={`/business/${b.id}`} className="biz__card" key={b.id} data-reveal="" style={{ transitionDelay: `${i * .07}s` }}>
                 <img src={asset(b.image)} alt={b.name} loading="lazy" />
-                <div className="biz-card__in"><div className="biz-card__en">{b.en}</div><div className="biz-card__title">{b.name} <ArrowRight /></div><p className="biz-card__desc">{b.short}</p></div>
+                <div className="biz__in"><div className="biz__en">{b.en}</div><div className="biz__title">{b.name} <ArrowRight /></div><p className="biz__desc">{b.short}</p></div>
               </Link>
             ))}
           </div>

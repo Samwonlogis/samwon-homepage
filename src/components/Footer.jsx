@@ -13,8 +13,7 @@ export default function Footer() {
           <div className="footer__grid">
             <div>
               <img className="footer__logo" src={asset('samwon_logo.svg')} alt="SAMWON" />
-              <p className="footer__desc">{content.footer.description}</p>
-              <ul style={{ marginTop: 18 }}>
+                            <ul style={{ marginTop: 18 }}>
                 <li>{c.address}</li>
                 <li>TEL {c.phone} · FAX {c.fax}</li>
                 <li>{c.email}</li>
