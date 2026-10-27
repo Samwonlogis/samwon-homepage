@@ -37,6 +37,11 @@ GitHub 웹에서 올리는 방법: 저장소 → `public` 폴더 → `content.js
 ### 비밀번호 변경
 관리자 화면 하단 **고급 설정 → 새 비밀번호** 입력 → 생성된 해시값을 `src/data/adminConfig.js`의 `passwordHash`에 붙여넣고 커밋.
 
+## 3-0. 차주구인 공고 관리 (직원 로그인)
+- 채용정보 > 차주구인 우측 「직원 로그인」 → 공고 등록·수정·삭제 (초기 계정: admin / samwon@3001, staff01 / samwon1!, staff02 / samwon2! — 배포 후 변경 권장)
+- 관리자(admin)로 로그인하면 하단 「직원 계정 발급 도구」로 새 계정 코드를 만들 수 있으며, `src/data/staffAccounts.js`에 붙여넣고 커밋하면 활성화됩니다.
+- 공고는 브라우저(localStorage)에 저장되므로 기본 공고는 관리자 모드 > 채용·차주 모집의 driverJobs에서 수정해 content.json으로 전체 반영하십시오.
+
 ## 3-1. 차주 전용 · 에스원퀵 연결
 - 헤더 우측 버튼과 메인 하단 박스는 **관리자 > 회사 기본정보**의 `driverUrl`, `s1quickUrl`로 연결됩니다.
 - 차주 전용: 기본값 `/driver`(사이트 내 로그인 페이지). 로그인 API가 준비되면 `driverApi`에 주소를 넣으면 `POST {id, password}` 후 응답 `redirectUrl`로 이동합니다. 외부 시스템으로 바로 보내려면 `driverUrl`에 `https://` 주소를 입력하십시오.

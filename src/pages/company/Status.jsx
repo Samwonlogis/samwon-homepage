@@ -1,42 +1,56 @@
 import PageHead from '../../components/PageHead'
 import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
+import { asset } from '../../utils/storage'
+import { partners } from '../../data/partners'
 import { COMPANY_NAV } from './companyNav'
-import { Pin } from '../../components/Icons'
+import CountUp from '../../components/CountUp'
 
 export default function Status() {
-  const { content: c } = useContent()
+  const { content: c } = useContent(); const f = c.fleet
   return (
     <>
-      <PageHead label="GROUP & FLEET" title="계열사 · 운송 규모" desc="운송·배송·창고·인력·플랫폼을 분담하는 6개 법인과 1,500대 운송력" image="img/banner_company.jpg" crumb={['회사소개', '계열사 · 운송 규모']} subnav={COMPANY_NAV} />
+      <PageHead label="STATUS" title="주요현황" desc="1,500대 운송 네트워크와 30개 이상의 장기 파트너사가 만드는 물류 인프라를 소개합니다" image="img/banner_business.jpg" crumb={['회사소개', '주요현황']} subnav={COMPANY_NAV} />
+
       <section className="section">
-        <div className="container">
-          <SectionHead eyebrow="AFFILIATES" title={'6개 법인, 하나의 창구'} lead="각 법인이 기능별로 전문화되어 있고, 삼원종합물류가 컨트롤타워로 통합 관제합니다. 화주는 하나의 계약, 하나의 담당자로 전 구간을 위탁할 수 있습니다." />
-          <div className="subs">
-            {c.subsidiaries.map((s, i) => (
-              <div className={`sub ${i === 0 ? 'main' : ''}`} key={i} data-reveal="" style={{ transitionDelay: `${i * .05}s` }}>
-                <div className="role">{s.role}</div><h3>{s.name}</h3><p>{s.desc}</p>
-                {s.location && <div className="loc"><Pin /> {s.location}</div>}
+        <div className="wrap">
+          <SectionHead center eyebrow="EQUIPMENT FLEET" title={f.title} lead={f.lead} />
+          <div className="fleet-total" data-reveal="">
+            <span className="fleet-total__label">TOTAL ACTIVE FLEET</span>
+            <div className="fleet-total__num"><CountUp value={Number(String(f.total || '1500').replace(/,/g, ''))} /><small>대</small></div>
+            <p>{f.totalDesc}</p>
+            <div className="fleet-total__split"><span>기업물류 <b>600대</b></span><span>유통물류 <b>900대</b></span></div>
+          </div>
+          <div className="grid grid--4">
+            {f.groups.map((g, i) => (
+              <div className="fleet" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
+                <div className="range">{g.range}</div><h3>{g.type}</h3><p>{g.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
       <section className="section section--soft">
-        <div className="container">
-          <SectionHead eyebrow="FLEET" title={c.fleet.title} lead={c.fleet.lead} />
-          <div className="fleet-bar" data-reveal="">
-            <div><span>기업물류 (Middle Mile)</span><b>600대</b></div>
-            <div><span>유통물류 (Last Mile)</span><b>900대</b></div>
-          </div>
-          <p className="small muted" style={{ marginBottom: 28 }}>운영 차량 총 1,500대 · 품목·톤수별 전담 편성</p>
-          <div className="grid grid--4">
-            {c.fleet.groups.map((f, i) => (
-              <div className="fleet" key={i} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
-                <div className="range">{f.range}</div><h3>{f.type}</h3><p>{f.desc}</p>
+        <div className="wrap">
+          <SectionHead center eyebrow="AFFILIATES" title="계열사 현황" lead="각 법인이 기능별로 전문화되어 있고, 삼원종합물류가 컨트롤타워로 통합 관제합니다." />
+          <div className="subs">
+            {c.subsidiaries.map((s, i) => (
+              <div className={`sub ${i === 0 ? 'main' : ''}`} key={i} data-reveal="" style={{ transitionDelay: `${i * .05}s` }}>
+                <div className="role">{s.role}</div><h3>{s.name}</h3><p>{s.desc}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <SectionHead center eyebrow="PARTNERS" title="주요 거래처 및 파트너" lead="대한민국을 대표하는 유통·제조·제약·식품 기업들이 삼원종합물류의 물류 역량을 신뢰하고 있습니다." />
+          <div className="partner-grid">
+            {partners.map((p, i) => <div className="logo-tile" key={i} data-reveal="" style={{ transitionDelay: `${(i % 5) * .05}s` }}><img src={asset(p.logo)} alt={p.name} /></div>)}
+          </div>
+          <p className="small muted" style={{ marginTop: 20, textAlign: 'center' }}>{c.partnersSection.note}</p>
         </div>
       </section>
     </>

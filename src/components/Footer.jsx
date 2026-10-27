@@ -22,15 +22,15 @@ export default function Footer() {
               </ul>
             </div>
             <div><h4>회사소개</h4><ul>
-              <li><Link to="/company/intro">회사개요</Link></li><li><Link to="/company/history">연혁</Link></li>
-              <li><Link to="/company/status">계열사 · 운송 규모</Link></li><li><Link to="/company/location">오시는 길</Link></li></ul></div>
+              <li><Link to="/company/intro">회사소개</Link></li><li><Link to="/company/history">회사연혁</Link></li>
+              <li><Link to="/company/status">주요현황</Link></li><li><Link to="/company/location">찾아오시는 길</Link></li></ul></div>
             <div><h4>사업영역</h4><ul>
               <li><Link to="/business/corporate">기업물류</Link></li><li><Link to="/business/distribution">유통물류</Link></li>
-              <li><Link to="/business/brokerage">주선 · 에스원퀵</Link></li><li><Link to="/business/warehouse">창고운영 · 리스크관리</Link></li>
+              <li><Link to="/business/brokerage">주선 · 퀵서비스</Link></li><li><Link to="/business/warehouse">창고운영 · 리스크관리</Link></li>
               <li><Link to="/business/consulting">물류컨설팅</Link></li></ul></div>
             <div><h4>고객센터</h4><ul>
-              <li><Link to="/contact">물류 상담 · 제휴 문의</Link></li><li><Link to="/recruitment/talent">인재채용</Link></li>
-              <li><Link to="/recruitment/jobs">차주 모집</Link></li>
+              <li><Link to="/contact">물류 상담 · 제휴 문의</Link></li><li><Link to="/recruitment/talent">인재상</Link></li>
+              <li><Link to="/recruitment/jobs">차주구인</Link></li>
               <li><Link to="/driver">차주 전용</Link></li>
               <li style={{ marginTop: 14 }}><Link className="btn btn--white btn--sm" to="/contact"><Phone /> 상담 신청</Link></li></ul></div>
           </div>
