@@ -10,6 +10,7 @@ import BusinessPage from './pages/business/BusinessPage'
 import Talent from './pages/recruitment/Talent'
 import DriverJobs from './pages/recruitment/DriverJobs'
 import Contact from './pages/Contact'
+import Driver from './pages/Driver'
 import Admin from './pages/Admin'
 import { Privacy, Terms, NotFound } from './pages/Legal'
 
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/recruitment/talent" element={<Talent />} />
         <Route path="/recruitment/jobs" element={<DriverJobs />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/driver" element={<Driver />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />

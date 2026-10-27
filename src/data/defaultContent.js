@@ -20,6 +20,11 @@ export const defaultContent = {
     revenue: '870억 원 (2024년, 자회사 포함)',
     creditRating: 'BB+ (2024년 4월)',
     website: 'www.3won.kr',
+    driverUrl: '/driver',
+    driverApi: '',
+    driverLabel: '차주 전용',
+    s1quickUrl: 'https://www.samwonlogistics.co.kr',
+    s1quickLabel: '에스원퀵',
   },
 
   hero: {
@@ -63,16 +68,18 @@ export const defaultContent = {
   network: {
     eyebrow: 'NATIONWIDE NETWORK',
     title: '전국 어디든,\n지금 이 순간에도 운행 중',
-    lead: '서울 본사와 이천 중앙 허브를 축으로 수도권·중부·영남·호남·강원 전 권역에 차량을 편성합니다. 권역별 고정 노선과 스팟 배차를 결합해 전국 익일 운송 체계를 유지합니다.',
+    lead: '서울 본사와 이천 중앙 허브를 축으로 수도권·중부·영남·호남·강원·제주 전 권역에 차량을 편성합니다. 권역별 고정 노선과 스팟 배차를 결합해 전국 익일 운송 체계를 유지합니다.',
     hubs: [
-      { name: '서울 본사', region: '서초구', x: 31, y: 23, main: true },
-      { name: '이천 중앙 허브', region: '경기 이천', x: 39, y: 31, main: true },
-      { name: '인천 스마트허브', region: '인천 서구', x: 23, y: 27 },
-      { name: '연천 차고지', region: '경기 연천', x: 32, y: 14 },
-      { name: '중부권', region: '대전 · 충청', x: 38, y: 49 },
-      { name: '영남권', region: '부산 · 대구', x: 62, y: 66 },
-      { name: '호남권', region: '광주 · 전주', x: 31, y: 68 },
-      { name: '강원권', region: '원주 · 강릉', x: 58, y: 27 },
+      { name: '서울 본사', region: '서초구', city: '서울', main: true },
+      { name: '이천 중앙 허브', region: '경기 이천', city: '이천', main: true },
+      { name: '인천', region: '인천 서구', city: '인천' },
+      { name: '연천 차고지', region: '경기 연천', city: '연천' },
+      { name: '대전 · 충청', region: '중부권', city: '대전' },
+      { name: '대구', region: '영남권', city: '대구' },
+      { name: '부산', region: '영남권', city: '부산' },
+      { name: '광주 · 호남', region: '호남권', city: '광주' },
+      { name: '원주 · 강원', region: '강원권', city: '원주' },
+      { name: '제주', region: '제주권', city: '제주' },
     ],
     points: [
       '전국 5대 권역 고정 노선 + 스팟 배차',
@@ -85,11 +92,11 @@ export const defaultContent = {
     eyebrow: 'CERTIFICATIONS',
     title: '국가와 국제 표준이 검증한 운영 품질',
     items: [
-      { code: 'CELC', name: '우수물류기업', org: '국토교통부', logo: '' },
-      { code: 'HACCP', name: 'HACCP', org: '식품의약품안전처', logo: '' },
-      { code: '9001', name: 'ISO 9001', org: '품질경영', logo: '' },
-      { code: '14001', name: 'ISO 14001', org: '환경경영', logo: '' },
-      { code: '45001', name: 'ISO 45001', org: '안전보건', logo: '' },
+      { code: 'CELC', name: '우수물류기업', org: '국토교통부', logo: 'img/cert/celc.png' },
+      { code: 'HACCP', name: 'HACCP', org: '식품의약품안전처', logo: 'img/cert/haccp.png' },
+      { code: '9001', name: 'ISO 9001', org: '품질경영', logo: 'img/cert/iso9001.png' },
+      { code: '14001', name: 'ISO 14001', org: '환경경영', logo: 'img/cert/iso14001.png' },
+      { code: '45001', name: 'ISO 45001', org: '안전보건', logo: 'img/cert/iso45001.png' },
     ],
   },
 
@@ -106,6 +113,11 @@ export const defaultContent = {
     { client: '제약 · 의약품 유통', service: '기업물류 · 유통물류', result: '2~8℃ 정밀 온도 관리 차량으로 전국 약국·병원 GDP 준수 배송' },
     { client: '식자재 · F&B 프랜차이즈', service: '창고운영', result: '20개 이상 브랜드 보관·분류·배송 통합 3PL 운영, WMS 기반 재고 실사 자동화' },
   ],
+
+  portals: {
+    driver: { eyebrow: 'DRIVER PARTNERS', title: '차주 파트너 전용 시스템', desc: '삼원종합물류와 함께하는 차주 기사님은 외주가 아닌 동반 성장 파트너입니다. 투명한 정산, 안정적 물량 배차, 전담 관리자 1:1 지원을 제공합니다.', button: '차주 전용 시스템 로그인' },
+    s1quick: { eyebrow: 'S1 QUICK', title: '에스원퀵 B2B 퀵서비스', desc: '웹 접수, 실시간 배차, 카카오톡 관제, 월 통합 정산까지. 1톤부터 컨테이너까지 기업 전용 퀵·화물 플랫폼을 바로 이용하십시오.', button: '에스원퀵 바로가기' },
+  },
 
   cta: {
     title: '귀사의 물류, 지금 진단받아 보십시오',

@@ -37,6 +37,11 @@ GitHub 웹에서 올리는 방법: 저장소 → `public` 폴더 → `content.js
 ### 비밀번호 변경
 관리자 화면 하단 **고급 설정 → 새 비밀번호** 입력 → 생성된 해시값을 `src/data/adminConfig.js`의 `passwordHash`에 붙여넣고 커밋.
 
+## 3-1. 차주 전용 · 에스원퀵 연결
+- 헤더 우측 버튼과 메인 하단 박스는 **관리자 > 회사 기본정보**의 `driverUrl`, `s1quickUrl`로 연결됩니다.
+- 차주 전용: 기본값 `/driver`(사이트 내 로그인 페이지). 로그인 API가 준비되면 `driverApi`에 주소를 넣으면 `POST {id, password}` 후 응답 `redirectUrl`로 이동합니다. 외부 시스템으로 바로 보내려면 `driverUrl`에 `https://` 주소를 입력하십시오.
+- 에스원퀵: `s1quickUrl`(기본 www.samwonlogistics.co.kr)로 새 창 이동.
+
 ## 4. 파일 구조
 ```
 public/
@@ -55,7 +60,8 @@ src/
 
 ## 5. 이미지·저작권
 - 사진은 모두 Canva AI로 새로 생성한 이미지이며, 메인 배경 영상(public/video/hero.mp4)은 이 이미지들로 제작한 시네마틱 모션입니다. 외부 스톡·타사 저작물은 사용하지 않았습니다.
-- 아이콘·지도·인증 배지는 자체 제작 SVG입니다. ISO 공식 로고는 인증기관 마크를 받으시면 교체 가능합니다.
+- 인증 로고(CELC·HACCP·ISO 3종)와 거래처 로고 30종은 회사소개서(2026 final)에서 추출해 배경을 제거한 원본입니다 (public/img/cert, public/img/partners).
+- 전국 지도는 통계청 시·도 경계(southkorea-maps 공개 데이터)를 자체 투영한 SVG입니다 (src/data/koreaMap.js). 거점은 관리자 > 전국 네트워크에서 도시명으로 지정합니다.
 - 글꼴: Pretendard(SIL Open Font License, 상업 이용 가능) CDN 로딩.
 - 거래처 로고의 권리는 각 사에 귀속되며, 변경·추가는 `src/data/partners.js`에서 합니다.
 

@@ -1,31 +1,34 @@
-import ssg from '../assets/partners/ssg.svg'
-import homeplus from '../assets/partners/homeplus.png'
-import glovis from '../assets/partners/glovis.svg'
-import hyundaiDept from '../assets/partners/hyundai_dept.svg'
-import haitai from '../assets/partners/haitai.svg'
-import hanexpress from '../assets/partners/hanexpress.png'
-import dongwon from '../assets/partners/dongwon.svg'
-import nonghyup from '../assets/partners/nonghyup.svg'
-import yonsei from '../assets/partners/yonsei.png'
-import geoyoung from '../assets/partners/geoyoung.png'
-import taeeun from '../assets/partners/taeeun.png'
-import naturalway from '../assets/partners/naturalway.png'
-import cretec from '../assets/partners/cretec.gif'
-import lotte from '../assets/partners/lotte.svg'
-import yuhanKimberly from '../assets/partners/yuhan_kimberly.png'
-import yuhan from '../assets/partners/yuhan.svg'
-import msfood from '../assets/partners/msfood.png'
-import kctc from '../assets/partners/kctc.png'
-import bluepharm from '../assets/partners/bluepharm.png'
-import coway from '../assets/partners/coway.svg'
-
-// 거래처 로고 (기존 사이트 보유 자산). 추가·삭제는 이 파일에서, 관리자 화면에는 노출되지 않음
+// 거래처 로고 — 회사소개서(2026 final) 기준 30개사, 매출 규모순
+// 파일: public/img/partners/, 추가·삭제·순서 변경은 이 파일에서
 export const partners = [
-  { name: '현대글로비스', logo: glovis }, { name: '동원산업', logo: dongwon }, { name: '홈플러스', logo: homeplus },
-  { name: '코웨이', logo: coway }, { name: '현대백화점', logo: hyundaiDept }, { name: '지오영', logo: geoyoung },
-  { name: '롯데글로벌로지스', logo: lotte }, { name: '유한양행', logo: yuhan }, { name: 'SSG.COM', logo: ssg },
-  { name: '유한킴벌리', logo: yuhanKimberly }, { name: '한익스프레스', logo: hanexpress }, { name: '크레텍', logo: cretec },
-  { name: 'KCTC', logo: kctc }, { name: '농협물류', logo: nonghyup }, { name: '연세우유', logo: yonsei },
-  { name: '해태', logo: haitai }, { name: '청십자약품', logo: bluepharm }, { name: '엠즈푸드시스템', logo: msfood },
-  { name: '네추럴웨이', logo: naturalway }, { name: '태은물류', logo: taeeun },
+  { name: '이마트', logo: 'img/partners/emart.png' },
+  { name: 'CJ대한통운', logo: 'img/partners/cj.png' },
+  { name: '동원산업', logo: 'img/partners/dongwon.png' },
+  { name: '현대글로비스', logo: 'img/partners/glovis.png' },
+  { name: '홈플러스', logo: 'img/partners/homeplus.png' },
+  { name: '세븐일레븐', logo: 'img/partners/seven.png' },
+  { name: '현대백화점', logo: 'img/partners/hyundai_dept.png' },
+  { name: '지오영', logo: 'img/partners/geoyoung.png' },
+  { name: '스타벅스', logo: 'img/partners/starbucks.png' },
+  { name: '롯데로지스틱스', logo: 'img/partners/lotte.png' },
+  { name: '한진', logo: 'img/partners/hanjin.png' },
+  { name: '코웨이', logo: 'img/partners/coway.png' },
+  { name: '유한킴벌리', logo: 'img/partners/yuhan_kimberly.png' },
+  { name: '한익스프레스', logo: 'img/partners/hanexpress.png' },
+  { name: 'KCTC', logo: 'img/partners/kctc.png' },
+  { name: '유한양행', logo: 'img/partners/yuhan.png' },
+  { name: '크레텍', logo: 'img/partners/cretec.png' },
+  { name: 'SSG.COM', logo: 'img/partners/ssg.png' },
+  { name: '청십자약품', logo: 'img/partners/bluepharm.png' },
+  { name: '해태', logo: 'img/partners/haitai.png' },
+  { name: '연세우유', logo: 'img/partners/yonsei.png' },
+  { name: '농협물류', logo: 'img/partners/nonghyup.png' },
+  { name: '한국로지스풀', logo: 'img/partners/klp.png' },
+  { name: '안연케어', logo: 'img/partners/allencare.png' },
+  { name: '현대그린푸드', logo: 'img/partners/hgf.png' },
+  { name: '태은물류', logo: 'img/partners/taeeun.png' },
+  { name: '경동사', logo: 'img/partners/kyongdong.png' },
+  { name: '리모트솔루션', logo: 'img/partners/remote.png' },
+  { name: '두리두리', logo: 'img/partners/doori.png' },
+  { name: '네추럴웨이', logo: 'img/partners/naturalway.png' },
 ]

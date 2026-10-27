@@ -31,6 +31,7 @@ export default function Footer() {
             <div><h4>고객센터</h4><ul>
               <li><Link to="/contact">물류 상담 · 제휴 문의</Link></li><li><Link to="/recruitment/talent">인재채용</Link></li>
               <li><Link to="/recruitment/jobs">차주 모집</Link></li>
+              <li><Link to="/driver">차주 전용</Link></li>
               <li style={{ marginTop: 14 }}><Link className="btn btn--white btn--sm" to="/contact"><Phone /> 상담 신청</Link></li></ul></div>
           </div>
           <div className="footer__bottom">

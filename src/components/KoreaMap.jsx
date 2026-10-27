@@ -1,28 +1,33 @@
-// 대한민국 개념 지도 (자체 제작 단순화 벡터) — 거점은 개념도이며 실제 좌표가 아님
+import { VIEW, PROVINCES, CITY } from '../data/koreaMap'
+
+// 실제 대한민국 시·도 경계 기반 네트워크 지도. hubs: [{ name, region, city, main }]
 export default function KoreaMap({ hubs = [] }) {
-  const outline = 'M30 12 C34 9 40 8 44 8 C50 7 56 8 60 11 C64 13 66 19 67 25 C69 32 70 40 71 46 C73 50 74 54 72 58 C70 62 68 66 66 70 C63 74 58 76 54 78 C50 80 46 79 42 80 C38 82 34 82 30 80 C26 78 24 74 23 70 C21 64 20 58 20 52 C21 48 24 46 24 42 C22 38 22 34 24 30 C25 26 22 24 23 20 C25 16 28 14 30 12 Z'
+  const pts = hubs.map(h => ({ ...h, p: CITY[h.city] || null })).filter(h => h.p)
+  const center = pts.find(h => h.main && /이천/.test(h.name)) || pts.find(h => h.main) || pts[0]
   return (
-    <svg viewBox="0 0 100 100" role="img" aria-label="전국 운송 네트워크 개념도">
+    <svg viewBox={`-6 -4 ${VIEW.w + 12} ${VIEW.h + 8}`} role="img" aria-label="전국 운송 네트워크 지도">
       <defs>
-        <linearGradient id="kg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="#dbe8fa" /><stop offset="1" stopColor="#b9d1f3" /></linearGradient>
-        <pattern id="dots" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".45" fill="#4a8fe8" opacity=".55" /></pattern>
+        <linearGradient id="landg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#e8f0fb" /><stop offset="1" stopColor="#d2e1f7" /></linearGradient>
+        <filter id="soft" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="1.2" stdDeviation="1.6" floodColor="#054592" floodOpacity=".18" /></filter>
       </defs>
-      <path d={outline} fill="url(#kg)" stroke="#9dbdeb" strokeWidth=".6" strokeLinejoin="round" />
-      <path d={outline} fill="url(#dots)" />
-      <ellipse cx="27" cy="93" rx="5.5" ry="2.4" fill="#c8daf5" stroke="#9dbdeb" strokeWidth=".4" />
-      {/* 간선 노선 (이천 허브 기준) */}
-      {hubs.filter(h => !h.main).map((h, i) => {
-        const c = hubs.find(x => x.main && x.name.includes('이천')) || hubs[0]
-        return <line key={i} x1={c.x} y1={c.y} x2={h.x} y2={h.y} stroke="#054592" strokeWidth=".45" strokeDasharray="1.4 1.2" opacity=".5" />
-      })}
-      {hubs.map((h, i) => (
-        <g key={i} className="map__hub">
-          {h.main && <circle className="pulse" cx={h.x} cy={h.y} r="4" fill="none" stroke="#054592" strokeWidth=".8" />}
-          <circle cx={h.x} cy={h.y} r={h.main ? 2.4 : 1.6} fill={h.main ? '#054592' : '#fff'} stroke="#054592" strokeWidth=".9" />
-          <text x={h.x < 27 ? h.x - 3 : h.x + 3.4} y={h.y + 1.2} textAnchor={h.x < 27 ? 'end' : 'start'} fontSize={h.main ? 3.4 : 3} fontWeight={h.main ? 800 : 600}>{h.name}</text>
-        </g>
+      <g filter="url(#soft)">
+        {PROVINCES.map(p => <path key={p.name} d={p.d} fill="url(#landg)" stroke="#fff" strokeWidth=".45" strokeLinejoin="round" />)}
+      </g>
+      {center && pts.filter(h => h !== center).map((h, i) => (
+        <line key={i} x1={center.p[0]} y1={center.p[1]} x2={h.p[0]} y2={h.p[1]} stroke="#054592" strokeWidth=".5" strokeDasharray="1.6 1.3" opacity=".45" />
       ))}
-      <text x="4" y="97" fontSize="2.4" fill="#8b93a5">※ 권역 네트워크 개념도</text>
+      {pts.map((h, i) => {
+        const [x, y] = h.p
+        const L = { '서울': ['end', -3.8, -2.2], '인천': ['end', -3.6, 2.2], '이천': ['start', 3.6, 4.2], '연천': ['start', 3.6, 1.3], '원주': ['start', 3.6, 1.3], '강릉': ['end', -3.6, 1.3] }[h.city]
+        const [anchor, dx, dy] = L || (x > 55 ? ['end', -3.6, 1.3] : ['start', 3.6, 1.3])
+        return (
+          <g key={i} className="map__hub">
+            {h.main && <circle className="pulse" cx={x} cy={y} r="4" fill="none" stroke="#054592" strokeWidth=".9" />}
+            <circle cx={x} cy={y} r={h.main ? 2.6 : 1.8} fill={h.main ? '#054592' : '#fff'} stroke="#054592" strokeWidth="1" />
+            <text x={x + dx} y={y + dy} textAnchor={anchor} fontSize={h.main ? 3.8 : 3.3} fontWeight={h.main ? 800 : 600}>{h.name}</text>
+          </g>
+        )
+      })}
     </svg>
   )
 }
