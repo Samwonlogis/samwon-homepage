@@ -12,6 +12,18 @@ const SPECIAL_ICONS = { gift: Gift, chart: Chart, star: Star, spark: Spark, truc
 
 const ITEM_ICONS = [Box, Truck, Shield, Snow, Building, Spark, Globe, Route]
 const FLOW_ICONS = [Target, Box, Truck, Building, Chart]
+// 품목명 키워드로 의미에 맞는 아이콘 선택
+const itemIcon = (t = '') => (
+  /냉동|냉장|신선|유제|밀키트|콜드/.test(t) ? Snow :
+  /의약|의료|약품/.test(t) ? Shield :
+  /건자재|원자재|철강|설비|기계|중량/.test(t) ? Building :
+  /자동차|부품/.test(t) ? Truck :
+  /온라인|이커머스|커머스/.test(t) ? Globe :
+  /선물|백화점/.test(t) ? Star :
+  /데이터|분석|비용|물류비/.test(t) ? Chart :
+  /경로|노선|네트워크|거점/.test(t) ? Route :
+  /인력|조직|교육/.test(t) ? Users :
+  /전자|가전|생활|편의점|공산품|상품/.test(t) ? Box : null)
 
 export default function BusinessPage({ id: fixedId }) {
   const params = useParams()
@@ -90,7 +102,7 @@ export default function BusinessPage({ id: fixedId }) {
           <div className="wrap">
             <SectionHead center eyebrow={id === 'consulting' ? 'CONSULTING SCOPE' : 'CARGO'} title={id === 'consulting' ? '컨설팅 영역' : '주요 취급 품목'} />
             <div className="items">
-              {p.items.map((it, i) => { const Ic = ITEM_ICONS[i % ITEM_ICONS.length]; return (
+              {p.items.map((it, i) => { const Ic = itemIcon(it.title) || ITEM_ICONS[i % ITEM_ICONS.length]; return (
                 <div className="item" key={i} data-reveal="" style={{ transitionDelay: `${(i % 4) * .06}s` }}>
                   <span className="item__icon"><Ic /></span><b>{it.title}</b><span>{it.desc}</span>
                 </div>) })}
@@ -104,7 +116,7 @@ export default function BusinessPage({ id: fixedId }) {
         <section className="section section--soft">
           <div className="wrap">
             <SectionHead center eyebrow="FLEET" title="투입 차량" lead="화물 특성과 물량에 맞춰 아래 차종을 조합해 운영합니다." />
-            <div className="veh-minis">{vehicles.map(v => <VehicleMini key={v.id} v={v} />)}</div>
+            <div className={`veh-minis ${vehicles.length === 4 ? 'veh-minis--4' : ''}`}>{vehicles.map(v => <VehicleMini key={v.id} v={v} />)}</div>
             <div style={{ textAlign: 'center', marginTop: 24 }}><Link className="link" to="/company/status#fleet">차종별 제원·운송 제품 보기 <ArrowRight /></Link></div>
           </div>
         </section>
@@ -160,7 +172,7 @@ export default function BusinessPage({ id: fixedId }) {
         <div className="wrap">
           <SectionHead center eyebrow="MORE" title="다른 사업영역" />
           <div className="grid grid--4">
-            {others.map(o => <Link to={`/business/${o.id}`} className="card card--link" key={o.id}><div className="card__img"><img src={asset(o.image)} alt="" loading="lazy" /></div><div className="eyebrow" style={{ fontSize: 11 }}>{o.en}</div><h3 style={{ marginTop: 6 }}>{o.name}</h3><span className="link" style={{ marginTop: 12, fontSize: 15 }}>자세히 보기 <ArrowRight /></span></Link>)}
+            {others.map(o => <Link to={`/business/${o.id}`} className="card card--link" key={o.id}><div className="card__img"><img src={asset(o.image)} alt="" loading="lazy" /></div><div className="eyebrow" style={{ fontSize: 13 }}>{o.en}</div><h3 style={{ marginTop: 6 }}>{o.name}</h3><span className="link" style={{ marginTop: 12, fontSize: 17 }}>자세히 보기 <ArrowRight /></span></Link>)}
           </div>
           <div style={{ textAlign: 'center', marginTop: 40 }}><Link className="btn btn--primary btn--lg" to="/contact">물류 상담 신청 <ArrowRight /></Link></div>
         </div>
