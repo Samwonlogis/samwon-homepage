@@ -11,7 +11,7 @@ export default function Talent() {
   const { content: c } = useContent(); const r = c.recruitment
   return (
     <>
-      <PageHead label="CAREERS" title="인재상" desc={r.subtitle} image="img/banner_careers.jpg" crumb={['채용정보', '인재상']} subnav={NAV} />
+      <PageHead label="CAREERS" title="인재상" desc={r.subtitle} image="img/banner_talent.jpg" crumb={['채용정보', '인재상']} subnav={NAV} />
 
       {/* 핵심 가치 */}
       <section className="section">

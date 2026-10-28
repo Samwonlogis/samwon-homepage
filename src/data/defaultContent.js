@@ -1,3 +1,5 @@
+import { DEFAULT_STAFF } from './staffAccounts'
+
 // ─────────────────────────────────────────────────────────────
 // 삼원종합물류 홈페이지 기본 콘텐츠
 // 관리자 모드(/admin)에서 수정한 내용은 이 기본값 위에 덮어써집니다.
@@ -23,7 +25,7 @@ export const defaultContent = {
     driverUrl: '/driver',
     driverApi: '',
     driverLabel: '차주 전용',
-    s1quickUrl: 'https://www.samwonlogistics.com',
+    s1quickUrl: 'https://samwonlogistics.co.kr/main',
     s1quickLabel: '에스원퀵',
   },
 
@@ -59,7 +61,7 @@ export const defaultContent = {
 
   businessAreas: [
     { id: 'corporate', name: '기업물류', en: 'MIDDLE MILE', short: '공장과 물류센터 사이 간선 구간을 산업별 전용 차량과 JIT 체계로 무중단 운영합니다.', image: 'img/biz_corporate.jpg' },
-    { id: 'distribution', name: '유통물류', en: 'LAST MILE', short: '대형 유통·백화점·의약품 채널별 전담 인프라로 정시 배송률 98% 이상을 유지합니다.', image: 'img/biz_distribution.jpg' },
+    { id: 'distribution', name: '유통물류', en: 'LAST MILE', short: '온라인 커머스부터 대형 유통 점포 납품, 명절 특송까지 채널별 전담 인프라로 운영합니다.', image: 'img/biz_distribution.jpg' },
     { id: 'brokerage', name: '주선 · 에스원퀵', en: 'BROKERAGE & QUICK', short: '웹 접수, 실시간 배차, 카카오톡 관제, 월 통합 정산까지 하나의 디지털 워크플로우로 완결합니다.', image: 'img/biz_brokerage.jpg' },
     { id: 'warehouse', name: '창고운영 · 리스크관리', en: 'WAREHOUSING', short: 'WMS 자동화와 종합 보험, 24시간 관제의 이중 안전망으로 재고 오차와 손실 리스크를 차단합니다.', image: 'img/biz_warehouse.jpg' },
     { id: 'consulting', name: '물류컨설팅', en: 'SCM CONSULTING', short: '34년 현장 데이터와 TMS·WMS 시뮬레이션으로 연간 물류비 10~25% 절감안을 설계합니다.', image: 'img/biz_consulting.jpg' },
@@ -256,20 +258,20 @@ export const defaultContent = {
       label: 'LAST MILE',
       title: '유통물류',
       slogan: '고객의 문 앞, 마지막 1미터까지 귀사의 브랜드 경험을 완성합니다',
-      overview: '라스트마일 배송은 소비자가 브랜드를 직접 체감하는 최종 접점입니다. 배송 지연, 오배송, 파손은 곧바로 고객 이탈과 브랜드 신뢰 하락으로 이어집니다.\n\n삼원종합물류는 대형 유통사 전담 배송 인프라, 백화점 프리미엄 퀵커머스, 의약품 GDP 기준 라스트마일 배송 등 채널별 특화 서비스로 정시 배송률 98% 이상을 지속 달성하고 있습니다.',
+      overview: '라스트마일 배송은 소비자가 브랜드를 직접 체감하는 최종 접점입니다. 배송 지연, 오배송, 파손은 곧바로 고객 이탈과 브랜드 신뢰 하락으로 이어집니다.\n\n삼원종합물류는 온라인 커머스 주문 배송부터 대형마트·백화점 점포 납품, 신선·냉동식품 콜드체인 배송, 의약품 정기 노선까지 유통 채널별 전담 인프라를 운영합니다. 평시 정기 물량은 물론 명절·프로모션처럼 물량이 몰리는 시기에도 증차와 권역 재편으로 배송 품질을 지킵니다.',
       image: 'img/biz_distribution.jpg',
       strengths: [
-        { title: '이커머스 전담 배송', desc: '대형 온라인몰 전담 권역 배정, 일 수천 건 규모 B2C 배송 안정 운영' },
-        { title: '프리미엄 퀵커머스', desc: '백화점 VIP 당일 배송, 명절 선물 배송, 도심 거점 최적화 배송' },
-        { title: '의약품 전문 유통', desc: '전국 약국·병원 전용 노선, GDP 준수 실시간 온도 관제 및 수령 확인' },
-        { title: '냉장 · 냉동 전문배송', desc: 'HACCP 인증 냉장·냉동 전용 차량, 최종 배송 단계까지 콜드체인 유지' },
+        { title: '온라인 커머스 전담 배송', desc: '온라인몰·오픈마켓 주문 물량을 권역별 전담 기사에게 배정해 당일·익일 배송으로 안정 운영' },
+        { title: '대형 유통 점포 납품', desc: '대형마트·백화점·편의점 물류센터에서 점포까지 정기 노선으로 매일 같은 시간에 납품' },
+        { title: '콜드체인 라스트마일', desc: 'HACCP 기준 냉장·냉동 전용 차량으로 신선·냉동식품을 최종 배송 단계까지 온도 유지' },
+        { title: '의약품 정기 배송', desc: '전국 약국·병원 전용 노선으로 의약품을 정해진 일정에 맞춰 정기 배송' },
       ],
       process: ['권역 · 물량 설계', '전담 기사 배정', '실시간 배송 관제', '완료 알림 · 전자서명'],
       metrics: [
-        { value: '98%+', label: '정시 배송률', desc: '대형 유통 전담 권역 기준' },
-        { value: '새벽·주간', label: '배송 시간대', desc: '채널별 맞춤 운영' },
-        { value: '2~8℃', label: '의약품 온도 관리', desc: 'GDP 기준 실시간 관제' },
-        { value: '전자서명', label: '수령 확인', desc: '완료 즉시 알림 발송' },
+        { value: '이커머스', label: '온라인 주문 배송', desc: '온라인몰·오픈마켓 B2C 배송' },
+        { value: '대형 유통', label: '점포 정기 납품', desc: '마트·백화점·편의점 노선' },
+        { value: '전 온도대', label: '상온·냉장·냉동', desc: '품목별 전용 차량 편성' },
+        { value: '피크 대응', label: '시즌 물량 증차', desc: '명절·프로모션 단기 증차' },
       ],
       flow: [
         { title: '센터 피킹 · 상차', desc: '주문 마감 후 권역·동선 순서로 적재' },
@@ -287,7 +289,16 @@ export const defaultContent = {
         { title: '생활용품', desc: '정기 배송 노선' },
       ],
       vehicles: ['quick', '1t', 'reefer', 'box'],
-      caseStudy: { client: '백화점 프리미엄 배송', problem: '명절 시즌 선물세트 배송 물량이 단기간에 몰리며 배송 지연과 고객 문의가 급증했습니다.', solution: '시즌 전 단기 증차 계획을 수립하고, 점포 지하 물류거점 기준으로 권역을 재편해 차량별 배송 동선을 최적화했습니다.', result: '피크 기간에도 약속한 시간 안에 배송을 마치고, VIP 고객 응대 품질을 유지했습니다.' },
+      special: {
+        title: '명절 · 시즌 특수 배송도 삼원이 책임집니다',
+        lead: '평시 정기 배송뿐 아니라 물량이 단기간에 몰리는 시기와 특별한 배송까지 전담 인력과 차량으로 대응합니다.',
+        items: [
+          { icon: 'gift', title: '명절 선물세트 특송', desc: '설·추석 선물세트 집중 배송 기간에 단기 증차와 권역 재편으로 약속한 날짜에 배송합니다.' },
+          { icon: 'chart', title: '프로모션 · 행사 물량', desc: '대형 할인 행사, 라이브커머스 등 주문이 급증하는 기간의 추가 물량을 신속하게 흡수합니다.' },
+          { icon: 'star', title: '백화점 프리미엄 배송', desc: 'VIP 고객 선물·고가 상품을 정해진 시간에 대면 전달해 브랜드 품격을 지킵니다.' },
+          { icon: 'spark', title: '긴급 · 당일 배송', desc: '에스원퀵과 연계해 결품 보충, 긴급 납품 등 당일 처리가 필요한 배송에 즉시 대응합니다.' },
+        ],
+      },
       quote: '배송이 끝나는 곳에서, 귀사 브랜드의 첫 인상이 결정됩니다.',
     },
     brokerage: {
@@ -512,4 +523,7 @@ export const defaultContent = {
     description: '1992년 창립, 6개 전문 계열사와 1,000대 이상의 운송 네트워크로 공급망의 시작부터 끝까지 책임지는 종합물류 기업입니다.',
     copyright: '© 삼원종합물류㈜. All rights reserved.',
   },
+
+  // 차주구인 공고 관리용 직원 계정 — 관리자 모드 「직원 계정 관리」에서 생성·삭제
+  staffAccounts: DEFAULT_STAFF,
 }

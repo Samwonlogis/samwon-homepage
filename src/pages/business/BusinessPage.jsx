@@ -6,7 +6,9 @@ import { asset } from '../../utils/storage'
 import { BUSINESS_NAV } from './businessNav'
 import { vehicleById } from '../../data/vehicles'
 import { VehicleMini } from '../../components/VehicleGuide'
-import { ArrowRight, Box, Snow, Truck, Building, Chart, Shield, Spark, Globe, Leaf, Route, Users, Target, Check } from '../../components/Icons'
+import { ArrowRight, Box, Snow, Truck, Building, Chart, Shield, Spark, Globe, Leaf, Route, Users, Target, Check, Gift, Star } from '../../components/Icons'
+
+const SPECIAL_ICONS = { gift: Gift, chart: Chart, star: Star, spark: Spark, truck: Truck, snow: Snow, box: Box }
 
 const ITEM_ICONS = [Box, Truck, Shield, Snow, Building, Spark, Globe, Route]
 const FLOW_ICONS = [Target, Box, Truck, Building, Chart]
@@ -116,7 +118,24 @@ export default function BusinessPage({ id: fixedId }) {
         </section>
       )}
 
-      {/* 7. 운영 사례 */}
+      {/* 7. 시즌·특수 배송 */}
+      {p.special && (
+        <section className="section special-sec">
+          <div className="wrap">
+            <SectionHead center eyebrow="SPECIAL DELIVERY" title={p.special.title} lead={p.special.lead} />
+            <div className="special">
+              {p.special.items.map((it, i) => { const Ic = SPECIAL_ICONS[it.icon] || Spark; return (
+                <div className="special__card" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
+                  <span className="special__icon"><Ic /></span>
+                  <h3>{it.title}</h3><p>{it.desc}</p>
+                </div>) })}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: 32 }}><Link className="btn btn--primary" to="/contact">시즌 물량 상담 <ArrowRight /></Link></div>
+          </div>
+        </section>
+      )}
+
+      {/* 8. 운영 사례 */}
       {cs && (
         <section className="section">
           <div className="wrap">

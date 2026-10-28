@@ -4,9 +4,12 @@ import { useContent } from '../context/ContentContext'
 import { defaultContent } from '../data/defaultContent'
 import { adminConfig } from '../data/adminConfig'
 import { asset, imageToDataUrl, downloadJson, deepMerge } from '../utils/storage'
+import { hashStaffPassword } from '../data/staffAccounts'
+import { publishContent, publishable, getPublishKey, setPublishKey, REPO } from '../utils/publish'
 
 // ─── 섹션 구성 (왼쪽 메뉴) ───────────────────────────────
 const SECTIONS = [
+  { key: 'staffAccounts', label: '직원 계정 관리', hint: '차주구인 공고를 등록·관리할 직원 아이디 생성·삭제·비밀번호 재설정', custom: true },
   { key: 'company', label: '회사 기본정보', hint: '회사명·연락처·주소 등 사이트 전체 공통 정보' },
   { key: 'hero', label: '메인 히어로', hint: '메인 상단 문구·버튼·배경 영상(비우면 이미지 슬라이드로 전환)' },
   { key: 'stats', label: '메인 핵심 수치', hint: '숫자 카운트 4종' },
@@ -117,6 +120,78 @@ function Text({ k, value, onChange }) {
 }
 function blank(tpl) { if (Array.isArray(tpl)) return []; if (typeof tpl === 'object' && tpl !== null) { const o = {}; for (const k of Object.keys(tpl)) o[k] = blank(tpl[k]); return o } if (typeof tpl === 'number') return 0; if (typeof tpl === 'boolean') return false; return '' }
 
+// ─── 직원 계정 관리 패널 ───
+function StaffPanel({ list = [], onChange }) {
+  const [f, setF] = useState({ id: '', name: '', password: '', role: 'staff' })
+  const [msg, setMsg] = useState('')
+  const [resetId, setResetId] = useState(''); const [resetPw, setResetPw] = useState('')
+  const add = async (e) => {
+    e.preventDefault(); setMsg('')
+    const id = f.id.trim(), name = f.name.trim()
+    if (!id || !name || !f.password) return setMsg('아이디, 이름, 비밀번호를 모두 입력해 주십시오.')
+    if (!/^[A-Za-z0-9_.-]{3,20}$/.test(id)) return setMsg('아이디는 영문·숫자·밑줄(_)·하이픈(-) 3~20자로 입력해 주십시오.')
+    if (f.password.length < 6) return setMsg('비밀번호는 6자 이상으로 설정해 주십시오.')
+    if (list.some(a => a.id === id)) return setMsg('이미 사용 중인 아이디입니다.')
+    const passwordHash = await hashStaffPassword(id, f.password)
+    onChange([...list, { id, name, role: f.role, passwordHash, createdAt: new Date().toISOString().slice(0, 10) }])
+    setF({ id: '', name: '', password: '', role: 'staff' }); setMsg(`'${id}' 계정이 추가되었습니다. 상단 「홈페이지 전체 반영」을 눌러야 모든 PC에서 로그인할 수 있습니다.`)
+  }
+  const remove = (id) => {
+    if (list.filter(a => a.role === 'admin').length === 1 && list.find(a => a.id === id)?.role === 'admin') return alert('마지막 관리자 계정은 삭제할 수 없습니다.')
+    if (confirm(`'${id}' 계정을 삭제하시겠습니까?`)) onChange(list.filter(a => a.id !== id))
+  }
+  const toggle = (id) => onChange(list.map(a => a.id === id ? { ...a, active: a.active === false } : a))
+  const doReset = async () => {
+    if (resetPw.length < 6) return alert('새 비밀번호는 6자 이상으로 입력해 주십시오.')
+    const h = await hashStaffPassword(resetId, resetPw)
+    onChange(list.map(a => a.id === resetId ? { ...a, passwordHash: h } : a)); setResetId(''); setResetPw(''); setMsg(`'${resetId}' 비밀번호가 변경되었습니다. 「홈페이지 전체 반영」 후 적용됩니다.`)
+  }
+  return (
+    <div className="staff-admin">
+      <form className="staff-admin__add" onSubmit={add}>
+        <h3>새 직원 계정 생성</h3>
+        <div className="staff-admin__row">
+          <label>아이디<input value={f.id} onChange={e => setF({ ...f, id: e.target.value })} placeholder="예: kim.dispatch" autoComplete="off" /></label>
+          <label>이름(표시명)<input value={f.name} onChange={e => setF({ ...f, name: e.target.value })} placeholder="예: 김OO 과장" /></label>
+          <label>초기 비밀번호<input type="text" value={f.password} onChange={e => setF({ ...f, password: e.target.value })} placeholder="6자 이상" autoComplete="off" /></label>
+          <label>권한<select value={f.role} onChange={e => setF({ ...f, role: e.target.value })}><option value="staff">직원 (공고 관리)</option><option value="admin">관리자</option></select></label>
+        </div>
+        <button className="btn btn--primary btn--sm" type="submit">+ 계정 생성</button>
+        {msg && <p className="small" style={{ color: 'var(--blue)', fontWeight: 600 }}>{msg}</p>}
+      </form>
+      <div className="staff-admin__list">
+        <h3>등록된 계정 <span className="small">({list.length})</span></h3>
+        <table>
+          <thead><tr><th>아이디</th><th>이름</th><th>권한</th><th>상태</th><th /></tr></thead>
+          <tbody>
+            {list.map(a => (
+              <tr key={a.id} className={a.active === false ? 'is-off' : ''}>
+                <td><b>{a.id}</b></td><td>{a.name}</td>
+                <td><span className={`chip ${a.role === 'admin' ? 'chip--blue' : ''}`}>{a.role === 'admin' ? '관리자' : '직원'}</span></td>
+                <td>{a.active === false ? '사용 중지' : '사용 중'}</td>
+                <td><div className="staff-admin__act">
+                  <button type="button" className="ed__mini" onClick={() => { setResetId(a.id); setResetPw('') }}>비밀번호 재설정</button>
+                  <button type="button" className="ed__mini" onClick={() => toggle(a.id)}>{a.active === false ? '사용 재개' : '사용 중지'}</button>
+                  <button type="button" className="ed__mini ed__mini--danger" onClick={() => remove(a.id)}>삭제</button>
+                </div></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {resetId && (
+          <div className="staff-admin__reset">
+            <b>{resetId}</b> 새 비밀번호
+            <input type="text" value={resetPw} onChange={e => setResetPw(e.target.value)} placeholder="6자 이상" autoFocus />
+            <button type="button" className="btn btn--primary btn--sm" onClick={doReset}>변경</button>
+            <button type="button" className="ed__mini" onClick={() => setResetId('')}>취소</button>
+          </div>
+        )}
+      </div>
+      <p className="small muted">※ 비밀번호는 원문이 아닌 암호화(해시) 값으로만 저장됩니다. 직원은 차주구인 페이지의 「직원 로그인」으로 접속합니다.</p>
+    </div>
+  )
+}
+
 // ─── 관리자 화면 ───
 export default function Admin() {
   const { content, updateContent, resetLocal, hasLocal } = useContent()
@@ -137,7 +212,16 @@ export default function Admin() {
   const logout = () => { sessionStorage.removeItem(adminConfig.sessionKey); setAuthed(false) }
   const change = (path, val) => { setDraft(d => setPath(d, path, val)); setDirty(true) }
   const save = () => { updateContent(draft); setDirty(false); say('이 브라우저에 저장되었습니다') }
-  const exportJson = () => { downloadJson(dirty ? draft : content, 'content.json'); say('content.json 다운로드') }
+  const exportJson = () => { downloadJson(publishable(dirty ? draft : content), 'content.json'); say('content.json 다운로드') }
+  const [pubKey, setPubKey] = useState(getPublishKey()); const [keyIn, setKeyIn] = useState(''); const [publishing, setPublishing] = useState(false)
+  const publish = async () => {
+    if (!pubKey) { alert('먼저 「고급 설정」에서 반영 키를 등록해 주십시오.'); return }
+    if (!confirm('현재 내용을 홈페이지 전체(모든 방문자)에 반영하시겠습니까?\n반영 후 1~2분 내 적용됩니다.')) return
+    const data = dirty ? draft : content
+    setPublishing(true)
+    try { if (dirty) { updateContent(draft); setDirty(false) } await publishContent(data); say('전체 반영 요청 완료 — 1~2분 후 모든 방문자에게 적용됩니다') }
+    catch (e) { alert(e.message) } finally { setPublishing(false) }
+  }
   const importJson = async (e) => { const f = e.target.files?.[0]; if (!f) return; try { const j = JSON.parse(await f.text()); const merged = deepMerge(defaultContent, j); setDraft(merged); setDirty(true); say('불러오기 완료 — 저장을 눌러 반영하십시오') } catch { alert('JSON 파일을 읽을 수 없습니다.') } e.target.value = '' }
   const resetSection = () => { if (!confirm(`'${SECTIONS.find(s => s.key === sec)?.label}' 섹션을 기본값으로 되돌리시겠습니까?`)) return; change([sec], structuredClone(defaultContent[sec])) }
   const resetAll = () => { if (!confirm('이 브라우저에 저장된 모든 수정 내용을 삭제하고 기본값(또는 content.json)으로 되돌리시겠습니까?')) return; resetLocal(); setDirty(false); say('초기화되었습니다') }
@@ -163,7 +247,8 @@ export default function Admin() {
       <div className="admin__bar"><div className="container">
         <span className="grow">콘텐츠 관리 <span className="admin__status">{dirty ? '· 저장되지 않은 변경 있음' : hasLocal ? '· 이 브라우저에 저장된 수정본 적용 중' : '· 기본값(또는 content.json) 표시 중'}</span></span>
         <button className="btn btn--primary btn--sm" onClick={save} disabled={!dirty}>저장</button>
-        <button className="btn btn--ghost btn--sm" onClick={exportJson}>전체 반영용 JSON 다운로드</button>
+        <button className="btn btn--dark btn--sm" onClick={publish} disabled={publishing}>{publishing ? '반영 중…' : '홈페이지 전체 반영'}</button>
+        <button className="btn btn--ghost btn--sm" onClick={exportJson}>JSON 백업</button>
         <button className="btn btn--ghost btn--sm" onClick={() => fileRef.current.click()}>JSON 불러오기</button>
         <input ref={fileRef} type="file" accept="application/json" hidden onChange={importJson} />
         <Link className="btn btn--ghost btn--sm" to="/" target="_blank">사이트 보기</Link>
@@ -176,19 +261,19 @@ export default function Admin() {
         </aside>
         <div className="admin__main">
           <div className="notice" style={{ marginBottom: 20 }}>
-            <b>반영 방식 안내</b> — 「저장」은 지금 사용 중인 브라우저에서만 즉시 반영됩니다. 모든 방문자에게 반영하려면 「전체 반영용 JSON 다운로드」로 받은 <b>content.json</b>을 GitHub 저장소의 <b>public/content.json</b>에 업로드(덮어쓰기)하십시오. 자동 배포 후 1~2분 내 전체 적용됩니다. 업로드 이미지는 JSON에 함께 저장되므로 용량이 큰 사진은 1600px 이하로 자동 축소됩니다.
+            <b>반영 방식 안내</b> — 「저장」은 지금 사용 중인 브라우저에서만 미리 반영됩니다. 모든 방문자에게 적용하려면 「홈페이지 전체 반영」을 누르십시오(최초 1회 「고급 설정」에서 반영 키 등록 필요). 자동 배포 후 1~2분 내 전체 적용됩니다. 업로드 이미지는 JSON에 함께 저장되므로 용량이 큰 사진은 1600px 이하로 자동 축소됩니다.
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginBottom: 16 }}>
             <div><h2 className="h-sub">{cur.label}</h2><p className="small">{cur.hint}</p></div>
             <button className="ed__mini" onClick={resetSection}>이 섹션 기본값으로</button>
           </div>
-          <div className="ed">
+          {cur.custom ? <StaffPanel list={draft.staffAccounts || []} onChange={(v) => change(['staffAccounts'], v)} /> : <div className="ed">
             {Array.isArray(draft[sec]) || typeof draft[sec] === 'object'
               ? (Array.isArray(draft[sec])
                   ? <Field k={sec} value={draft[sec]} path={[sec]} onChange={change} depth={0} />
                   : Object.keys(draft[sec]).map(k => <Field key={k} k={k} value={draft[sec][k]} path={[sec, k]} onChange={change} depth={0} />))
               : null}
-          </div>
+          </div>}
 
           <details className="ed__group" style={{ marginTop: 40 }}>
             <summary>고급 설정</summary>
@@ -198,6 +283,14 @@ export default function Admin() {
               </div>
               <label className="ed__field"><span>새 비밀번호</span><input type="text" value={hashIn} onChange={e => setHashIn(e.target.value)} placeholder="새 비밀번호 입력" /></label>
               {hashOut && <label className="ed__field"><span>해시값 (복사)</span><input type="text" readOnly value={hashOut} onFocus={e => e.target.select()} /></label>}
+              <div className="notice" style={{ marginTop: 16 }}>
+                <b>홈페이지 전체 반영 키</b> — GitHub({REPO}) 저장소의 <b>Contents 쓰기 권한</b>을 가진 Fine-grained 토큰을 등록하면 「홈페이지 전체 반영」 버튼으로 즉시 배포됩니다. 키는 이 브라우저에만 저장됩니다. {pubKey ? <b style={{ color: 'var(--blue)' }}>· 등록됨</b> : <b style={{ color: '#c0392b' }}>· 미등록</b>}
+              </div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <input type="password" value={keyIn} onChange={e => setKeyIn(e.target.value)} placeholder="github_pat_…" style={{ flex: '1 1 260px' }} />
+                <button type="button" className="btn btn--primary btn--sm" onClick={() => { setPublishKey(keyIn); setPubKey(keyIn.trim()); setKeyIn(''); say('반영 키가 등록되었습니다') }} disabled={!keyIn.trim()}>등록</button>
+                {pubKey && <button type="button" className="ed__mini ed__mini--danger" onClick={() => { setPublishKey(''); setPubKey(''); say('반영 키를 삭제했습니다') }}>키 삭제</button>}
+              </div>
               <button className="ed__mini ed__mini--danger" onClick={resetAll} style={{ justifySelf: 'start' }}>이 브라우저의 모든 수정 내용 초기화</button>
             </div>
           </details>

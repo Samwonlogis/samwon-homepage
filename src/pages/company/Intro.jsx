@@ -1,13 +1,14 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PageHead from '../../components/PageHead'
 import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
 import { asset } from '../../utils/storage'
 import { COMPANY_NAV } from './companyNav'
-import { Leaf, Building, Box, Pin, Globe } from '../../components/Icons'
+import { Leaf, Building, Box, Pin, Globe, Phone, ArrowRight } from '../../components/Icons'
 
 const cat = (name) => {
-  if (name.includes('본사')) return { label: '본사 (HQ)', type: 'main', Icon: Building }
+  if (name.includes('본사')) return { label: '본사 (HQ)', type: 'hq', Icon: Building }
   if (/허브|물류센터|차고지/.test(name)) return { label: '물류 거점', type: 'main', Icon: Box }
   if (/백화점|더현대/.test(name)) return { label: '백화점 유통망', type: 'retail', Icon: Globe }
   return { label: '지역 사무소', type: 'local', Icon: Pin }
@@ -16,9 +17,12 @@ const cat = (name) => {
 export default function Intro() {
   const { content: c } = useContent()
   const it = c.intro, ceo = c.ceo
-  const [filter, setFilter] = useState('all'); const [copied, setCopied] = useState(null)
+  const [copied, setCopied] = useState(null)
   const subs = c.subsidiaries.filter(s => !/^삼원종합물류/.test(s.name))
-  const offices = c.offices.filter(o => filter === 'all' || cat(o.name).type === filter)
+  const hq = c.offices.find(o => cat(o.name).type === 'hq') || c.offices[0]
+  const GROUPS = [['main', '물류 거점', '차량 운영·상하차 거점', Box], ['retail', '백화점 유통망', '점포 상주 배송 거점', Globe], ['local', '지역 사무소', '권역 영업·운영 지원', Pin]]
+  const groups = GROUPS.map(([t, label, sub, Icon]) => ({ t, label, sub, Icon, list: c.offices.filter(o => o !== hq && cat(o.name).type === t) })).filter(g => g.list.length)
+  const mapUrl = (a) => `https://map.naver.com/p/search/${encodeURIComponent(a)}`
   const copy = (addr, i) => { navigator.clipboard?.writeText(addr).then(() => { setCopied(i); setTimeout(() => setCopied(null), 1800) }) }
 
   return (
@@ -52,20 +56,48 @@ export default function Intro() {
       {/* 사무소 현황 */}
       <section className="section">
         <div className="wrap">
-          <SectionHead center eyebrow="OFFICES" title="사무소 현황" />
-          <div className="filters filters--center" data-reveal="">
-            {[['all', '전체 보기'], ['main', '본사 & 물류거점'], ['retail', '백화점 유통망'], ['local', '지역 사무소']].map(([k, l]) => <button type="button" key={k} className={filter === k ? 'is-on' : ''} onClick={() => setFilter(k)}>{l}</button>)}
-          </div>
-          <div className="grid grid--3">
-            {offices.map((o, i) => { const k = cat(o.name); const Ic = k.Icon; return (
-              <div className="office-card" key={o.name} data-reveal="">
-                <div className="office-card__head"><span className="card__icon"><Ic /></span><span className="chip">{k.label}</span></div>
-                <h3>{o.name}</h3><p>{o.address}</p>
-                <div className="office-card__act">
-                  <button type="button" className={`btn btn--ghost btn--sm ${copied === i ? 'is-done' : ''}`} onClick={() => copy(o.address, i)}>{copied === i ? '복사 완료' : '주소 복사'}</button>
-                  <a className="btn btn--primary btn--sm" href={`https://map.naver.com/p/search/${encodeURIComponent(o.address)}`} target="_blank" rel="noreferrer">지도 보기</a>
+          <SectionHead center eyebrow="OFFICES" title="사무소 현황" lead="서울 본사를 중심으로 물류 거점, 백화점 유통망, 지역 사무소가 하나의 네트워크로 움직입니다." />
+          <div className="ofc">
+            {hq && (
+              <div className="ofc-hq" data-reveal="">
+                <div className="ofc-hq__main">
+                  <span className="ofc-hq__tag"><Building /> HEADQUARTERS</span>
+                  <h3>{hq.name}</h3>
+                  <p className="ofc-hq__addr">{hq.address}</p>
+                  <dl className="ofc-hq__info">
+                    <div><dt>대표 전화</dt><dd><a href={`tel:${c.company.phone}`}>{c.company.phone}</a></dd></div>
+                    <div><dt>팩스</dt><dd>{c.company.fax}</dd></div>
+                    <div><dt>이메일</dt><dd>{c.company.email}</dd></div>
+                  </dl>
                 </div>
-              </div>) })}
+                <div className="ofc-hq__act">
+                  <a className="btn btn--white btn--sm" href={mapUrl(hq.address)} target="_blank" rel="noreferrer"><Pin /> 지도 보기</a>
+                  <button type="button" className="btn btn--line-w btn--sm" onClick={() => copy(hq.address, 'hq')}>{copied === 'hq' ? '복사 완료' : '주소 복사'}</button>
+                  <Link className="btn btn--line-w btn--sm" to="/company/location">오시는 길 <ArrowRight /></Link>
+                </div>
+              </div>
+            )}
+            <div className="ofc-groups">
+              {groups.map((g, gi) => (
+                <div className="ofc-group" key={g.t} data-reveal="" style={{ transitionDelay: `${gi * .08}s` }}>
+                  <div className="ofc-group__head">
+                    <span className="ofc-group__icon"><g.Icon /></span>
+                    <div><b>{g.label}</b><span>{g.sub}</span></div>
+                    <em>{g.list.length}</em>
+                  </div>
+                  <ul>
+                    {g.list.map(o => { const key = o.name; return (
+                      <li key={key}>
+                        <div><b>{o.name}</b><span>{o.address}</span></div>
+                        <div className="ofc-row__act">
+                          <button type="button" aria-label="주소 복사" title="주소 복사" onClick={() => copy(o.address, key)} className={copied === key ? 'is-done' : ''}>{copied === key ? '✓' : '복사'}</button>
+                          <a href={mapUrl(o.address)} target="_blank" rel="noreferrer" aria-label={`${o.name} 지도 보기`} title="지도 보기"><Pin /></a>
+                        </div>
+                      </li>) })}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

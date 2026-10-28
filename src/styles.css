@@ -805,3 +805,73 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   .net__regions { padding: 4px 16px; }
   .net-region { grid-template-columns: 56px 1fr; }
 }
+
+/* ── 관리자: 직원 계정 관리 ── */
+.staff-admin { display: grid; gap: 24px; }
+.staff-admin h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 12px; }
+.staff-admin__add { background: var(--blue-50); border: 1px solid var(--blue-100); border-radius: 16px; padding: 20px; display: grid; gap: 14px; justify-items: start; }
+.staff-admin__row { display: grid; gap: 12px; width: 100%; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.staff-admin__row label { display: grid; gap: 6px; min-width: 0; font-size: 13.5px; font-weight: 700; color: var(--ink-2); }
+.staff-admin__row input, .staff-admin__row select, .staff-admin__reset input { width: 100%; min-width: 0; height: 42px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; font: inherit; font-size: 15px; background: #fff; }
+.staff-admin__list { overflow-x: auto; }
+.staff-admin table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 560px; }
+.staff-admin th { text-align: left; font-size: 12.5px; color: var(--ink-3); font-weight: 700; padding: 8px 10px; border-bottom: 2px solid var(--line); }
+.staff-admin td { padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.staff-admin tr.is-off td { color: var(--ink-3); }
+.staff-admin__act { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+.staff-admin .chip--blue { background: var(--blue); color: #fff; }
+.staff-admin__reset input { width: auto; flex: 1 1 200px; }
+.staff-admin__reset { margin-top: 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; background: var(--bg-soft); padding: 12px; border-radius: 12px; }
+.jobs-publish { margin-top: 32px; display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 18px 22px; border-radius: 16px; background: var(--blue-50); border: 1px solid var(--blue-100); }
+.jobs-publish b { display: block; font-size: 15px; } .jobs-publish span { font-size: 14px; color: var(--ink-2); }
+
+/* ── 시즌·특수 배송 ── */
+.special-sec { background: linear-gradient(180deg, #fff 0%, var(--blue-50) 100%); }
+.special { display: grid; gap: 16px; }
+@media (min-width: 700px) { .special { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (min-width: 1100px) { .special { grid-template-columns: repeat(4, 1fr); } }
+.special__card { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 28px 24px; transition: transform .35s var(--ease), box-shadow .35s; }
+.special__card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.special__icon { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--blue-500), var(--blue)); box-shadow: 0 12px 24px -12px rgba(5, 69, 146, .6); }
+.special__icon svg { width: 28px; height: 28px; }
+.special__card h3 { margin-top: 20px; font-size: 1.2rem; font-weight: 800; letter-spacing: -.02em; }
+.special__card p { margin-top: 10px; font-size: 15.5px; line-height: 1.7; color: var(--ink-2); }
+@media (max-width: 699px) { .special__card { display: grid; grid-template-columns: 52px 1fr; column-gap: 16px; padding: 20px; } .special__icon { width: 48px; height: 48px; grid-row: 1 / 3; } .special__card h3 { margin-top: 2px; font-size: 1.1rem; } .special__card p { margin-top: 6px; } }
+
+/* ── 사무소 현황 ── */
+.btn--line-w { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.45); } .btn--line-w:hover { background: rgba(255,255,255,.12); }
+.ofc { display: grid; gap: 20px; }
+.ofc-hq { position: relative; overflow: hidden; border-radius: 28px; padding: 36px 40px; color: #fff; background: linear-gradient(120deg, var(--blue-deep) 0%, var(--blue) 55%, var(--blue-500) 100%); display: grid; gap: 28px; align-items: end; isolation: isolate; }
+.ofc-hq::after { content: ''; position: absolute; right: -80px; top: -80px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.16), rgba(255,255,255,0) 70%); z-index: -1; }
+@media (min-width: 960px) { .ofc-hq { grid-template-columns: 1fr auto; } }
+.ofc-hq__tag { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; letter-spacing: .18em; color: rgba(255,255,255,.8); }
+.ofc-hq__tag svg { width: 18px; height: 18px; }
+.ofc-hq h3 { margin-top: 10px; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -.03em; }
+.ofc-hq__addr { margin-top: 6px; font-size: 17px; color: rgba(255,255,255,.9); }
+.ofc-hq__info { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 14px 36px; }
+.ofc-hq__info dt { font-size: 12.5px; color: rgba(255,255,255,.65); font-weight: 600; }
+.ofc-hq__info dd { margin: 2px 0 0; font-size: 16px; font-weight: 700; }
+.ofc-hq__info a { color: #fff; }
+.ofc-hq__act { display: flex; flex-wrap: wrap; gap: 8px; }
+.ofc-hq__act svg { width: 16px; height: 16px; }
+.ofc-groups { display: grid; gap: 20px; }
+@media (min-width: 960px) { .ofc-groups { grid-template-columns: repeat(3, 1fr); align-items: start; } }
+.ofc-group { background: #fff; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+.ofc-group__head { display: flex; align-items: center; gap: 14px; padding: 20px 22px; background: var(--bg-soft); border-bottom: 1px solid var(--line); }
+.ofc-group__icon { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; background: var(--blue); color: #fff; flex: none; }
+.ofc-group__icon svg { width: 22px; height: 22px; }
+.ofc-group__head b { display: block; font-size: 17px; font-weight: 800; }
+.ofc-group__head span { display: block; font-size: 13.5px; color: var(--ink-3); }
+.ofc-group__head em { margin-left: auto; font-style: normal; font-size: 13px; font-weight: 800; color: var(--blue); background: var(--blue-100); border-radius: 999px; padding: 3px 11px; }
+.ofc-group ul { list-style: none; margin: 0; padding: 6px 22px; }
+.ofc-group li { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px dashed var(--line); }
+.ofc-group li:last-child { border-bottom: 0; }
+.ofc-group li b { display: block; font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+.ofc-group li span { display: block; margin-top: 2px; font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.ofc-row__act { display: flex; gap: 6px; flex: none; }
+.ofc-row__act button, .ofc-row__act a { height: 34px; min-width: 34px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line); background: #fff; display: grid; place-items: center; font: inherit; font-size: 12.5px; font-weight: 700; color: var(--ink-2); cursor: pointer; transition: all .2s; }
+.ofc-row__act a { color: #fff; background: var(--blue); border-color: var(--blue); padding: 0; }
+.ofc-row__act svg { width: 16px; height: 16px; }
+.ofc-row__act button:hover { border-color: var(--blue-300); color: var(--blue); }
+.ofc-row__act button.is-done { background: var(--blue-100); color: var(--blue); border-color: var(--blue-100); }
+@media (max-width: 699px) { .ofc-hq { padding: 28px 22px; border-radius: 22px; } .ofc-hq__act .btn { flex: 1 1 auto; justify-content: center; } }

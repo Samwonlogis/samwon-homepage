@@ -1,57 +1,36 @@
 /**
- * 직원 계정 목록 (차주구인 게시판 관리용)
+ * 직원 계정 (차주구인 공고 관리용)
  *
- * ── 계정 추가 방법 ──────────────────────────────────────────
- * 1. 관리자(admin) 계정으로 차주구인 페이지에 로그인
- * 2. 화면 하단의 "비밀번호 해시 생성기"에 새 직원의 비밀번호 입력
- * 3. 생성된 해시값을 복사하여 아래 배열에 한 줄 추가
- *    { id: '아이디', name: '이름', role: 'staff', passwordHash: '복사한해시값' },
- * 4. GitHub에서 이 파일(src/data/staffAccounts.js)을 수정 후 커밋(배포)
+ * 계정은 관리자 모드(/admin) → 「직원 계정 관리」에서 생성·삭제·비밀번호 재설정합니다.
+ * 아래 목록은 최초 기본값이며, 관리자 모드에서 저장·전체 반영한 목록이 우선 적용됩니다.
  *
- * role 종류:
- *   - 'admin' : 공고 등록/수정/삭제 + 해시 생성기 사용 가능
- *   - 'staff' : 공고 등록/수정/삭제 가능
- *
- * ※ 비밀번호 원문은 절대 이 파일에 적지 마세요. 해시값만 저장합니다.
+ * role: 'admin'(공고 관리 + 전체 반영) / 'staff'(공고 등록·수정·삭제)
+ * 비밀번호는 원문이 아닌 해시(아이디 결합 SHA-256)로만 저장됩니다.
  */
-export const staffAccounts = [
-  {
-    id: 'admin',
-    name: '관리자',
-    role: 'admin',
-    // 초기 비밀번호: samwon@3001 (배포 후 반드시 변경 권장)
-    passwordHash: '6f15f0a8b5e9b8ec122715a48cca9862fa272bb2f1f2478bea4b8d391bf8c1d9'
-  },
-  {
-    id: 'staff01',
-    name: '직원1 (예시)',
-    role: 'staff',
-    // 초기 비밀번호: samwon1!
-    passwordHash: 'a7e65cf7cb7b824080dcc291d628e2b481f34bc1b3b13ffa850d04366c5a9f3e'
-  },
-  {
-    id: 'staff02',
-    name: '직원2 (예시)',
-    role: 'staff',
-    // 초기 비밀번호: samwon2!
-    passwordHash: '3056dc3933001bca5097ad12e9df57627a4e34af89b5b643b0d7f919d3affb1f'
-  }
+export const DEFAULT_STAFF = [
+  // 초기 비밀번호: samwon@3001 (관리자 모드에서 반드시 변경 권장)
+  { id: 'admin', name: '관리자', role: 'admin', passwordHash: '7b0110d081cb6b7bcff7c2b48b59b77fb06fed60add4537821351e64e7bc3bb4' },
+  // 예시 계정 — 실제 직원 계정 발급 후 관리자 모드에서 삭제하십시오. (초기 비밀번호 samwon1! / samwon2!)
+  { id: 'staff01', name: '직원1 (예시)', role: 'staff', passwordHash: '1efc6dab4615db2338a0a6a53d96ae6eac464452450072cb4680272fdd20960c' },
+  { id: 'staff02', name: '직원2 (예시)', role: 'staff', passwordHash: '1c65c343ae2c084749d25d4bc768a724afa722b6e828873449c00793cb52fdd8' },
 ]
 
 /** 문자열을 SHA-256 해시(hex)로 변환 */
 export async function sha256Hex(text) {
   const data = new TextEncoder().encode(text)
   const digest = await crypto.subtle.digest('SHA-256', data)
-  return Array.from(new Uint8Array(digest))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
+  return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, '0')).join('')
 }
 
-/** 아이디/비밀번호 검증 — 성공 시 계정 객체(비밀번호 제외) 반환, 실패 시 null */
-export async function verifyStaffLogin(id, password) {
-  const account = staffAccounts.find((a) => a.id === id.trim())
+/** 직원 비밀번호 해시 — 아이디를 결합해 계정마다 다른 값이 되도록 함 */
+export const hashStaffPassword = (id, password) => sha256Hex(`samwon|${id.trim()}|${password}`)
+
+/** 아이디/비밀번호 검증 — 성공 시 계정 정보(비밀번호 제외), 실패 시 null */
+export async function verifyStaffLogin(id, password, accounts = DEFAULT_STAFF) {
+  const account = (accounts || []).find((a) => a.id === id.trim() && a.active !== false)
   if (!account) return null
-  const hash = await sha256Hex(password)
-  if (hash !== account.passwordHash) return null
+  const hash = await hashStaffPassword(account.id, password)
+  const legacy = await sha256Hex(password)
+  if (hash !== account.passwordHash && legacy !== account.passwordHash) return null
   return { id: account.id, name: account.name, role: account.role }
 }

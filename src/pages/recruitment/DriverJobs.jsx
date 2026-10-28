@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import PageHead from '../../components/PageHead'
 import { useContent } from '../../context/ContentContext'
-import { verifyStaffLogin, sha256Hex } from '../../data/staffAccounts'
+import { verifyStaffLogin } from '../../data/staffAccounts'
+import { publishContent, getPublishKey } from '../../utils/publish'
 import { Phone, X, Truck, Pin, Clock, Chart } from '../../components/Icons'
 
 const NAV = [{ to: '/recruitment/talent', label: '인재상' }, { to: '/recruitment/jobs', label: '차주구인' }]
@@ -10,25 +11,35 @@ const SESSION_KEY = 'samwon_staff_session'
 const EMPTY = { title: '', type: '일자리', income: '', vehicle: '', location: '', hours: '', desc: '', contactPerson: '', contactPhone: '02-598-3001' }
 
 export default function DriverJobs() {
-  const { content: c } = useContent(); const r = c.recruitment
+  const { content: c, updateContent } = useContent(); const r = c.recruitment
   const [postings, setPostings] = useState(null)
   const [filter, setFilter] = useState('전체')
   const [staff, setStaff] = useState(() => { try { const s = sessionStorage.getItem(SESSION_KEY); return s ? JSON.parse(s) : null } catch { return null } })
   const [loginOpen, setLoginOpen] = useState(false)
   const [login, setLogin] = useState({ id: '', password: '' }); const [loginErr, setLoginErr] = useState(''); const [busy, setBusy] = useState(false)
   const [modal, setModal] = useState(false); const [editing, setEditing] = useState(null); const [form, setForm] = useState(EMPTY)
-  const [newStaff, setNewStaff] = useState({ id: '', name: '', password: '', role: 'staff' }); const [staffCode, setStaffCode] = useState(''); const [copied, setCopied] = useState(false)
+  const [pubBusy, setPubBusy] = useState(false); const [pending, setPending] = useState(false)
 
   useEffect(() => {
-    try { const saved = localStorage.getItem(STORE_KEY); if (saved) { setPostings(JSON.parse(saved)); return } } catch {}
     setPostings(r.driverJobs || [])
   }, [r.driverJobs])
-  const save = (list) => { setPostings(list); try { localStorage.setItem(STORE_KEY, JSON.stringify(list)) } catch {} }
+  // 공고는 콘텐츠(recruitment.driverJobs)에 저장 → 「전체 반영」 시 모든 방문자에게 공개
+  const save = (list) => {
+    setPostings(list); setPending(true)
+    try { localStorage.removeItem(STORE_KEY) } catch {}
+    updateContent({ ...c, recruitment: { ...r, driverJobs: list } })
+  }
+  const publishJobs = async () => {
+    if (!confirm('현재 공고 목록을 홈페이지 전체에 반영하시겠습니까?')) return
+    setPubBusy(true)
+    try { await publishContent({ ...c, recruitment: { ...r, driverJobs: postings } }, '차주구인 공고 반영'); setPending(false); alert('반영 요청이 완료되었습니다. 1~2분 후 모든 방문자에게 적용됩니다.') }
+    catch (e) { alert(e.message) } finally { setPubBusy(false) }
+  }
 
   const doLogin = async (e) => {
     e.preventDefault(); setLoginErr('')
     if (!login.id || !login.password) { setLoginErr('아이디와 비밀번호를 입력해 주십시오.'); return }
-    setBusy(true); const u = await verifyStaffLogin(login.id, login.password); setBusy(false)
+    setBusy(true); const u = await verifyStaffLogin(login.id, login.password, c.staffAccounts); setBusy(false)
     if (!u) { setLoginErr('아이디 또는 비밀번호가 일치하지 않습니다.'); return }
     setStaff(u); sessionStorage.setItem(SESSION_KEY, JSON.stringify(u)); setLoginOpen(false); setLogin({ id: '', password: '' })
   }
@@ -43,14 +54,6 @@ export default function DriverJobs() {
     else save([{ ...form, id: Date.now().toString() }, ...postings])
     setModal(false)
   }
-  const makeStaff = async () => {
-    setStaffCode(''); setCopied(false)
-    const id = newStaff.id.trim(), name = newStaff.name.trim()
-    if (!id || !name || !newStaff.password) { setStaffCode('아이디, 이름, 비밀번호를 모두 입력해 주십시오.'); return }
-    if (!/^[A-Za-z0-9_]+$/.test(id)) { setStaffCode('아이디는 영문·숫자·밑줄(_)만 사용할 수 있습니다.'); return }
-    const hash = await sha256Hex(newStaff.password)
-    setStaffCode(`  { id: '${id}', name: '${name}', role: '${newStaff.role}', passwordHash: '${hash}' },`)
-  }
   const list = (postings || []).filter(p => filter === '전체' || p.type === filter)
   const F = ({ k, label, ph, req, full }) => (
     <label className={full ? 'full' : ''}>{label}{req && ' *'}<input required={req} value={form[k]} onChange={e => setForm({ ...form, [k]: e.target.value })} placeholder={ph} /></label>
@@ -58,7 +61,7 @@ export default function DriverJobs() {
 
   return (
     <>
-      <PageHead label="DRIVER RECRUIT" title="차주구인" desc={r.driverIntro} image="img/banner_business.jpg" crumb={['채용정보', '차주구인']} subnav={NAV} />
+      <PageHead label="DRIVER RECRUIT" title="차주구인" desc={r.driverIntro} image="img/banner_drivers.jpg" crumb={['채용정보', '차주구인']} subnav={NAV} />
       <section className="section">
         <div className="wrap">
           <div className="jobs__head" data-reveal="">
@@ -102,19 +105,13 @@ export default function DriverJobs() {
               ))}
           </div>
 
-          {staff?.role === 'admin' && (
-            <details className="ed__group" style={{ marginTop: 40 }}>
-              <summary>직원 계정 발급 도구 (관리자)</summary>
-              <div className="ed">
-                <div className="notice">생성된 한 줄을 <b>src/data/staffAccounts.js</b>의 배열에 추가하고 GitHub에 커밋하면 새 직원 계정이 활성화됩니다. 비밀번호 원문은 파일에 적지 마십시오.</div>
-                <div className="form" style={{ padding: 0, border: 0 }}>
-                  <div className="row"><label>아이디<input value={newStaff.id} onChange={e => setNewStaff({ ...newStaff, id: e.target.value })} placeholder="영문·숫자" /></label><label>이름<input value={newStaff.name} onChange={e => setNewStaff({ ...newStaff, name: e.target.value })} /></label></div>
-                  <div className="row"><label>비밀번호<input type="text" value={newStaff.password} onChange={e => setNewStaff({ ...newStaff, password: e.target.value })} /></label><label>권한<select value={newStaff.role} onChange={e => setNewStaff({ ...newStaff, role: e.target.value })}><option value="staff">직원</option><option value="admin">관리자</option></select></label></div>
-                  <button type="button" className="btn btn--dark btn--sm" onClick={makeStaff} style={{ justifySelf: 'start' }}>계정 코드 생성</button>
-                  {staffCode && <div style={{ display: 'grid', gap: 8 }}><textarea readOnly rows="3" value={staffCode} onFocus={e => e.target.select()} /><button type="button" className="ed__mini" style={{ justifySelf: 'start' }} onClick={() => { navigator.clipboard?.writeText(staffCode); setCopied(true) }}>{copied ? '복사됨' : '복사'}</button></div>}
-                </div>
-              </div>
-            </details>
+          {staff && (
+            <div className="jobs-publish">
+              <div><b>공고 반영 안내</b><span>{pending ? '변경된 공고가 있습니다. 「홈페이지 전체 반영」을 눌러야 모든 방문자에게 공개됩니다.' : '등록·수정한 공고는 「홈페이지 전체 반영」 후 모든 방문자에게 공개됩니다.'}</span></div>
+              {getPublishKey()
+                ? <button type="button" className="btn btn--primary btn--sm" onClick={publishJobs} disabled={pubBusy}>{pubBusy ? '반영 중…' : '홈페이지 전체 반영'}</button>
+                : <span className="small muted">이 PC에는 반영 키가 등록되어 있지 않습니다. 관리자에게 반영을 요청하십시오.</span>}
+            </div>
           )}
         </div>
       </section>
