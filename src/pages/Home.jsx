@@ -6,7 +6,16 @@ import CountUp from '../components/CountUp'
 import KoreaMap from '../components/KoreaMap'
 import { SectionHead } from '../components/Section'
 import { partners } from '../data/partners'
-import { ArrowRight, Check, Truck, Spark } from '../components/Icons'
+import { ArrowRight, Check, Truck, Spark, Building, Shield, Chart, Route, Clock, Users } from '../components/Icons'
+
+const ICONS = { truck: Truck, building: Building, shield: Shield, chart: Chart, route: Route, clock: Clock, users: Users, spark: Spark }
+const WHY_ICONS = [Truck, Building, Shield, Chart]
+const NET_ICONS = [Route, Clock, Users]
+const groupHubs = (hubs = []) => {
+  const m = new Map()
+  hubs.forEach(h => { const g = h.group || h.region || '기타'; if (!m.has(g)) m.set(g, []); m.get(g).push(h) })
+  return [...m.entries()]
+}
 
 function Hero({ hero }) {
   const imgs = (hero.images || []).filter(Boolean)
@@ -106,34 +115,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Why 삼원 + 소개 */}
-      <section className="section section--soft">
-        <div className="wrap intro">
-          <div data-reveal="">
-            <span className="eyebrow">{c.why.eyebrow}</span>
-            <h2 className="h-section pre">{c.why.title.replace('네 가지', '네\u00a0가지')}</h2>
-            <p className="lead">{c.why.lead}</p>
-            <div className="why" style={{ marginTop: 32 }}>
-              {c.why.items.map((w, i) => (
-                <div className="why__item" key={i}><div className="why__num">{w.num}</div><div><h3>{w.title}</h3><p>{w.desc}</p></div></div>
-              ))}
-            </div>
-            <Link className="btn btn--primary" to="/company/intro" style={{ marginTop: 32 }}>회사소개 보기 <ArrowRight /></Link>
+      {/* 4. Why 삼원 */}
+      <section className="section section--soft why-sec">
+        <div className="wrap">
+          <SectionHead center eyebrow={c.why.eyebrow} title={c.why.title.replace('네 가지', '네\u00a0가지')} lead={c.why.lead} />
+          <div className="why-grid">
+            {c.why.items.map((w, i) => { const Ic = ICONS[w.icon] || WHY_ICONS[i % WHY_ICONS.length]; return (
+              <article className="why-card" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
+                <div className="why-card__top"><span className="why-card__icon"><Ic /></span><span className="why-card__num">{w.num}</span></div>
+                {w.stat && <div className="why-card__stat"><b>{w.stat}</b><span>{w.statLabel}</span></div>}
+                <h3>{w.title}</h3>
+                <p>{w.desc}</p>
+              </article>) })}
           </div>
-          <div className="photo photo--tall" data-reveal="" style={{ transitionDelay: '.1s' }}><img src={asset(c.intro.image)} alt="삼원종합물류" /></div>
+          <div style={{ textAlign: 'center', marginTop: 40 }}><Link className="btn btn--primary" to="/company/intro">회사소개 보기 <ArrowRight /></Link></div>
         </div>
       </section>
 
       {/* 5. 네트워크 (실제 지도) */}
-      <section className="section">
-        <div className="wrap network">
-          <div className="map" data-reveal=""><KoreaMap hubs={c.network.hubs} /></div>
-          <div data-reveal="">
-            <span className="eyebrow">{c.network.eyebrow}</span>
-            <h2 className="h-section pre">{c.network.title}</h2>
-            <p className="lead">{c.network.lead}</p>
-            <ul className="net-points">{c.network.points.map((p, i) => <li key={i}><Check />{p}</li>)}</ul>
-            <ul className="hub-list">{c.network.hubs.map((h, i) => <li key={i} className={h.main ? 'main' : ''}><b>{h.name}</b><span>{h.region}</span></li>)}</ul>
+      <section className="section net-sec">
+        <div className="wrap">
+          <SectionHead center eyebrow={c.network.eyebrow} title={c.network.title} lead={c.network.lead} />
+          <div className="net">
+            <div className="net__map" data-reveal="">
+              <KoreaMap hubs={c.network.hubs} />
+              <div className="net__legend"><span><i className="is-main" />주요 거점</span><span><i />권역 운행 거점</span></div>
+            </div>
+            <div className="net__side">
+              <div className="net__feats">
+                {c.network.points.map((p, i) => { const o = typeof p === 'string' ? { title: p } : p; const Ic = ICONS[o.icon] || NET_ICONS[i % NET_ICONS.length]; return (
+                  <div className="net-feat" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
+                    <span className="net-feat__icon"><Ic /></span>
+                    <div><b>{o.title}</b>{o.desc && <span>{o.desc}</span>}</div>
+                  </div>) })}
+              </div>
+              <div className="net__regions" data-reveal="">
+                {groupHubs(c.network.hubs).map(([g, list]) => (
+                  <div className="net-region" key={g}>
+                    <span className="net-region__name">{g}</span>
+                    <div className="net-region__chips">{list.map(h => <span key={h.name} className={h.main ? 'is-main' : ''}>{h.name}</span>)}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

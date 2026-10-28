@@ -746,3 +746,62 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   .card--link > .link { align-self: start; padding-bottom: 14px; margin-top: 6px !important; }
 }
 @media (max-width: 639px) { .grid--4.grid--m1 { grid-template-columns: 1fr; } .grid--m1 .card { display: grid; grid-template-columns: 64px 1fr; column-gap: 16px; align-items: start; } .grid--m1 .card > :first-child { grid-row: 1 / 3; } .grid--m1 .card__logo { height: auto; margin: 0; } .grid--m1 .card__logo img { max-width: 64px; max-height: 64px; } }
+
+/* ── WHY SAMWON (카드형) ───────────────────────── */
+.why-grid { display: grid; gap: 16px; margin-top: 8px; }
+@media (min-width: 700px) { .why-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (min-width: 1100px) { .why-grid { grid-template-columns: repeat(4, 1fr); } }
+.why-card { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 28px 26px 30px; overflow: hidden; transition: transform .35s var(--ease), box-shadow .35s, border-color .35s; }
+.why-card::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--blue), var(--blue-500)); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); }
+.why-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: transparent; }
+.why-card:hover::before { transform: scaleX(1); }
+.why-card__top { display: flex; align-items: center; justify-content: space-between; }
+.why-card__icon { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--blue-500), var(--blue)); box-shadow: 0 12px 24px -12px rgba(5, 69, 146, .6); }
+.why-card__icon svg { width: 28px; height: 28px; }
+.why-card__num { font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -.04em; color: var(--blue-100); }
+.why-card__stat { margin-top: 26px; padding-bottom: 18px; border-bottom: 1px dashed var(--line); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; }
+.why-card__stat b { font-size: clamp(1.7rem, 2.6vw, 2.1rem); font-weight: 800; letter-spacing: -.03em; color: var(--blue); line-height: 1.15; }
+.why-card__stat span { font-size: 14px; font-weight: 600; color: var(--ink-3); }
+.why-card h3 { margin-top: 18px; font-size: 1.2rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.4; }
+.why-card p { margin-top: 10px; font-size: 15.5px; line-height: 1.7; color: var(--ink-2); }
+@media (max-width: 699px) {
+  .why-card { padding: 22px 20px 24px; }
+  .why-card__icon { width: 48px; height: 48px; border-radius: 14px; }
+  .why-card__icon svg { width: 24px; height: 24px; }
+  .why-card__num { font-size: 36px; }
+  .why-card__stat { margin-top: 18px; padding-bottom: 14px; }
+}
+
+/* ── NATIONWIDE NETWORK ────────────────────────── */
+.net { display: grid; gap: 24px; margin-top: 8px; align-items: stretch; }
+@media (min-width: 1000px) { .net { grid-template-columns: 1fr 1fr; gap: 32px; } }
+.net__map { display: flex; flex-direction: column; justify-content: center; position: relative; border-radius: 28px; padding: 28px 28px 20px; background: radial-gradient(120% 90% at 30% 10%, #ffffff 0%, var(--blue-50) 60%, #e9f1fb 100%); border: 1px solid var(--line); }
+.net__map svg { width: 100%; max-width: 440px; height: auto; margin: 0 auto; }
+.net__map text { font-family: var(--font); paint-order: stroke; stroke: rgba(255,255,255,.9); stroke-width: .7; stroke-linejoin: round; }
+.net__map .km-main text { stroke: none; }
+.net__legend { display: flex; justify-content: center; gap: 20px; margin-top: 10px; font-size: 13.5px; font-weight: 600; color: var(--ink-3); }
+.net__legend span { display: inline-flex; align-items: center; gap: 8px; }
+.net__legend i { width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 2px solid var(--blue-500); }
+.net__legend i.is-main { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-100); }
+.net__side { display: grid; gap: 16px; align-content: start; }
+.net__feats { display: grid; gap: 12px; }
+.net-feat { display: flex; gap: 16px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; transition: border-color .3s, box-shadow .3s; }
+.net-feat:hover { border-color: var(--blue-100); box-shadow: 0 16px 36px -24px rgba(5, 40, 96, .4); }
+.net-feat__icon { flex: none; width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--blue-50); color: var(--blue); }
+.net-feat__icon svg { width: 24px; height: 24px; }
+.net-feat b { display: block; font-size: 17px; font-weight: 800; letter-spacing: -.015em; }
+.net-feat span { display: block; margin-top: 2px; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+.net__regions { background: var(--bg-soft); border-radius: 18px; padding: 8px 20px; }
+.net-region { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.net-region:last-child { border-bottom: 0; }
+.net-region__name { font-size: 13px; font-weight: 800; color: var(--blue); letter-spacing: .02em; }
+.net-region__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.net-region__chips span { font-size: 14px; font-weight: 600; padding: 5px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); color: var(--ink); white-space: nowrap; }
+.net-region__chips span.is-main { background: var(--blue); border-color: var(--blue); color: #fff; }
+@media (max-width: 699px) {
+  .net__map { padding: 18px 12px 14px; border-radius: 22px; }
+  .net-feat { padding: 16px; gap: 14px; }
+  .net-feat__icon { width: 44px; height: 44px; }
+  .net__regions { padding: 4px 16px; }
+  .net-region { grid-template-columns: 56px 1fr; }
+}
