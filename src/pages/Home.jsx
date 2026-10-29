@@ -125,7 +125,7 @@ export default function Home() {
       <Hero hero={c.hero} />
 
       {/* 1. 핵심 역량 (인증) — 첫 사이트 구성 */}
-      <section className="section">
+      <section className="section" id="certs">
         <div className="wrap">
           <SectionHead center eyebrow="CORE COMPETENCIES" title={c.certifications.title} lead="국가 공인 인증과 국제 표준 경영시스템으로 검증된 운영 품질" />
           <div className="certs">
@@ -225,36 +225,6 @@ export default function Home() {
         <div className="wrap"><p className="small muted" style={{ marginTop: 24, textAlign: 'center' }}>{c.partnersSection.note}</p></div>
       </section>
 
-      {/* 7. 차주 전용 · 에스원퀵 */}
-      <section className="section" id="driver">
-        <div className="wrap portals">
-          <div className="portal portal--driver" data-reveal="">
-            <div className="portal__icon"><Truck /></div>
-            <span className="eyebrow">{c.portals.driver.eyebrow}</span>
-            <h2>{c.portals.driver.title}</h2>
-            <p>{c.portals.driver.desc}</p>
-            <PortalBtn url={co.driverUrl} label={c.portals.driver.button} cls="btn--white" />
-          </div>
-          <div className="portal portal--quick" data-reveal="" style={{ transitionDelay: '.1s' }}>
-            <div className="portal__icon"><Spark /></div>
-            <span className="eyebrow">{c.portals.s1quick.eyebrow}</span>
-            <h2>{c.portals.s1quick.title}</h2>
-            <p>{c.portals.s1quick.desc}</p>
-            <PortalBtn url={co.s1quickUrl} label={c.portals.s1quick.button} cls="btn--white" />
-          </div>
-        </div>
-      </section>
-
-      {/* 8. 상담 CTA */}
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <div className="cta" data-reveal="">
-            <img src={asset(c.cta.image)} alt="" loading="lazy" />
-            <h2>{c.cta.title}</h2><p>{c.cta.desc}</p>
-            <Link className="btn btn--white btn--lg" to="/contact">{c.cta.button} <ArrowRight /></Link>
-          </div>
-        </div>
-      </section>
     </>
   )
 }
