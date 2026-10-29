@@ -1092,3 +1092,27 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 /* 줄바꿈 품질: 한두 글자만 다음 줄로 넘어가는 현상 방지 */
 p, li, dd, blockquote, figcaption, .lead, .small, label { text-wrap: pretty; }
 h1, h2, h3, h4, .h-section, .h-sub, .h-display, .hero__sub, .page-head p, .section-head .lead, .kpi__l, .kpi__d, .stat__label, .card h3, .why-card h3, .special__card h3 { text-wrap: balance; }
+
+/* ═══ 회사연혁 (hy) — 두 단 한눈에 보기 ═══ */
+.hy { display: grid; gap: 0 72px; }
+@media (min-width: 1000px) { .hy { grid-template-columns: 1fr 1fr; } }
+.hy__col { list-style: none; margin: 0; padding: 0; }
+.hy__year { position: relative; display: grid; grid-template-columns: 112px 1fr; gap: 24px; padding: 26px 0; border-top: 1px solid var(--line); }
+.hy__col > .hy__year:first-child { border-top: 2px solid var(--ink); }
+.hy__col:last-child > .hy__year:last-child { border-bottom: 2px solid var(--ink); }
+@media (min-width: 1000px) { .hy__col > .hy__year:last-child { border-bottom: 2px solid var(--ink); } }
+.hy__y { font-size: 34px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; color: var(--blue); font-variant-numeric: tabular-nums; }
+.hy__events { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.hy__events li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: baseline; }
+.hy__m { font-size: 17px; font-weight: 800; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.hy__m::after { content: '월'; font-weight: 600; font-size: .85em; margin-left: 1px; }
+.hy__events p { font-size: 19.5px; font-weight: 600; color: var(--ink); line-height: 1.55; letter-spacing: -.01em; }
+.hy__events li.is-key p { font-weight: 800; }
+.hy__events li.is-key p::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); margin: 0 9px 3px 0; vertical-align: middle; }
+@media (max-width: 699px) {
+  .hy__year { grid-template-columns: 1fr; gap: 12px; padding: 22px 0; }
+  .hy__y { font-size: 28px; }
+  .hy__events li { grid-template-columns: 38px 1fr; }
+  .hy__events p { font-size: 18.5px; }
+}
+@media (max-width: 999px) { .hy__col:first-child > .hy__year:last-child { border-bottom: 0; } .hy__col:last-child > .hy__year:first-child { border-top: 1px solid var(--line); } }
