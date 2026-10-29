@@ -27,7 +27,7 @@ export default function KoreaMap({ hubs = [] }) {
         return (
           <g key={'s' + i} className="km-dot">
             <circle cx={x} cy={y} r="1.5" fill="#fff" stroke="#1a66c4" strokeWidth=".8" />
-            {showLabel && <text x={left ? x - 2.6 : x + 2.6} y={y + 1.2} textAnchor={left ? 'end' : 'start'} fontSize="3.3" fontWeight="600" fill="#4a5468">{h.label || h.city}</text>}
+            {showLabel && <text x={left ? x - 2.6 : x + 2.6} y={y + 1.2} textAnchor={left ? 'end' : 'start'} fontSize="3.9" fontWeight="700" fill="#1f2a3d">{h.label || h.city}</text>}
           </g>
         )
       })}
@@ -35,7 +35,7 @@ export default function KoreaMap({ hubs = [] }) {
       {pts.filter(h => h.main).map((h, i) => {
         const [x, y] = h.p
         const text = h.label || h.name
-        const w = text.length * 3.5 + 5
+        const w = text.length * 3.9 + 5.5
         const left = SIDE[h.city] === 'left'
         const bx = left ? x - 3 - w : x + 3
         const by = left ? y - 8.5 : y + 1.2
@@ -43,8 +43,8 @@ export default function KoreaMap({ hubs = [] }) {
           <g key={'m' + i} className="km-main">
             <circle className="pulse" cx={x} cy={y} r="3.6" fill="none" stroke="#054592" strokeWidth=".7" />
             <circle cx={x} cy={y} r="2.2" fill="#054592" stroke="#fff" strokeWidth=".8" />
-            <rect x={bx} y={by} width={w} height="6.4" rx="3.2" fill="#054592" />
-            <text x={bx + w / 2} y={by + 4.4} textAnchor="middle" fontSize="3.4" fontWeight="700" fill="#fff">{text}</text>
+            <rect x={bx} y={by} width={w} height="7" rx="3.5" fill="#054592" />
+            <text x={bx + w / 2} y={by + 4.9} textAnchor="middle" fontSize="3.8" fontWeight="800" fill="#fff">{text}</text>
           </g>
         )
       })}
