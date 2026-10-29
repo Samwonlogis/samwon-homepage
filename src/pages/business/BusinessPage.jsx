@@ -37,7 +37,6 @@ export default function BusinessPage({ id: fixedId }) {
   if (!p) return <Navigate to="/business" replace />
   const others = c.businessAreas.filter(b => b.id !== id)
   const vehicles = (p.vehicles || []).map(vehicleById).filter(Boolean)
-  const cs = p.caseStudy
 
   return (
     <>
@@ -48,7 +47,7 @@ export default function BusinessPage({ id: fixedId }) {
         <div className="wrap split">
           <div data-reveal="">
             <span className="sh-en">Overview</span>
-            <h2 className="h-section">{p.slogan}</h2>
+            <h2 className="h-section pre">{p.slogan}</h2>
             <p className="lead pre">{p.overview}</p>
           </div>
           <div className="photo" data-reveal=""><img src={asset(p.image)} alt={p.title} /></div>
@@ -128,20 +127,11 @@ export default function BusinessPage({ id: fixedId }) {
           <div className="wrap">
             <SectionHead center eyebrow="FLEET" title="투입 차량" lead="화물 특성과 물량에 맞춰 아래 차종을 조합해 운영합니다." />
             <div className={`veh-minis ${vehicles.length === 4 ? 'veh-minis--4' : ''}`}>{vehicles.map(v => <VehicleMini key={v.id} v={v} />)}{vehicles.length % 3 !== 0 && vehicles.length !== 4 && <VehicleCtaTile />}</div>
-            <div style={{ textAlign: 'center', marginTop: 24 }}><Link className="link" to="/company/status#fleet">차종별 제원·운송 제품 보기 <ArrowRight /></Link></div>
+            <div style={{ textAlign: 'center', marginTop: 24 }}><Link className="link" to="/company/status#fleet">차종별 제원⁠·운송 제품 보기 <ArrowRight /></Link></div>
           </div>
         </section>
       )}
-      {p.deliverables && (
-        <section className="section section--soft">
-          <div className="wrap">
-            <SectionHead center eyebrow="DELIVERABLES" title="컨설팅 산출물" />
-            <div className="deliv">{p.deliverables.map((d, i) => <div className="deliv__item" key={i} data-reveal=""><span>{String(i + 1).padStart(2, '0')}</span><b>{d}</b></div>)}</div>
-          </div>
-        </section>
-      )}
-
-      {/* 7. 시즌·특수 배송 */}
+      {/* 7. 시즌⁠·특수 배송 */}
       {p.special && (
         <section className="section special-sec">
           <div className="wrap">
@@ -158,25 +148,9 @@ export default function BusinessPage({ id: fixedId }) {
         </section>
       )}
 
-      {/* 8. 운영 사례 */}
-      {cs && (
-        <section className="section">
-          <div className="wrap">
-            <SectionHead center eyebrow="CASE STUDY" title="운영 사례" lead={cs.client} />
-            <div className="case3" data-reveal="">
-              <div className="case3__col case3__col--p"><span className="case3__tag">과제</span><p>{cs.problem}</p></div>
-              <div className="case3__arrow"><ArrowRight /></div>
-              <div className="case3__col case3__col--s"><span className="case3__tag">삼원의 해법</span><p>{cs.solution}</p></div>
-              <div className="case3__arrow"><ArrowRight /></div>
-              <div className="case3__col case3__col--r"><span className="case3__tag"><Check /> 결과</span><p>{cs.result}</p></div>
-            </div>
-          </div>
-        </section>
-      )}
-
       <section className="quote quote--photo">
         <img src={asset(p.image)} alt="" />
-        <div className="wrap"><blockquote data-reveal="">{p.quote}</blockquote></div>
+        <div className="wrap"><blockquote className="pre" data-reveal="">{p.quote}</blockquote></div>
       </section>
 
       <section className="section section--soft">

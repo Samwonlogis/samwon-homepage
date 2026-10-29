@@ -3,7 +3,7 @@ import { useContent } from '../context/ContentContext'
 import { asset } from '../utils/storage'
 import { Phone, ArrowDown } from './Icons'
 
-// 푸터 — 로고 · 바로가기(오시는 길/인증/고객센터) · 회사 정보 · 저작권
+// 푸터 — 로고 · 바로가기(오시는 길/인증/고객센터) · 회사 정보 · 저작권
 export default function Footer() {
   const { content } = useContent()
   const c = content.company

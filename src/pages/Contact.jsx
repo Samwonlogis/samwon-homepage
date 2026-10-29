@@ -46,7 +46,6 @@ export default function Contact() {
               <li><span className="card__icon"><Fax /></span><div><b>팩스 번호</b><p>{co.fax}</p></div></li>
               <li><span className="card__icon"><Mail /></span><div><b>이메일</b><p className="t-blue">{co.email}</p></div></li>
               <li><span className="card__icon"><Pin /></span><div><b>본사 소재지</b><p>{co.address}</p></div></li>
-              <li><span className="card__icon"><Truck /></span><div><b>차고지</b><p>{c.offices.find(o => /차고지/.test(o.name))?.address || '경기도 연천군 전곡읍'}</p></div></li>
             </ul>
             {cp.kakao && <div className="notice"><b>{cp.kakao.title}</b><br />{cp.kakao.desc}</div>}
           </div>
@@ -61,7 +60,7 @@ export default function Contact() {
               <label>회사명<input value={f.company} onChange={on('company')} placeholder="회사명을 입력하십시오" /></label>
             </div>
             <label>문의 분야 *<select value={f.service} onChange={on('service')}>
-              {['기업물류', '유통물류', '주선 · 에스원퀵 서비스', '창고운영 및 리스크관리', '물류컨설팅', '기타 제휴 문의'].map(x => <option key={x}>{x}</option>)}
+              {['기업물류', '유통물류', '주선 · 에스원퀵 서비스', '창고운영 및 리스크관리', '물류컨설팅', '기타 제휴 문의'].map(x => <option key={x}>{x}</option>)}
             </select></label>
             <label>상세 내용 *<textarea rows="6" required value={f.msg} onChange={on('msg')} placeholder="문의하실 구체적인 물동량, 주기, 보관 요건 등을 남겨주십시오." /></label>
             <button className="btn btn--primary btn--lg" type="submit" style={{ width: '100%' }}>제휴 문의 신청하기 <ArrowRight /></button>

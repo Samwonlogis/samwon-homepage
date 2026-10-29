@@ -5,6 +5,9 @@ import { verifyStaffLogin } from '../../data/staffAccounts'
 import { publishContent, getPublishKey } from '../../utils/publish'
 import { Phone, X, Truck, Pin, Clock, Chart } from '../../components/Icons'
 
+// 마지막 짧은 단어(3자 이하)가 홀로 줄바꿈되지 않도록 앞 단어와 붙임
+const noOrphan = (t) => typeof t === 'string' ? t.replace(/ (\S{1,3})$/, '\u00a0$1') : t
+
 const NAV = [{ to: '/recruitment/talent', label: '인재상' }, { to: '/recruitment/jobs', label: '차주구인' }]
 const STORE_KEY = 'samwon_driver_jobs_v2'
 const SESSION_KEY = 'samwon_staff_session'
@@ -67,7 +70,7 @@ export default function DriverJobs() {
           <div className="jobs__head" data-reveal="">
             <div>
               <h2 className="h-section" style={{ marginTop: 0 }}>차주 파트너 모집 공고</h2>
-              <p className="lead" style={{ marginTop: 10 }}>고정 노선·안정 물량·투명 정산 기반의 차주 파트너십 기회를 확인하십시오.</p>
+              <p className="lead" style={{ marginTop: 10 }}>고정 노선⁠·안정 물량⁠·투명 정산 기반의 차주 파트너십 기회를 확인하십시오.</p>
             </div>
             <div className="jobs__tools">
               {staff
@@ -89,10 +92,10 @@ export default function DriverJobs() {
                   <span className={`jobcard__badge ${p.type === '차량분양' ? 'is-sale' : ''}`}>{p.type}</span>
                   <h3>{p.title}</h3>
                   <dl className="jobcard__info">
-                    <div><dt><Chart /> 급여 / 수입</dt><dd>{p.income}</dd></div>
-                    <div><dt><Truck /> 운송 차량</dt><dd>{p.vehicle}</dd></div>
-                    <div className="full"><dt><Pin /> 노선 / 지역</dt><dd>{p.location}</dd></div>
-                    <div className="full"><dt><Clock /> 근무 시간</dt><dd>{p.hours}</dd></div>
+                    <div><dt><Chart /> 급여 / 수입</dt><dd>{noOrphan(p.income)}</dd></div>
+                    <div><dt><Truck /> 운송 차량</dt><dd>{noOrphan(p.vehicle)}</dd></div>
+                    <div className="full"><dt><Pin /> 노선 / 지역</dt><dd>{noOrphan(p.location)}</dd></div>
+                    <div className="full"><dt><Clock /> 근무 시간</dt><dd>{noOrphan(p.hours)}</dd></div>
                   </dl>
                   {p.desc && <p className="jobcard__desc">{p.desc}</p>}
                   <div className="jobcard__foot">
@@ -107,7 +110,7 @@ export default function DriverJobs() {
 
           {staff && (
             <div className="jobs-publish">
-              <div><b>공고 반영 안내</b><span>{pending ? '변경된 공고가 있습니다. 「홈페이지 전체 반영」을 눌러야 모든 방문자에게 공개됩니다.' : '등록·수정한 공고는 「홈페이지 전체 반영」 후 모든 방문자에게 공개됩니다.'}</span></div>
+              <div><b>공고 반영 안내</b><span>{pending ? '변경된 공고가 있습니다. 「홈페이지 전체 반영」을 눌러야 모든 방문자에게 공개됩니다.' : '등록⁠·수정한 공고는 「홈페이지 전체 반영」 후 모든 방문자에게 공개됩니다.'}</span></div>
               {getPublishKey()
                 ? <button type="button" className="btn btn--primary btn--sm" onClick={publishJobs} disabled={pubBusy}>{pubBusy ? '반영 중…' : '홈페이지 전체 반영'}</button>
                 : <span className="small muted">이 PC에는 반영 키가 등록되어 있지 않습니다. 관리자에게 반영을 요청하십시오.</span>}
@@ -145,7 +148,7 @@ export default function DriverJobs() {
           <form className="modal__box modal__box--sm" onSubmit={doLogin}>
             <div className="modal__head"><h3>직원 로그인</h3><button type="button" className="burger" onClick={() => setLoginOpen(false)} aria-label="닫기"><X /></button></div>
             <div className="modal__body form" style={{ border: 0, borderRadius: 0 }}>
-              <p className="small">차주구인 공고 등록·수정은 삼원종합물류 임직원 전용 기능입니다.</p>
+              <p className="small">차주구인 공고 등록⁠·수정은 삼원종합물류 임직원 전용 기능입니다.</p>
               <label>아이디<input value={login.id} onChange={e => setLogin({ ...login, id: e.target.value })} autoComplete="username" /></label>
               <label>비밀번호<input type="password" value={login.password} onChange={e => setLogin({ ...login, password: e.target.value })} autoComplete="current-password" /></label>
               {loginErr && <p className="small" style={{ color: '#c0392b' }}>{loginErr}</p>}

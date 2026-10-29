@@ -22,8 +22,10 @@ export function VehicleCard({ v }) {
       <div className="veh__body">
         <div className="veh__head"><h3>{v.name}</h3><span>{v.sub}</span></div>
         <dl className="veh__spec">{v.specs.map(([k, val]) => <div key={k}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
-        <p className="veh__use"><b>주요 용도</b>{v.use}</p>
-        <div className="veh__goods"><b>주요 운송 제품</b><ul>{v.goods.map(g => <li key={g}>{g}</li>)}</ul></div>
+        <dl className="veh__more">
+          <div><dt>주요 용도</dt><dd>{v.use}</dd></div>
+          <div><dt>운송 제품</dt><dd className="veh__goods-txt">{v.goods.map(g => <span key={g}>{g}</span>)}</dd></div>
+        </dl>
       </div>
     </article>
   )
@@ -35,9 +37,7 @@ export function VehicleMini({ v }) {
       <VehicleVisual v={v} small />
       <div className="veh-mini__txt">
         <b>{v.name}</b><span>{v.sub}</span>
-        <dl className="veh-mini__spec">{v.specs.slice(0, 2).map(([k, val]) => <div key={k}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
-        <p className="veh-mini__use"><em>주요 용도</em>{v.use}</p>
-        <ul className="veh-mini__goods">{v.goods.slice(0, 4).map(g => <li key={g}>{g}</li>)}</ul>
+        <dl className="veh-mini__spec">{v.specs.slice(0, 2).map(([k, val]) => <div key={k}><dt>{k}</dt><dd>{val}</dd></div>)}<div><dt>용도</dt><dd>{v.use}</dd></div></dl>
       </div>
     </Link>
   )
@@ -50,7 +50,7 @@ export function VehicleCtaTile() {
       <div className="veh-mini__cta">
         <span className="veh-mini__cta-icon"><ArrowRight /></span>
         <b>화물에 맞는 차종,<br />전담 배차 담당자가 제안합니다</b>
-        <p>품목·물량·온도 조건을 알려주시면 톤수와 차종을 조합해 최적의 운송안을 드립니다.</p>
+        <p>품목⁠·물량⁠·온도 조건을 알려주시면 톤수와 차종을 조합해 최적의 운송안을 드립니다.</p>
         <span className="veh-mini__cta-link">차종 상담 신청 <ArrowRight /></span>
       </div>
     </Link>
@@ -59,7 +59,7 @@ export function VehicleCtaTile() {
 
 export default function VehicleGuide({ filter }) {
   const [tab, setTab] = useState('all')
-  const groups = [['all', '전체'], ['small', '소형 · 도심'], ['mid', '중형 · 냉장'], ['large', '대형 · 특수']]
+  const groups = [['all', '전체'], ['small', '소형 · 도심'], ['mid', '중형 · 냉장'], ['large', '대형 · 특수']]
   const inTab = (v) => tab === 'all' || (tab === 'small' && ['quick', '1t'].includes(v.id)) || (tab === 'mid' && ['box', 'reefer'].includes(v.id)) || (tab === 'large' && ['wing', 'cargo', 'container'].includes(v.id))
   const list = VEHICLES.filter(v => (!filter || filter.includes(v.id)) && inTab(v))
   return (

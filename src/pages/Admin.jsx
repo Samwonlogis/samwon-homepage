@@ -9,30 +9,30 @@ import { publishContent, publishable, getPublishKey, setPublishKey, REPO } from 
 
 // ─── 섹션 구성 (왼쪽 메뉴) ───────────────────────────────
 const SECTIONS = [
-  { key: 'staffAccounts', label: '직원 계정 관리', hint: '차주구인 공고를 등록·관리할 직원 아이디 생성·삭제·비밀번호 재설정', custom: true },
-  { key: 'company', label: '회사 기본정보', hint: '회사명·연락처·주소 등 사이트 전체 공통 정보' },
-  { key: 'hero', label: '메인 히어로', hint: '메인 상단 문구·버튼·배경 영상(비우면 이미지 슬라이드로 전환)' },
+  { key: 'staffAccounts', label: '직원 계정 관리', hint: '차주구인 공고를 등록⁠·관리할 직원 아이디 생성⁠·삭제⁠·비밀번호 재설정', custom: true },
+  { key: 'company', label: '회사 기본정보', hint: '회사명⁠·연락처⁠·주소 등 사이트 전체 공통 정보' },
+  { key: 'hero', label: '메인 히어로', hint: '메인 상단 문구⁠·버튼⁠·배경 영상(비우면 이미지 슬라이드로 전환)' },
   { key: 'stats', label: '메인 핵심 수치', hint: '숫자 카운트 4종' },
   { key: 'why', label: 'Why 삼원', hint: '선택 이유 4가지' },
-  { key: 'businessAreas', label: '사업영역 타일', hint: '메인·사업영역 개요의 5개 타일 (이미지 포함)' },
-  { key: 'businessPages', label: '사업영역 상세', hint: '기업물류·유통물류·주선·창고·컨설팅 상세 페이지' },
+  { key: 'businessAreas', label: '사업영역 타일', hint: '메인⁠·사업영역 개요의 5개 타일 (이미지 포함)' },
+  { key: 'businessPages', label: '사업영역 상세', hint: '기업물류⁠·유통물류⁠·주선⁠·창고⁠·컨설팅 상세 페이지' },
   { key: 'network', label: '전국 네트워크', hint: '지도 거점 — city에 도시명을 적으면 실제 지도 위치에 표시' },
   { key: 'certifications', label: '인증 현황', hint: '인증 5종 — 로고 이미지를 업로드하면 배지 대신 로고가 표시됩니다 (이름은 줄바꿈 없이 짧게)' },
   { key: 'partnersSection', label: '거래처 섹션 문구', hint: '거래처 로고는 src/data/partners.js에서 관리' },
   { key: 'caseStudies', label: '운영 사례', hint: '산업별 사례 4종' },
-  { key: 'portals', label: '차주 전용 · 에스원퀵 박스', hint: '메인 하단 바로가기 박스 문구 (링크는 회사 기본정보에서)' },
+  { key: 'portals', label: '차주 전용 · 에스원퀵 박스', hint: '메인 하단 바로가기 박스 문구 (링크는 회사 기본정보에서)' },
   { key: 'cta', label: '상담 유도 배너', hint: '메인 하단 CTA' },
-  { key: 'intro', label: '회사개요', hint: '회사소개 본문·비전·미션·핵심가치·대표 이미지' },
-  { key: 'ceo', label: 'CEO 인사말', hint: '대표이사 사진·헤드라인·본문' },
+  { key: 'intro', label: '회사개요', hint: '회사소개 본문⁠·비전⁠·미션⁠·핵심가치⁠·대표 이미지' },
+  { key: 'ceo', label: 'CEO 인사말', hint: '대표이사 사진⁠·헤드라인⁠·본문' },
   { key: 'history', label: '연혁', hint: '연도별 주요 사건' },
   { key: 'subsidiaries', label: '계열사', hint: '6개 법인' },
   { key: 'fleet', label: '운송 규모', hint: '차종별 운영 설명' },
   { key: 'offices', label: '사업장', hint: '오시는 길 하단 사업장 목록' },
-  { key: 'directions', label: '교통 안내', hint: '지하철·버스·주차·지도 검색어' },
+  { key: 'directions', label: '교통 안내', hint: '지하철⁠·버스⁠·주차⁠·지도 검색어' },
   { key: 'principles', label: '운영 원칙', hint: '사업영역 개요 하단 4대 원칙' },
-  { key: 'recruitment', label: '채용·차주 모집', hint: '인재상·채용공고·차주 모집 공고' },
-  { key: 'contactPage', label: '고객센터', hint: '상담 절차·FAQ' },
-  { key: 'footer', label: '푸터', hint: '하단 소개 문구·저작권' },
+  { key: 'recruitment', label: '채용⁠·차주 모집', hint: '인재상⁠·채용공고⁠·차주 모집 공고' },
+  { key: 'contactPage', label: '고객센터', hint: '상담 절차⁠·FAQ' },
+  { key: 'footer', label: '푸터', hint: '하단 소개 문구⁠·저작권' },
 ]
 
 const IMG_KEYS = /^(image|images|photo|logo|bannerImage|poster)$/
@@ -40,11 +40,11 @@ const LONG_KEYS = /^(desc|overview|subtitle|lead|message|headline|slogan|a|resul
 const LABELS = {
   name: '이름', nameEn: '영문명', title: '제목', subtitle: '부제', desc: '설명', eyebrow: '상단 라벨', lead: '리드 문장', image: '이미지', images: '이미지 목록', photo: '사진',
   slogan: '슬로건', overview: '개요', strengths: '핵심 역량', process: '프로세스', quote: '인용문', label: '라벨', en: '영문 라벨', short: '요약', items: '항목', points: '포인트',
-  value: '숫자', suffix: '단위', sub: '보조 설명', num: '번호', phone: '전화', fax: '팩스', email: '이메일', quickPhone: '에스원퀵 번호', address: '주소', bizNumber: '사업자등록번호', ceo: '대표이사', founded: '설립일', revenue: '매출', creditRating: '신용등급', website: '웹사이트', driverUrl: '차주 전용 링크(/driver 또는 외부 https:// 주소)', driverApi: '차주 로그인 API 주소(연동 시 입력)', driverLabel: '차주 전용 버튼 문구', s1quickUrl: '에스원퀵 링크(URL)', s1quickLabel: '에스원퀵 버튼 문구', city: '지도 도시(서울·이천·인천·연천·대전·부산·대구·광주·전주·원주·강릉·제주·울산·천안·청주·여주)', driver: '차주 전용 박스', s1quick: '에스원퀵 박스',
+  value: '숫자', suffix: '단위', sub: '보조 설명', num: '번호', phone: '전화', fax: '팩스', email: '이메일', quickPhone: '에스원퀵 번호', address: '주소', bizNumber: '사업자등록번호', ceo: '대표이사', founded: '설립일', revenue: '매출', creditRating: '신용등급', website: '웹사이트', driverUrl: '차주 전용 링크(/driver 또는 외부 https:// 주소)', driverApi: '차주 로그인 API 주소(연동 시 입력)', driverLabel: '차주 전용 버튼 문구', s1quickUrl: '에스원퀵 링크(URL)', s1quickLabel: '에스원퀵 버튼 문구', city: '지도 도시(서울⁠·이천⁠·인천⁠·연천⁠·대전⁠·부산⁠·대구⁠·광주⁠·전주⁠·원주⁠·강릉⁠·제주⁠·울산⁠·천안⁠·청주⁠·여주)', driver: '차주 전용 박스', s1quick: '에스원퀵 박스',
   primaryCta: '주 버튼', video: '배경 영상(mp4 경로)', videoWebm: '배경 영상(webm 경로)', poster: '영상 로딩 전 이미지', secondaryCta: '보조 버튼', button: '버튼', year: '연도', events: '주요 사건', role: '역할', location: '소재지', range: '규모', type: '구분', groups: '차종 그룹', main: '대표 여부', region: '권역', x: 'X(%)', y: 'Y(%)', hubs: '거점', code: '코드', org: '기관',
   client: '고객', service: '서비스', result: '성과', vision: '비전', mission: '미션', values: '핵심 가치', paragraphs: '본문 문단', headline: '헤드라인', subway: '지하철', bus: '버스', parking: '주차', mapQuery: '지도 검색어', note: '하단 주석',
   openings: '채용 공고', benefits: '복리후생', step: '단계', coreValues: '핵심 역량 4종', kakao: '카카오톡 관제 안내 박스', income: '급여/수입', contactPerson: '담당자', contactPhone: '담당자 연락처', total: '총 운용 대수', totalDesc: '총계 설명', dept: '부서', deadline: '마감', driverIntro: '차주 소개 문구', driverJobs: '차주 공고', vehicle: '차량', area: '구간', hours: '시간', driverRequirements: '지원 자격', driverBenefits: '파트너 지원', processSteps: '상담 절차', faqs: 'FAQ', q: '질문', a: '답변', description: '소개 문구', copyright: '저작권 표기',
-  corporate: '기업물류', distribution: '유통물류', brokerage: '주선 · 에스원퀵', warehouse: '창고운영', consulting: '물류컨설팅',
+  corporate: '기업물류', distribution: '유통물류', brokerage: '주선 · 에스원퀵', warehouse: '창고운영', consulting: '물류컨설팅',
 }
 const L = (k) => LABELS[k] || k
 
@@ -129,7 +129,7 @@ function StaffPanel({ list = [], onChange }) {
     e.preventDefault(); setMsg('')
     const id = f.id.trim(), name = f.name.trim()
     if (!id || !name || !f.password) return setMsg('아이디, 이름, 비밀번호를 모두 입력해 주십시오.')
-    if (!/^[A-Za-z0-9_.-]{3,20}$/.test(id)) return setMsg('아이디는 영문·숫자·밑줄(_)·하이픈(-) 3~20자로 입력해 주십시오.')
+    if (!/^[A-Za-z0-9_.-]{3,20}$/.test(id)) return setMsg('아이디는 영문⁠·숫자⁠·밑줄(_)⁠·하이픈(-) 3~20자로 입력해 주십시오.')
     if (f.password.length < 6) return setMsg('비밀번호는 6자 이상으로 설정해 주십시오.')
     if (list.some(a => a.id === id)) return setMsg('이미 사용 중인 아이디입니다.')
     const passwordHash = await hashStaffPassword(id, f.password)
@@ -233,7 +233,7 @@ export default function Admin() {
     <div className="admin"><div className="container">
       <form className="admin__login" onSubmit={login}>
         <h1 className="h-sub">관리자 로그인</h1>
-        <p className="small">홈페이지 콘텐츠(문구·이미지)를 수정하는 화면입니다.</p>
+        <p className="small">홈페이지 콘텐츠(문구⁠·이미지)를 수정하는 화면입니다.</p>
         <input type="password" placeholder="비밀번호" value={pw} onChange={e => setPw(e.target.value)} autoFocus />
         {err && <p className="small" style={{ color: '#c0392b' }}>{err}</p>}
         <button className="btn btn--primary" type="submit">로그인</button>

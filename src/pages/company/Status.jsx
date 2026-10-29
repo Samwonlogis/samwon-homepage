@@ -23,14 +23,14 @@ export default function Status() {
             <div className="fleet-total__split"><span>기업물류</span><span>유통물류</span><span>콜드체인</span><span>특수화물</span></div>
           </div>
           <h3 className="h-sub" id="fleet" style={{ textAlign: 'center', margin: '56px 0 8px' }}>차종별 운송 안내</h3>
-          <p className="small" style={{ textAlign: 'center', marginBottom: 28 }}>화물의 크기·무게·온도 조건에 맞춰 최적의 차종을 배정합니다.</p>
+          <p className="small" style={{ textAlign: 'center', marginBottom: 28 }}>화물의 크기⁠·무게⁠·온도 조건에 맞춰 최적의 차종을 배정합니다.</p>
           <VehicleGuide />
         </div>
       </section>
 
       <section className="section section--soft">
         <div className="wrap">
-          <SectionHead center eyebrow="PARTNERS" title="주요 거래처 및 파트너" lead="대한민국을 대표하는 유통·제조·제약·식품 기업들이 삼원종합물류의 물류 역량을 신뢰하고 있습니다." />
+          <SectionHead center eyebrow="PARTNERS" title="주요 거래처 및 파트너" lead="대한민국을 대표하는 유통⁠·제조⁠·제약⁠·식품 기업들이 삼원종합물류의 물류 역량을 신뢰하고 있습니다." />
           <div className="partner-grid">
             {partners.map((p, i) => <div className="logo-tile" key={i} data-reveal="" style={{ transitionDelay: `${(i % 5) * .05}s` }}><img src={asset(p.logo)} alt={p.name} /></div>)}
           </div>

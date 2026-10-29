@@ -44,7 +44,7 @@ export default function Driver() {
             <label>비밀번호<input required type="password" value={f.password} onChange={e => setF({ ...f, password: e.target.value })} autoComplete="current-password" /></label>
             {msg && <div className="notice">{msg}</div>}
             <button className="btn btn--primary" type="submit" disabled={busy}>{busy ? '확인 중…' : '로그인'} <ArrowRight /></button>
-            <p className="small muted">계정 발급·비밀번호 문의: {co.phone}</p>
+            <p className="small muted">계정 발급⁠·비밀번호 문의: {co.phone}</p>
           </form>
         </div>
       </section>

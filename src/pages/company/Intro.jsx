@@ -20,7 +20,7 @@ export default function Intro() {
   const [copied, setCopied] = useState(null)
   const subs = c.subsidiaries.filter(s => !/^삼원종합물류/.test(s.name))
   const hq = c.offices.find(o => cat(o.name).type === 'hq') || c.offices[0]
-  const GROUPS = [['main', '물류 거점', '차량 운영·상하차 거점', Box], ['retail', '백화점 유통망', '점포 상주 배송 거점', Globe], ['local', '지역 사무소', '권역 영업·운영 지원', Pin]]
+  const GROUPS = [['main', '물류 거점', '차량 운영⁠·상하차 거점', Box], ['retail', '백화점 유통망', '점포 상주 배송 거점', Globe], ['local', '지역 사무소', '권역 영업⁠·운영 지원', Pin]]
   const groups = GROUPS.map(([t, label, sub, Icon]) => ({ t, label, sub, Icon, list: c.offices.filter(o => o !== hq && cat(o.name).type === t) })).filter(g => g.list.length)
   const mapUrl = (a) => `https://map.naver.com/p/search/${encodeURIComponent(a)}`
   const copy = (addr, i) => { navigator.clipboard?.writeText(addr).then(() => { setCopied(i); setTimeout(() => setCopied(null), 1800) }) }
@@ -38,14 +38,6 @@ export default function Intro() {
               <h2 className="pre">{it.title}</h2>
             </div>
             <div className="ov__text">{it.desc.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}</div>
-          </div>
-          <div className="ov-visual" data-reveal="">
-            <img src={asset('img/about.jpg')} alt="삼원종합물류 운송 현장" loading="lazy" />
-            <ul className="ov-visual__stats">
-              <li><b>6<small>개</small></b><span>전문 계열 법인</span></li>
-              <li><b>5<small>대</small></b><span>핵심 물류 사업</span></li>
-              <li><b>1,000<small>대 이상</small></b><span>운송 네트워크</span></li>
-            </ul>
           </div>
         </div>
       </section>

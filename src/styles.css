@@ -1603,3 +1603,40 @@ h1, h2, h3, h4, .h-section, .h-sub, .h-display, .hero__sub, .page-head p, .secti
 .bc__card img { border-radius: 0; }
 .ss__media { border-radius: 0; }
 .vband .btn, .round-btn { letter-spacing: .04em; }
+
+/* ═══ v4.1 — 줄바꿈 원칙: 단어 단위(keep-all) + 제목·짧은 문장은 균형(balance), 본문은 고아 단어 방지(pretty) ═══ */
+body { overflow-wrap: break-word; }
+h1, h2, h3, h4, h5, .lead, .section-head p, .page-head p, figcaption b, figcaption span, .stat__sub, .stat__label,
+.nx__pts p, .lc p, .subx p, .tp p, .tb__list p, .tv__panel p, .cert .org, .proc__item p, .flow__step p, .cargo figcaption span,
+.veh-mini__spec dd, .veh__spec dd, .veh__more dd, .ofx-list__txt span, .way__item p, .bc__card p, .special__card p, .strength > p, .vs-values p, .vs-infra p, .hz__body li, .faq summary, .ss p, .vband p { text-wrap: balance; }
+p, li, dd { text-wrap: pretty; }
+.pre { white-space: pre-line; }
+
+/* ═══ v4.1 — 차량 카드 정리 ═══ */
+.veh, .veh-mini { border: var(--hair); border-radius: 0 !important; box-shadow: none !important; background: #fff; }
+.veh:hover, .veh-mini:hover { transform: none; border-color: var(--blue-300); }
+.veh__visual, .veh__visual img { border-radius: 0 !important; }
+.veh__ton { border-radius: 2px !important; background: var(--ink) !important; font-size: 14.5px !important; font-weight: 700; letter-spacing: .02em; padding: 5px 10px !important; left: 14px; top: 14px; }
+.veh__body { padding: 22px 24px 26px; gap: 14px; }
+.veh__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.veh__head h3 { font-size: 1.3rem; }
+.veh__head span { margin: 0; font-size: 15.5px; color: var(--ink-3); }
+.veh__spec, .veh__more { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--ink); }
+.veh__more { border-top: 0; }
+.veh__spec div, .veh__more div { display: grid; grid-template-columns: 76px 1fr; gap: 12px; padding: 11px 0; border-bottom: var(--hair); }
+.veh__spec dt, .veh__more dt { font-size: 15px !important; color: var(--ink-3); font-weight: 600; }
+.veh__spec dd, .veh__more dd { margin: 0; font-size: 16px !important; font-weight: 600; color: var(--ink); line-height: 1.55; }
+.veh__more dt { color: var(--blue); }
+.veh__more dd { font-weight: 500; color: var(--ink-2); }
+.veh-mini__txt { padding: 20px 22px 22px; gap: 2px; }
+.veh-mini__txt > b { font-size: 1.2rem; }
+.veh-mini__txt > span { font-size: 15.5px !important; color: var(--ink-3) !important; }
+.veh-mini__spec { margin-top: 14px; border-top: 1px solid var(--ink); }
+.veh-mini__spec div { grid-template-columns: 64px 1fr; padding: 10px 0; border-bottom: var(--hair); }
+.veh-mini__spec dt { font-size: 14.5px; }
+.veh-mini__spec dd { font-size: 15.5px; font-weight: 600; }
+.veh-mini--cta { border-radius: 0 !important; background: var(--ink) !important; border: 0 !important; }
+.veh-mini__cta-icon { border-radius: 0; }
+.veh__goods-txt span { white-space: nowrap; }
+.veh__goods-txt span:not(:last-child)::after { content: ' ·'; margin-right: .35em; color: var(--ink-3); }
+.split .h-section { font-size: clamp(1.75rem, 2.7vw, 2.35rem); line-height: 1.35; }

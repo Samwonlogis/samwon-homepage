@@ -111,7 +111,7 @@ export default function Offices() {
             <a className="btn btn--kakao" href={`https://map.kakao.com/?q=${q}`} target="_blank" rel="noreferrer">카카오맵으로 열기</a>
           </div>
           <div className="way" data-reveal="">
-            <div className="way__item"><span className="way__ic"><Pin /></span><div><h4>본사 주소</h4><p>{co.address}</p><p className="way__sub">대표전화 {co.phone} · 팩스 {co.fax}</p></div></div>
+            <div className="way__item"><span className="way__ic"><Pin /></span><div><h4>본사 주소</h4><p>{co.address}</p><p className="way__sub">대표전화 {co.phone} · 팩스 {co.fax}</p></div></div>
             <div className="way__item"><span className="way__ic"><Route /></span><div><h4>지하철</h4><p>{d.subway}</p></div></div>
             <div className="way__item"><span className="way__ic"><Truck /></span><div><h4>버스</h4><p>{d.bus}</p></div></div>
             <div className="way__item"><span className="way__ic"><Building /></span><div><h4>주차</h4><p>{d.parking}</p></div></div>

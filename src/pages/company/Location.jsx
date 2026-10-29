@@ -23,7 +23,7 @@ export default function Location() {
           <div className="transit" data-reveal="">
             <h3 className="h-sub">교통편 및 주차 안내</h3>
             <div className="transit__grid">
-              <div className="transit__item"><span className="card__icon"><Pin /></span><div><h4>본사 주소</h4><p>{co.address}</p><p className="small">대표전화 {co.phone} · 팩스 {co.fax}</p></div></div>
+              <div className="transit__item"><span className="card__icon"><Pin /></span><div><h4>본사 주소</h4><p>{co.address}</p><p className="small">대표전화 {co.phone} · 팩스 {co.fax}</p></div></div>
               <div className="transit__item"><span className="card__icon"><Route /></span><div><h4>지하철로 오시는 길</h4><p>{d.subway}</p></div></div>
               <div className="transit__item"><span className="card__icon"><Building /></span><div><h4>주차 안내</h4><p>{d.parking}</p></div></div>
               <div className="transit__item"><span className="card__icon"><Truck /></span><div><h4>버스로 오시는 길</h4><p>{d.bus}</p></div></div>

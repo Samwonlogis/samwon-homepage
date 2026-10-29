@@ -13,7 +13,7 @@ export default function PageHead({ label, title, desc, crumb = [], subnav, docTi
         <div className="wrap page-head__in">
           {label && <div className="page-head__label">{titleCase(label)}</div>}
           <h1>{title}</h1>
-          {desc && <p>{desc}</p>}
+          {desc && <p>{String(desc).replace(/\n/g, ' ')}</p>}
           <div className="page-head__crumb"><Link to="/">HOME</Link>{crumb.map((c, i) => <span key={i}>{c}</span>)}</div>
         </div>
       </section>

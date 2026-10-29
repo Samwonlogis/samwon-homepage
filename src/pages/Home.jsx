@@ -200,7 +200,7 @@ export default function Home() {
             </ol>
             <dl className="nx__regions">
               {groupHubs(c.network.hubs).map(([g, list]) => (
-                <div key={g}><dt>{g}</dt><dd>{list.map(h => h.name).join(' · ')}</dd></div>
+                <div key={g}><dt>{g}</dt><dd>{list.map(h => h.name).join(' · ')}</dd></div>
               ))}
             </dl>
           </div>

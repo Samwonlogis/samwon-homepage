@@ -1,5 +1,5 @@
 // 거래처 로고 — 회사소개서(2026 final) 기준 30개사, 매출 규모순
-// 파일: public/img/partners/, 추가·삭제·순서 변경은 이 파일에서
+// 파일: public/img/partners/, 추가⁠·삭제⁠·순서 변경은 이 파일에서
 export const partners = [
   { name: '이마트', logo: 'img/partners/emart.png' },
   { name: 'CJ대한통운', logo: 'img/partners/cj.png' },
