@@ -29,34 +29,47 @@ export default function Intro() {
     <>
       <PageHead label="COMPANY" title="회사소개" desc="34년간 축적한 현장 역량과 6개 전문 계열사의 통합 인프라로 대한민국 공급망을 설계합니다." image="img/banner_company.jpg" crumb={['회사소개', '회사소개']} subnav={COMPANY_NAV} />
 
-      {/* 회사 개요 */}
+      {/* 회사 개요 — 좌측 정렬 에디토리얼 */}
       <section className="section">
-        <div className="wrap wrap--narrow" style={{ textAlign: 'center' }}>
-          <SectionHead center eyebrow="OVERVIEW" title="회사 개요" />
-          <h3 className="h-section pre" style={{ marginTop: 0 }} data-reveal="">{it.title}</h3>
-          <div className="overview-text" data-reveal="">{it.desc.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}</div>
+        <div className="wrap">
+          <div className="ov" data-reveal="">
+            <div className="ov__head">
+              <span className="sh-en">Overview</span>
+              <h2 className="pre">{it.title}</h2>
+            </div>
+            <div className="ov__text">{it.desc.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}</div>
+          </div>
+          <div className="ov-visual" data-reveal="">
+            <img src={asset('img/about.jpg')} alt="삼원종합물류 운송 현장" loading="lazy" />
+            <ul className="ov-visual__stats">
+              <li><b>6<small>개</small></b><span>전문 계열 법인</span></li>
+              <li><b>5<small>대</small></b><span>핵심 물류 사업</span></li>
+              <li><b>1,000<small>대 이상</small></b><span>운송 네트워크</span></li>
+            </ul>
+          </div>
         </div>
       </section>
 
       {/* 핵심 역량 */}
       <section className="section section--soft">
         <div className="wrap">
-          <SectionHead center eyebrow="CORE COMPETENCIES" title="핵심 역량" />
-          <div className="grid grid--4 grid--m1">
+          <SectionHead eyebrow="CORE COMPETENCIES" title="핵심 역량" />
+          <ul className="lc">
             {(it.coreValues || []).map((v, i) => (
-              <div className="card" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
-                {v.logo ? <div className="card__logo"><img src={asset(v.logo)} alt={v.title} /></div> : <div className="card__icon"><Leaf /></div>}
+              <li key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
+                <span className="lc__no">{String(i + 1).padStart(2, '0')}</span>
+                {v.logo ? <div className="lc__logo"><img src={asset(v.logo)} alt={v.title} /></div> : <div className="lc__ic"><Leaf /></div>}
                 <h3>{v.title}</h3><p>{v.desc}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* CEO 인사말 */}
-      <section className="section section--soft" id="ceo">
+      <section className="section" id="ceo">
         <div className="wrap">
-          <SectionHead center eyebrow="CEO MESSAGE" title="대표이사 인사말" />
+          <SectionHead eyebrow="CEO MESSAGE" title="대표이사 인사말" />
           <div className="ceo">
             <div className="ceo__photo" data-reveal="">
               <div className="photo photo--portrait">{ceo.photo ? <img src={asset(ceo.photo)} alt={`${ceo.name} ${ceo.title}`} /> : <img src={asset('img/hero_3.jpg')} alt="삼원종합물류 운송 차량" />}</div>
@@ -74,14 +87,17 @@ export default function Intro() {
       {/* 계열사 현황 */}
       <section className="section">
         <div className="wrap">
-          <SectionHead center eyebrow="SUBSIDIARIES" title="계열사 현황" lead="6개 전문 법인이 각 물류 영역의 핵심 역량을 담당하며, 그룹 차원의 통합 시너지를 실현합니다." />
-          <div className="subs subs--5">
+          <SectionHead eyebrow="SUBSIDIARIES" title="계열사 현황" lead="6개 전문 법인이 각 물류 영역의 핵심 역량을 담당하며, 그룹 차원의 통합 시너지를 실현합니다." />
+          <ol className="subx">
             {subs.map((s, i) => (
-              <div className="sub sub--center" key={i} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
-                <div className="role">{s.role}</div><h3>{s.name}</h3><p>{s.desc}</p>
-              </div>
+              <li key={i} data-reveal="" style={{ transitionDelay: `${i * .05}s` }}>
+                <span className="subx__no">{String(i + 1).padStart(2, '0')}</span>
+                <span className="subx__role">{s.role}</span>
+                <h3>{s.name}</h3>
+                <p>{s.desc}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
     </>

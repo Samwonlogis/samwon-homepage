@@ -8,8 +8,8 @@ export const NAV = [
   ]},
   { label: '사업영역', to: '/business', children: [
     { label: '전체소개', to: '/business' },
-    { label: '기업물류 (Middle Mile)', to: '/business/corporate' },
-    { label: '유통물류 (Last Mile)', to: '/business/distribution' },
+    { label: '기업물류', to: '/business/corporate' },
+    { label: '유통물류', to: '/business/distribution' },
     { label: '주선 · 퀵서비스', to: '/business/brokerage' },
     { label: '창고운영 · 리스크관리', to: '/business/warehouse' },
     { label: '물류컨설팅', to: '/business/consulting' },

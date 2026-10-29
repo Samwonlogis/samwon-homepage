@@ -41,13 +41,13 @@ export default function BusinessPage({ id: fixedId }) {
 
   return (
     <>
-      <PageHead label={p.label} title={p.title} desc={p.slogan} image={p.image} crumb={['사업영역', p.title]} subnav={BUSINESS_NAV} />
+      <PageHead label="Business" title={p.title} desc={p.slogan} image={p.image} crumb={['사업영역', p.title]} subnav={BUSINESS_NAV} />
 
       {/* 1. 개요 */}
       <section className="section">
         <div className="wrap split">
           <div data-reveal="">
-            <span className="eyebrow">OVERVIEW</span>
+            <span className="sh-en">Overview</span>
             <h2 className="h-section">{p.slogan}</h2>
             <p className="lead pre">{p.overview}</p>
           </div>
@@ -183,7 +183,7 @@ export default function BusinessPage({ id: fixedId }) {
         <div className="wrap">
           <SectionHead center eyebrow="MORE" title="다른 사업영역" />
           <div className="grid grid--4">
-            {others.map(o => <Link to={`/business/${o.id}`} className="card card--link" key={o.id}><div className="card__img"><img src={asset(o.image)} alt="" loading="lazy" /></div><div className="eyebrow" style={{ fontSize: 13 }}>{o.en}</div><h3 style={{ marginTop: 6 }}>{o.name}</h3><span className="link" style={{ marginTop: 12, fontSize: 17 }}>자세히 보기 <ArrowRight /></span></Link>)}
+            {others.map(o => <Link to={`/business/${o.id}`} className="card card--link" key={o.id}><div className="card__img"><img src={asset(o.image)} alt="" loading="lazy" /></div><h3 style={{ marginTop: 6 }}>{o.name}</h3><span className="link" style={{ marginTop: 12, fontSize: 17 }}>자세히 보기 <ArrowRight /></span></Link>)}
           </div>
           <div style={{ textAlign: 'center', marginTop: 40 }}><Link className="btn btn--primary btn--lg" to="/contact">물류 상담 신청 <ArrowRight /></Link></div>
         </div>

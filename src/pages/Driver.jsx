@@ -30,7 +30,7 @@ export default function Driver() {
       <section className="section">
         <div className="wrap contact-grid">
           <div data-reveal="">
-            <span className="eyebrow">PARTNER BENEFITS</span>
+            <span className="sh-en">Partner Benefits</span>
             <h2 className="h-section">파트너 지원</h2>
             <ul className="check-list" style={{ marginTop: 20 }}>{r.driverBenefits.map((x, i) => <li key={i}><Check />{x}</li>)}</ul>
             <h3 className="h-sub" style={{ margin: '36px 0 12px' }}>지원 자격</h3>

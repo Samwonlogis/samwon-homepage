@@ -8,7 +8,7 @@ const STEP_ICONS = [Phone, Chart, Spark, Handshake]
 
 export default function Contact() {
   const { content: c } = useContent(); const cp = c.contactPage; const co = c.company
-  const [f, setF] = useState({ name: '', phone: '', email: '', company: '', service: '기업물류 (Middle Mile)', msg: '' })
+  const [f, setF] = useState({ name: '', phone: '', email: '', company: '', service: '기업물류', msg: '' })
   const [open, setOpen] = useState(null)
   const on = (k) => (e) => setF({ ...f, [k]: e.target.value })
   const submit = (e) => {
@@ -61,7 +61,7 @@ export default function Contact() {
               <label>회사명<input value={f.company} onChange={on('company')} placeholder="회사명을 입력하십시오" /></label>
             </div>
             <label>문의 분야 *<select value={f.service} onChange={on('service')}>
-              {['기업물류 (Middle Mile)', '유통물류 (Last Mile)', '주선 · 에스원퀵 서비스', '창고운영 및 리스크관리', '물류컨설팅', '기타 제휴 문의'].map(x => <option key={x}>{x}</option>)}
+              {['기업물류', '유통물류', '주선 · 에스원퀵 서비스', '창고운영 및 리스크관리', '물류컨설팅', '기타 제휴 문의'].map(x => <option key={x}>{x}</option>)}
             </select></label>
             <label>상세 내용 *<textarea rows="6" required value={f.msg} onChange={on('msg')} placeholder="문의하실 구체적인 물동량, 주기, 보관 요건 등을 남겨주십시오." /></label>
             <button className="btn btn--primary btn--lg" type="submit" style={{ width: '100%' }}>제휴 문의 신청하기 <ArrowRight /></button>

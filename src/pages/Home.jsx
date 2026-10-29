@@ -98,7 +98,7 @@ function BizCarousel({ items = [] }) {
           <Link to={`/business/${b.id}`} className="bc__card" key={b.id} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
             <div className="bc__img"><img src={asset(b.image)} alt={b.name} loading="lazy" /></div>
             <div className="bc__body">
-              <span className="bc__en">{b.en}</span>
+              
               <h3>{b.name}</h3>
               <p>{b.short}</p>
               <span className="bc__more">자세히 보기 <ArrowRight /></span>
@@ -187,32 +187,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. 네트워크 (실제 지도) */}
-      <section className="section net-sec">
-        <div className="wrap">
-          <SectionHead center eyebrow={c.network.eyebrow} title={c.network.title} lead={c.network.lead} />
-          <div className="net">
-            <div className="net__map" data-reveal="">
-              <KoreaMap hubs={c.network.hubs} />
-              <div className="net__legend"><span><i className="is-main" />주요 거점</span><span><i />권역 운행 거점</span></div>
-            </div>
-            <div className="net__side">
-              <div className="net__feats">
-                {c.network.points.map((p, i) => { const o = typeof p === 'string' ? { title: p } : p; const Ic = ICONS[o.icon] || NET_ICONS[i % NET_ICONS.length]; return (
-                  <div className="net-feat" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
-                    <span className="net-feat__icon"><Ic /></span>
-                    <div><b>{o.title}</b>{o.desc && <span>{o.desc}</span>}</div>
-                  </div>) })}
-              </div>
-              <div className="net__regions" data-reveal="">
-                {groupHubs(c.network.hubs).map(([g, list]) => (
-                  <div className="net-region" key={g}>
-                    <span className="net-region__name">{g}</span>
-                    <div className="net-region__chips">{list.map(h => <span key={h.name} className={h.main ? 'is-main' : ''}>{h.name}</span>)}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* 5. 네트워크 — 다크 밴드 + 노선 애니메이션 지도 */}
+      <section className="nx">
+        <div className="wrap nx__in">
+          <div className="nx__copy" data-reveal="">
+            <span className="nx__en">Nationwide Network</span>
+            <h2 className="pre">{c.network.title}</h2>
+            <p className="nx__lead">{c.network.lead}</p>
+            <ol className="nx__pts">
+              {c.network.points.map((p, i) => { const o = typeof p === 'string' ? { title: p } : p; return (
+                <li key={i}><span>{String(i + 1).padStart(2, '0')}</span><div><b>{o.title}</b>{o.desc && <p>{o.desc}</p>}</div></li>) })}
+            </ol>
+            <dl className="nx__regions">
+              {groupHubs(c.network.hubs).map(([g, list]) => (
+                <div key={g}><dt>{g}</dt><dd>{list.map(h => h.name).join(' · ')}</dd></div>
+              ))}
+            </dl>
+          </div>
+          <div className="nx__map" data-reveal="" style={{ transitionDelay: '.15s' }}>
+            <KoreaMap hubs={c.network.hubs} dark />
+            <div className="nx__legend"><span><i className="is-main" />주요 거점</span><span><i />권역 운행 거점</span><span><i className="is-route" />간선 노선</span></div>
           </div>
         </div>
       </section>

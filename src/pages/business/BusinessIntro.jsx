@@ -18,7 +18,7 @@ export default function BusinessIntro() {
             {c.businessAreas.map((b, i) => (
               <Link to={`/business/${b.id}`} className="biz__card" key={b.id} data-reveal="" style={{ transitionDelay: `${i * .07}s` }}>
                 <img src={asset(b.image)} alt={b.name} loading="lazy" />
-                <div className="biz__in"><div className="biz__en">{b.en}</div><div className="biz__title">{b.name} <ArrowRight /></div><p className="biz__desc">{b.short}</p></div>
+                <div className="biz__in"><div className="biz__title">{b.name} <ArrowRight /></div><p className="biz__desc">{b.short}</p></div>
               </Link>
             ))}
           </div>
