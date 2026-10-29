@@ -30,6 +30,8 @@ export const defaultContent = {
   },
 
   hero: {
+    kicker: 'SAMWON LOGISTICS',
+    enTitle: 'Total Logistics\nPartner, SAMWON',
     eyebrow: 'SINCE 1992 · INTEGRATED LOGISTICS GROUP',
     title: '공급망의 시작부터 끝까지\n삼원이 설계하고, 삼원이 책임집니다',
     subtitle: '미들마일 간선 수송부터 라스트마일 배송, HACCP 콜드체인, 창고운영, SCM 컨설팅까지. 6개 전문 계열사와 1,000대 이상의 운송 네트워크가 귀사의 물류를 하나의 창구로 완결합니다.',
@@ -52,10 +54,10 @@ export const defaultContent = {
     title: '화주가 삼원을 선택하는 네 가지 이유',
     lead: '34년간 한 번도 멈추지 않은 운송, 6개 법인이 만드는 하나의 책임 단위. 삼원종합물류는 비용과 품질을 동시에 설계하는 물류 파트너입니다.',
     items: [
-      { num: '01', icon: 'truck', stat: '1,000대+', statLabel: '운영 차량', title: '즉시 투입 가능한 운송력', desc: '기업물류와 유통물류 차량을 품목·톤수별로 편성해 성수기와 돌발 물량에도 차량 공백 없이 대응합니다.' },
-      { num: '02', icon: 'building', stat: '6개 법인', statLabel: '원스톱 창구', title: '하나의 계약, 하나의 담당자', desc: '운송·배송·창고·인력·플랫폼을 담당하는 계열사가 하나의 창구로 연결되어 관리 비용을 줄입니다.' },
-      { num: '03', icon: 'shield', stat: '5개 인증', statLabel: '국가·국제 표준', title: '검증된 운영 품질', desc: '우수물류기업 인증, HACCP, ISO 9001·14001·45001 체계로 품질·환경·안전보건 감사 기준에 대응합니다.' },
-      { num: '04', icon: 'chart', stat: '데이터', statLabel: '기반 물류비 설계', title: '수치로 제시하는 절감안', desc: 'TMS·WMS 운영 데이터와 시뮬레이션으로 거점·경로·차종을 재설계해 물류비 절감안을 수치로 제시합니다.' },
+      { num: '01', icon: 'truck', image: 'img/hero_2.jpg', stat: '1,000대+', statLabel: '운영 차량', title: '즉시 투입 가능한 운송력', desc: '기업물류와 유통물류 차량을 품목·톤수별로 편성해 성수기와 돌발 물량에도 차량 공백 없이 대응합니다.' },
+      { num: '02', icon: 'building', image: 'img/banner_company.jpg', stat: '6개 법인', statLabel: '원스톱 창구', title: '하나의 계약, 하나의 담당자', desc: '운송·배송·창고·인력·플랫폼을 담당하는 계열사가 하나의 창구로 연결되어 관리 비용을 줄입니다.' },
+      { num: '03', icon: 'shield', image: 'img/biz_warehouse.jpg', stat: '5개 인증', statLabel: '국가·국제 표준', title: '검증된 운영 품질', desc: '우수물류기업 인증, HACCP, ISO 9001·14001·45001 체계로 품질·환경·안전보건 감사 기준에 대응합니다.' },
+      { num: '04', icon: 'chart', image: 'img/biz_consulting.jpg', stat: '데이터', statLabel: '기반 물류비 설계', title: '수치로 제시하는 절감안', desc: 'TMS·WMS 운영 데이터와 시뮬레이션으로 거점·경로·차종을 재설계해 물류비 절감안을 수치로 제시합니다.' },
     ],
   },
 
@@ -146,6 +148,30 @@ export const defaultContent = {
       { title: '전문성', desc: '산업별 특화 차량·인력·시스템' },
       { title: '혁신', desc: 'TMS·WMS·플랫폼 기반 디지털 물류' },
       { title: '안전', desc: '무사고 운행과 화물 무결성 보장' },
+    ],
+  },
+
+  // 기업비전 페이지
+  visionPage: {
+    statementTop: '삼원종합물류는 현장에서 쌓아 온 운영 역량을 바탕으로',
+    statementMain: '고객의 공급망을 끝까지 책임지는',
+    statementAccent: '대한민국 대표 통합물류 그룹',
+    statementEnd: '을 지향합니다.',
+    bandImage: 'img/vision.jpg',
+    bandLabel: 'MISSION',
+    bandTitle: '약속한 시간, 정확한 장소,\n최적의 상태로.',
+    bandDesc: '고객의 제품이 최적의 상태로, 약속된 시간에, 정확한 장소에 도달하도록 공급망 전체를 설계하고 실행합니다.',
+    values: [
+      { en: 'TRUST', title: '신뢰', desc: '약속한 시간과 품질을 지키는 운영으로 화주와 오래 함께합니다.' },
+      { en: 'EXPERTISE', title: '전문성', desc: '산업별 특화 차량·인력·시스템으로 화물에 맞는 운송을 설계합니다.' },
+      { en: 'INNOVATION', title: '혁신', desc: '배차·관제·정산을 디지털로 연결해 물류를 더 빠르고 투명하게 만듭니다.' },
+      { en: 'SAFETY', title: '안전', desc: '무사고 운행과 화물 무결성을 최우선으로 지킵니다.' },
+    ],
+    infraTitle: '삼원종합물류의 탄탄한 인프라',
+    infra: [
+      { icon: 'truck', title: '전국 운송 네트워크', desc: '기업물류·유통물류 차량을 품목·톤수별로 편성해 전국을 연결합니다.', foot: '1,000대 이상 운송 네트워크 · 6개 계열 법인' },
+      { icon: 'shield', title: '검증된 운영 품질', desc: '국가 공인 인증과 국제 표준 경영시스템으로 품질을 관리합니다.', foot: '우수물류기업 · HACCP · ISO 9001 / 14001 / 45001' },
+      { icon: 'spark', title: '디지털 물류 역량', desc: '웹 접수부터 실시간 관제, 월 통합 정산까지 하나의 흐름으로 운영합니다.', foot: '에스원퀵 플랫폼 · 카카오톡 관제 · 통합 정산' },
     ],
   },
 

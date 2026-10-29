@@ -6,7 +6,7 @@ import CountUp from '../components/CountUp'
 import KoreaMap from '../components/KoreaMap'
 import { SectionHead } from '../components/Section'
 import { partners } from '../data/partners'
-import { ArrowRight, Check, Truck, Spark, Building, Shield, Chart, Route, Clock, Users } from '../components/Icons'
+import { ArrowRight, Check, Truck, Spark, Building, Shield, Chart, Route, Clock, Users, Phone } from '../components/Icons'
 
 const ICONS = { truck: Truck, building: Building, shield: Shield, chart: Chart, route: Route, clock: Clock, users: Users, spark: Spark }
 const WHY_ICONS = [Truck, Building, Shield, Chart]
@@ -38,17 +38,76 @@ function Hero({ hero }) {
             </video>
           : imgs.map((src, k) => <img key={k} src={asset(src)} alt="" className={k === i ? 'is-active' : ''} loading={k === 0 ? 'eager' : 'lazy'} />)}
       </div>
-      <div className="hero__in">
-        <h1 className="h-display hero__title pre" data-reveal="">{hero.title}</h1>
-        <p className="hero__sub" data-reveal="" style={{ transitionDelay: '.15s' }}>{hero.subtitle}</p>
-        <div className="hero__actions" data-reveal="" style={{ transitionDelay: '.3s' }}>
-          <Link className="btn btn--white btn--lg" to="/contact">{hero.primaryCta} <ArrowRight /></Link>
-          <Link className="btn btn--ghost-white btn--lg" to="/business">{hero.secondaryCta}</Link>
+      <div className="wrap hero__in hero__in--left">
+        <span className="hero__kicker" data-reveal="">{hero.kicker || 'SAMWON LOGISTICS'}</span>
+        <h1 className="hero__en pre" data-reveal="" style={{ transitionDelay: '.08s' }}>{hero.enTitle || 'Total Logistics\nPartner, SAMWON'}</h1>
+        <p className="hero__ko pre" data-reveal="" style={{ transitionDelay: '.16s' }}>{hero.title}</p>
+        <div className="hero__rounds" data-reveal="" style={{ transitionDelay: '.26s' }}>
+          <Link className="round-btn" to="/company/intro"><Building /><span>회사소개</span></Link>
+          <Link className="round-btn round-btn--accent" to="/contact"><Phone /><span>물류 상담</span></Link>
         </div>
       </div>
       {!videoOk && imgs.length > 1 && <div className="hero__dots">{imgs.map((_, k) => <button key={k} className={k === i ? 'is-active' : ''} onClick={() => setI(k)} aria-label={`배경 ${k + 1}`} />)}</div>}
       <div className="hero__scroll">SCROLL<span /></div>
     </section>
+  )
+}
+
+const STRENGTH_IMAGES = ['img/hero_2.jpg', 'img/banner_company.jpg', 'img/biz_warehouse.jpg', 'img/biz_consulting.jpg']
+
+function StrengthSlider({ why }) {
+  const items = why.items || []
+  const [i, setI] = useState(0)
+  const [paused, setPaused] = useState(false)
+  useEffect(() => { if (paused || items.length < 2) return; const t = setInterval(() => setI(v => (v + 1) % items.length), 6000); return () => clearInterval(t) }, [paused, items.length])
+  const cur = items[i] || {}
+  return (
+    <div className="ss" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div className="ss__media" data-reveal="">
+        {items.map((w, k) => <img key={k} src={asset(w.image || STRENGTH_IMAGES[k % STRENGTH_IMAGES.length])} alt="" className={k === i ? 'is-on' : ''} loading="lazy" />)}
+        <div className="ss__arrows">
+          <button type="button" aria-label="이전" onClick={() => setI((i - 1 + items.length) % items.length)}><ArrowRight style={{ transform: 'rotate(180deg)' }} /></button>
+          <button type="button" aria-label="다음" onClick={() => setI((i + 1) % items.length)}><ArrowRight /></button>
+        </div>
+      </div>
+      <div className="ss__text" data-reveal="">
+        <span className="ss__en">Core<br />Strength</span>
+        <h2 className="ss__ko">{why.title}</h2>
+        <div className="ss__tabs" role="tablist">
+          {items.map((w, k) => <button key={k} type="button" role="tab" aria-selected={k === i} className={k === i ? 'is-on' : ''} onClick={() => setI(k)}>{String(k + 1).padStart(2, '0')}</button>)}
+        </div>
+        <div className="ss__body" key={i}>
+          {cur.stat && <div className="ss__stat"><b>{cur.stat}</b><span>{cur.statLabel}</span></div>}
+          <h3>{cur.title}</h3>
+          <p>{cur.desc}</p>
+        </div>
+        <Link className="link ss__more" to="/company/intro">회사소개 보기 <ArrowRight /></Link>
+      </div>
+    </div>
+  )
+}
+
+function BizCarousel({ items = [] }) {
+  const ref = useRef(null)
+  const go = (d) => { const el = ref.current; if (!el) return; const card = el.querySelector('.bc__card'); const w = card ? card.offsetWidth + 24 : 360; el.scrollBy({ left: d * w, behavior: 'smooth' }) }
+  return (
+    <div className="bc">
+      <button type="button" className="bc__nav bc__nav--prev" aria-label="이전" onClick={() => go(-1)}><ArrowRight style={{ transform: 'rotate(180deg)' }} /></button>
+      <div className="bc__track" ref={ref}>
+        {items.map((b, i) => (
+          <Link to={`/business/${b.id}`} className="bc__card" key={b.id} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
+            <div className="bc__img"><img src={asset(b.image)} alt={b.name} loading="lazy" /></div>
+            <div className="bc__body">
+              <span className="bc__en">{b.en}</span>
+              <h3>{b.name}</h3>
+              <p>{b.short}</p>
+              <span className="bc__more">자세히 보기 <ArrowRight /></span>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <button type="button" className="bc__nav bc__nav--next" aria-label="다음" onClick={() => go(1)}><ArrowRight /></button>
+    </div>
   )
 }
 
@@ -96,39 +155,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. 사업영역 */}
-      <section className="section">
+      {/* 3. 사업영역 — 대형 영문 타이틀 + 카드 캐러셀 */}
+      <section className="section biz-sec">
         <div className="wrap">
-          <SectionHead center eyebrow="BUSINESS AREAS" title="사업영역" lead="화주의 공급망 전 구간을 커버하는 5대 핵심 물류 서비스" />
-          <div className="biz">
-            {c.businessAreas.map((b, i) => (
-              <Link to={`/business/${b.id}`} className="biz__card" key={b.id} data-reveal="" style={{ transitionDelay: `${i * .07}s` }}>
-                <img src={asset(b.image)} alt={b.name} loading="lazy" />
-                <div className="biz__in">
-                  <div className="biz__en">{b.en}</div>
-                  <div className="biz__title">{b.name} <ArrowRight /></div>
-                  <p className="biz__desc">{b.short}</p>
-                </div>
-              </Link>
-            ))}
+          <div className="big-title" data-reveal="">
+            <h2>BUSINESS</h2>
+            <h3>5대 핵심 물류 서비스</h3>
+            <p>화주의 공급망 전 구간을 삼원이 하나의 창구로 책임집니다.</p>
+          </div>
+        </div>
+        <BizCarousel items={c.businessAreas} />
+      </section>
+
+      {/* 4. 비전 밴드 */}
+      <section className="vband">
+        <img src={asset((c.visionPage && c.visionPage.bandImage) || 'img/vision.jpg')} alt="" loading="lazy" />
+        <div className="wrap">
+          <div className="vband__in" data-reveal="">
+            <span className="vband__en">Vision</span>
+            <h2>고객의 공급망을<br />끝까지 책임지는 통합물류</h2>
+            <p>현장에서 쌓아 온 운영 역량과 6개 계열 법인의 통합 인프라로 <br className="br-pc" />대한민국 대표 통합물류 그룹을 지향합니다.</p>
+            <Link className="pill-btn" to="/company/vision">VIEW MORE</Link>
           </div>
         </div>
       </section>
 
-      {/* 4. Why 삼원 */}
-      <section className="section section--soft why-sec">
+      {/* 5. Core Strength — 번호 탭 슬라이더 */}
+      <section className="section strength-sec">
         <div className="wrap">
-          <SectionHead center eyebrow={c.why.eyebrow} title={c.why.title.replace('네 가지', '네\u00a0가지')} lead={c.why.lead} />
-          <div className="why-grid">
-            {c.why.items.map((w, i) => { const Ic = ICONS[w.icon] || WHY_ICONS[i % WHY_ICONS.length]; return (
-              <article className="why-card" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
-                <div className="why-card__top"><span className="why-card__icon"><Ic /></span><span className="why-card__num">{w.num}</span></div>
-                {w.stat && <div className="why-card__stat"><b>{w.stat}</b><span>{w.statLabel}</span></div>}
-                <h3>{w.title}</h3>
-                <p>{w.desc}</p>
-              </article>) })}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: 40 }}><Link className="btn btn--primary" to="/company/intro">회사소개 보기 <ArrowRight /></Link></div>
+          <StrengthSlider why={c.why} />
         </div>
       </section>
 

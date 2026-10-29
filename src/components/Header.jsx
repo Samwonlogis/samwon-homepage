@@ -8,12 +8,13 @@ import { Menu, X, Phone, Truck, Spark } from './Icons'
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [mega, setMega] = useState(false)
   const { content } = useContent()
   const co = content.company
   const loc = useLocation()
   const transparent = loc.pathname === '/'
   useEffect(() => { const f = () => setScrolled(window.scrollY > 40); f(); window.addEventListener('scroll', f, { passive: true }); return () => window.removeEventListener('scroll', f) }, [])
-  useEffect(() => { setOpen(false) }, [loc.pathname])
+  useEffect(() => { setOpen(false); setMega(false) }, [loc.pathname])
   useEffect(() => { document.body.style.overflow = open ? 'hidden' : ''; return () => { document.body.style.overflow = '' } }, [open])
   const isGroupActive = (g) => loc.pathname.startsWith(g.to.split('/').slice(0, 2).join('/'))
   const ext = (url) => /^https?:/.test(url)
@@ -24,15 +25,16 @@ export default function Header() {
 
   return (
     <>
-      <header className={`header ${scrolled ? 'is-scrolled' : ''} ${transparent ? '' : 'is-solid'}`}>
+      <header className={`header ${scrolled ? 'is-scrolled' : ''} ${mega ? 'is-mega' : ''} ${transparent ? 'is-home' : ''}`} onMouseLeave={() => setMega(false)}>
+        <div className="mega-bg" aria-hidden="true" />
         <div className="wrap header__in">
           <Link to="/" className="header__logo" aria-label="삼원종합물류 홈"><img src={asset('samwon_logo.svg')} alt="SAMWON 삼원종합물류" /></Link>
-          <nav className="nav" aria-label="주 메뉴">
+          <nav className="nav" aria-label="주 메뉴" onMouseEnter={() => setMega(true)}>
             {NAV.map(g => (
               <div className="nav__item" key={g.label}>
-                <Link to={g.to} className={`nav__link ${isGroupActive(g) ? 'active' : ''}`}>{g.label}</Link>
+                <Link to={g.to} className={`nav__link ${isGroupActive(g) ? 'active' : ''}`} onClick={() => setMega(false)} onFocus={() => setMega(true)}>{g.label}</Link>
                 <div className="nav__menu">
-                  {g.children.map(c => <NavLink key={c.to} to={c.to} end={c.to === '/business'}>{c.label}</NavLink>)}
+                  {g.children.map(c => <NavLink key={c.to} to={c.to} end={c.to === '/business'} onClick={() => setMega(false)}>{c.label}</NavLink>)}
                 </div>
               </div>
             ))}

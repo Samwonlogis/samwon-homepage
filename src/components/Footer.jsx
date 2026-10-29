@@ -21,8 +21,8 @@ export default function Footer() {
               </ul>
             </div>
             <div><h4>회사소개</h4><ul>
-              <li><Link to="/company/intro">회사소개</Link></li><li><Link to="/company/history">회사연혁</Link></li>
-              <li><Link to="/company/status">주요현황</Link></li><li><Link to="/company/location">찾아오시는 길</Link></li></ul></div>
+              <li><Link to="/company/intro">회사소개</Link></li><li><Link to="/company/vision">기업비전</Link></li><li><Link to="/company/history">회사연혁</Link></li>
+              <li><Link to="/company/status">주요현황</Link></li><li><Link to="/company/offices">사무소 · 오시는 길</Link></li></ul></div>
             <div><h4>사업영역</h4><ul>
               <li><Link to="/business/corporate">기업물류</Link></li><li><Link to="/business/distribution">유통물류</Link></li>
               <li><Link to="/business/brokerage">주선 · 퀵서비스</Link></li><li><Link to="/business/warehouse">창고운영 · 리스크관리</Link></li>

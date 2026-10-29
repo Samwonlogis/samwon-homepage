@@ -53,55 +53,6 @@ export default function Intro() {
         </div>
       </section>
 
-      {/* 사무소 현황 */}
-      <section className="section">
-        <div className="wrap">
-          <SectionHead center eyebrow="OFFICES" title="사무소 현황" lead="서울 본사를 중심으로 물류 거점, 백화점 유통망, 지역 사무소가 하나의 네트워크로 움직입니다." />
-          <div className="ofc">
-            {hq && (
-              <div className="ofc-hq" data-reveal="">
-                <div className="ofc-hq__main">
-                  <span className="ofc-hq__tag"><Building /> HEADQUARTERS</span>
-                  <h3>{hq.name}</h3>
-                  <p className="ofc-hq__addr">{hq.address}</p>
-                  <dl className="ofc-hq__info">
-                    <div><dt>대표 전화</dt><dd><a href={`tel:${c.company.phone}`}>{c.company.phone}</a></dd></div>
-                    <div><dt>팩스</dt><dd>{c.company.fax}</dd></div>
-                    <div><dt>이메일</dt><dd>{c.company.email}</dd></div>
-                  </dl>
-                </div>
-                <div className="ofc-hq__act">
-                  <a className="btn btn--white btn--sm" href={mapUrl(hq.address)} target="_blank" rel="noreferrer"><Pin /> 지도 보기</a>
-                  <button type="button" className="btn btn--line-w btn--sm" onClick={() => copy(hq.address, 'hq')}>{copied === 'hq' ? '복사 완료' : '주소 복사'}</button>
-                  <Link className="btn btn--line-w btn--sm" to="/company/location">오시는 길 <ArrowRight /></Link>
-                </div>
-              </div>
-            )}
-            <div className="ofc-groups">
-              {groups.map((g, gi) => (
-                <div className="ofc-group" key={g.t} data-reveal="" style={{ transitionDelay: `${gi * .08}s` }}>
-                  <div className="ofc-group__head">
-                    <span className="ofc-group__icon"><g.Icon /></span>
-                    <div><b>{g.label}</b><span>{g.sub}</span></div>
-                    <em>{g.list.length}</em>
-                  </div>
-                  <ul>
-                    {g.list.map(o => { const key = o.name; return (
-                      <li key={key}>
-                        <div><b>{o.name}</b><span>{o.address}</span></div>
-                        <div className="ofc-row__act">
-                          <button type="button" aria-label="주소 복사" title="주소 복사" onClick={() => copy(o.address, key)} className={copied === key ? 'is-done' : ''}>{copied === key ? '✓' : '복사'}</button>
-                          <a href={mapUrl(o.address)} target="_blank" rel="noreferrer" aria-label={`${o.name} 지도 보기`} title="지도 보기"><Pin /></a>
-                        </div>
-                      </li>) })}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CEO 인사말 */}
       <section className="section section--soft" id="ceo">
         <div className="wrap">

@@ -1,9 +1,10 @@
 export const NAV = [
   { label: '회사소개', to: '/company/intro', children: [
     { label: '회사소개', to: '/company/intro' },
+    { label: '기업비전', to: '/company/vision' },
     { label: '회사연혁', to: '/company/history' },
+    { label: '사무소', to: '/company/offices' },
     { label: '주요현황', to: '/company/status' },
-    { label: '찾아오시는 길', to: '/company/location' },
   ]},
   { label: '사업영역', to: '/business', children: [
     { label: '전체소개', to: '/business' },

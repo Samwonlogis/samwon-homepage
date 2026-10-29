@@ -1,10 +1,11 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Intro from './pages/company/Intro'
 import History from './pages/company/History'
 import Status from './pages/company/Status'
-import Location from './pages/company/Location'
+import Offices from './pages/company/Offices'
+import Vision from './pages/company/Vision'
 import BusinessIntro from './pages/business/BusinessIntro'
 import BusinessPage from './pages/business/BusinessPage'
 import Talent from './pages/recruitment/Talent'
@@ -23,7 +24,9 @@ export default function App() {
         <Route path="/company/intro" element={<Intro />} />
         <Route path="/company/history" element={<History />} />
         <Route path="/company/status" element={<Status />} />
-        <Route path="/company/location" element={<Location />} />
+        <Route path="/company/offices" element={<Offices />} />
+        <Route path="/company/vision" element={<Vision />} />
+        <Route path="/company/location" element={<Navigate to="/company/offices#location" replace />} />
         <Route path="/business" element={<BusinessIntro />} />
         <Route path="/business/:id" element={<BusinessPage />} />
         <Route path="/recruitment" element={<Talent />} />
