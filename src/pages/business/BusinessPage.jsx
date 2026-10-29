@@ -5,7 +5,7 @@ import { useContent } from '../../context/ContentContext'
 import { asset } from '../../utils/storage'
 import { BUSINESS_NAV } from './businessNav'
 import { vehicleById } from '../../data/vehicles'
-import { VehicleMini } from '../../components/VehicleGuide'
+import { VehicleMini, VehicleCtaTile } from '../../components/VehicleGuide'
 import { ArrowRight, Box, Snow, Truck, Building, Chart, Shield, Spark, Globe, Leaf, Route, Users, Target, Check, Gift, Star } from '../../components/Icons'
 
 const SPECIAL_ICONS = { gift: Gift, chart: Chart, star: Star, spark: Spark, truck: Truck, snow: Snow, box: Box }
@@ -14,6 +14,10 @@ const ITEM_ICONS = [Box, Truck, Shield, Snow, Building, Spark, Globe, Route]
 const FLOW_ICONS = [Target, Box, Truck, Building, Chart]
 // 품목명 키워드로 의미에 맞는 아이콘 선택
 const itemIcon = (t = '') => (
+  /창고|레이아웃|보관/.test(t) ? Building :
+  /친환경|탄소/.test(t) ? Leaf :
+  /차종|적재율/.test(t) ? Truck :
+  /운임|정산/.test(t) ? Chart :
   /냉동|냉장|신선|유제|밀키트|콜드/.test(t) ? Snow :
   /의약|의료|약품/.test(t) ? Shield :
   /건자재|원자재|철강|설비|기계|중량/.test(t) ? Building :
@@ -86,10 +90,12 @@ export default function BusinessPage({ id: fixedId }) {
       <section className="section section--soft">
         <div className="wrap">
           <SectionHead center eyebrow="STRENGTHS" title="핵심 역량" />
-          <div className="strengths">
+          <div className="strengths strengths--rich">
             {p.strengths.map((s, i) => (
               <div className="strength" key={i} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
-                <div className="strength__n">{String(i + 1).padStart(2, '0')}</div><div><h3>{s.title}</h3><p>{s.desc}</p></div>
+                <div className="strength__top"><div className="strength__n">{String(i + 1).padStart(2, '0')}</div><h3>{s.title}</h3></div>
+                <p>{s.desc}</p>
+                {s.points?.length > 0 && <ul className="strength__pts">{s.points.map((pt, k) => <li key={k}><Check />{pt}</li>)}</ul>}
               </div>
             ))}
           </div>
@@ -101,8 +107,13 @@ export default function BusinessPage({ id: fixedId }) {
         <section className="section">
           <div className="wrap">
             <SectionHead center eyebrow={id === 'consulting' ? 'CONSULTING SCOPE' : 'CARGO'} title={id === 'consulting' ? '컨설팅 영역' : '주요 취급 품목'} />
-            <div className="items">
-              {p.items.map((it, i) => { const Ic = itemIcon(it.title) || ITEM_ICONS[i % ITEM_ICONS.length]; return (
+            <div className={`items ${p.items.some(it => it.image) ? 'items--photo' : 'items--icon'} items--n${p.items.length}`}>
+              {p.items.map((it, i) => { const Ic = itemIcon(it.title) || ITEM_ICONS[i % ITEM_ICONS.length]; return it.image ? (
+                <figure className="cargo" key={i} data-reveal="" style={{ transitionDelay: `${(i % 4) * .06}s` }}>
+                  <div className="cargo__img"><img src={asset(it.image)} alt={it.title} loading="lazy" /><span className="cargo__icon"><Ic /></span></div>
+                  <figcaption><b>{it.title}</b><span>{it.desc}</span></figcaption>
+                </figure>
+              ) : (
                 <div className="item" key={i} data-reveal="" style={{ transitionDelay: `${(i % 4) * .06}s` }}>
                   <span className="item__icon"><Ic /></span><b>{it.title}</b><span>{it.desc}</span>
                 </div>) })}
@@ -116,7 +127,7 @@ export default function BusinessPage({ id: fixedId }) {
         <section className="section section--soft">
           <div className="wrap">
             <SectionHead center eyebrow="FLEET" title="투입 차량" lead="화물 특성과 물량에 맞춰 아래 차종을 조합해 운영합니다." />
-            <div className={`veh-minis ${vehicles.length === 4 ? 'veh-minis--4' : ''}`}>{vehicles.map(v => <VehicleMini key={v.id} v={v} />)}</div>
+            <div className={`veh-minis ${vehicles.length === 4 ? 'veh-minis--4' : ''}`}>{vehicles.map(v => <VehicleMini key={v.id} v={v} />)}{vehicles.length % 3 !== 0 && vehicles.length !== 4 && <VehicleCtaTile />}</div>
             <div style={{ textAlign: 'center', marginTop: 24 }}><Link className="link" to="/company/status#fleet">차종별 제원·운송 제품 보기 <ArrowRight /></Link></div>
           </div>
         </section>

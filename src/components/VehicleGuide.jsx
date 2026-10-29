@@ -33,7 +33,26 @@ export function VehicleMini({ v }) {
   return (
     <Link to="/company/status#fleet" className="veh-mini" data-reveal="">
       <VehicleVisual v={v} small />
-      <div className="veh-mini__txt"><b>{v.name}</b><span>{v.sub}</span></div>
+      <div className="veh-mini__txt">
+        <b>{v.name}</b><span>{v.sub}</span>
+        <dl className="veh-mini__spec">{v.specs.slice(0, 2).map(([k, val]) => <div key={k}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
+        <p className="veh-mini__use"><em>주요 용도</em>{v.use}</p>
+        <ul className="veh-mini__goods">{v.goods.slice(0, 4).map(g => <li key={g}>{g}</li>)}</ul>
+      </div>
+    </Link>
+  )
+}
+
+// 그리드 빈 칸을 채우는 상담 안내 타일
+export function VehicleCtaTile() {
+  return (
+    <Link to="/contact" className="veh-mini veh-mini--cta" data-reveal="">
+      <div className="veh-mini__cta">
+        <span className="veh-mini__cta-icon"><ArrowRight /></span>
+        <b>화물에 맞는 차종,<br />전담 배차 담당자가 제안합니다</b>
+        <p>품목·물량·온도 조건을 알려주시면 톤수와 차종을 조합해 최적의 운송안을 드립니다.</p>
+        <span className="veh-mini__cta-link">차종 상담 신청 <ArrowRight /></span>
+      </div>
     </Link>
   )
 }
