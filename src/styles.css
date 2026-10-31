@@ -1640,3 +1640,12 @@ p, li, dd { text-wrap: pretty; }
 .veh__goods-txt span { white-space: nowrap; }
 .veh__goods-txt span:not(:last-child)::after { content: ' ·'; margin-right: .35em; color: var(--ink-3); }
 .split .h-section { font-size: clamp(1.75rem, 2.7vw, 2.35rem); line-height: 1.35; }
+
+/* ═══ v4.2 — 최상단: 메뉴 배경 완전 투명(영상·이미지가 메뉴 뒤까지 확장), 스크롤·메가메뉴 시에만 흰 배경 ═══ */
+.header.is-home:not(.is-scrolled):not(.is-mega) { background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom-color: transparent !important; box-shadow: none !important; }
+.header.is-home:not(.is-scrolled):not(.is-mega) .nav__link { color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
+.header.is-home:not(.is-scrolled):not(.is-mega) .nav__link::after { background: #fff; }
+.header.is-home:not(.is-scrolled):not(.is-mega) .burger { color: #fff; }
+.header.is-home:not(.is-scrolled):not(.is-mega) .btn--portal:not(.btn--portal-quick) { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.55); }
+.header.is-home:not(.is-scrolled):not(.is-mega) .header__logo img { filter: drop-shadow(0 0 10px rgba(255,255,255,.55)) drop-shadow(0 0 2px rgba(255,255,255,.8)) !important; }
+.header { transition: background .35s ease, border-color .35s ease, box-shadow .35s ease; }

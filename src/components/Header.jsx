@@ -12,7 +12,7 @@ export default function Header() {
   const { content } = useContent()
   const co = content.company
   const loc = useLocation()
-  const transparent = loc.pathname === '/'
+  const transparent = !loc.pathname.startsWith('/admin') // 상단 배경(영상·이미지)이 메뉴 뒤까지 이어지는 페이지
   useEffect(() => { const f = () => setScrolled(window.scrollY > 40); f(); window.addEventListener('scroll', f, { passive: true }); return () => window.removeEventListener('scroll', f) }, [])
   useEffect(() => { setOpen(false); setMega(false) }, [loc.pathname])
   useEffect(() => { document.body.style.overflow = open ? 'hidden' : ''; return () => { document.body.style.overflow = '' } }, [open])

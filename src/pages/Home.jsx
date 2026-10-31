@@ -139,21 +139,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. 핵심 지표 */}
-      <section className="section section--soft">
-        <div className="wrap">
-          <SectionHead center eyebrow="PERFORMANCE" title="삼원의 핵심 지표" />
-          <div className="stats__grid" data-reveal="">
-            {c.stats.map((s, i) => (
-              <div className="stat" key={i}>
-                <div className="stat__num"><CountUp value={Number(s.value)} /><small>{s.suffix}</small></div>
-                <div className="stat__label">{s.label}</div>
-                <div className="stat__sub">{s.sub}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* 3. 사업영역 — 대형 영문 타이틀 + 카드 캐러셀 */}
       <section className="section biz-sec">
