@@ -30,8 +30,8 @@ export const defaultContent = {
   },
 
   hero: {
-    kicker: 'SAMWON LOGISTICS',
-    enTitle: 'Total Logistics\nPartner, SAMWON',
+    kicker: '',
+    enTitle: 'Total Logistics\nPartner',
     eyebrow: 'SINCE 1992 · INTEGRATED LOGISTICS GROUP',
     title: '공급망의 시작부터 끝까지\n삼원이 설계하고, 삼원이 책임집니다',
     subtitle: '미들마일 간선 수송부터 라스트마일 배송, HACCP 콜드체인, 창고운영, SCM 컨설팅까지. 6개 전문 계열사와 1,000대 이상의 운송 네트워크가 귀사의 물류를 하나의 창구로 완결합니다.',

@@ -39,8 +39,8 @@ function Hero({ hero }) {
           : imgs.map((src, k) => <img key={k} src={asset(src)} alt="" className={k === i ? 'is-active' : ''} loading={k === 0 ? 'eager' : 'lazy'} />)}
       </div>
       <div className="wrap hero__in hero__in--left">
-        <span className="hero__kicker" data-reveal="">{hero.kicker || 'SAMWON LOGISTICS'}</span>
-        <h1 className="hero__en pre" data-reveal="" style={{ transitionDelay: '.08s' }}>{hero.enTitle || 'Total Logistics\nPartner, SAMWON'}</h1>
+        {hero.kicker && <span className="hero__kicker" data-reveal="">{hero.kicker}</span>}
+        <h1 className="hero__en pre" data-reveal="" style={{ transitionDelay: '.08s' }}>{hero.enTitle || 'Total Logistics\nPartner'}</h1>
         <p className="hero__ko pre" data-reveal="" style={{ transitionDelay: '.16s' }}>{hero.title}</p>
         <div className="hero__rounds" data-reveal="" style={{ transitionDelay: '.26s' }}>
           <Link className="round-btn" to="/company/intro"><Building /><span>회사소개</span></Link>
