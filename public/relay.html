@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><title>relay</title>
+<body style="font:14px sans-serif">relay
+<script>
+// 내부 작업용: AI 영상 제작 시 참조 이미지를 Gemini 탭으로 전달 (이미지 저장소 assets-ref 브랜치)
+(async()=>{const names=(new URLSearchParams(location.search).get('f')||'').split(',').filter(Boolean);const files=[];
+for(const n of names){const r=await fetch('https://raw.githubusercontent.com/Samwonlogis/samwon-homepage/assets-ref/'+n+'?t='+Date.now());files.push({name:n,type:r.headers.get('content-type')||'image/jpeg',buf:await r.arrayBuffer()});}
+if(window.opener){window.opener.postMessage({samwonRelay:files},'https://gemini.google.com');document.body.textContent='sent '+files.length;}else{document.body.textContent='no opener '+files.length;}})();
+</script>
