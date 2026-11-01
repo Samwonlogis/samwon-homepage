@@ -1,20 +1,21 @@
 Photo credits - all photos free to use under the Unsplash License (https://unsplash.com/license); none are Unsplash+ (all served from images.unsplash.com, not plus.unsplash.com).
-Downloaded as 1200x900 (4:3) crops: <image URL>?fm=jpg&q=82&w=1200&h=900&fit=crop
+None of these photos appear in the previous rejected set (/tmp/cargo_real/credits.txt).
+Downloaded from <image URL>?fm=jpg&q=85&w=1600, then center-cropped/resized locally to 1200x900 (4:3); docs crop is right-aligned.
 
 name | unsplash page | photographer | image URL
-electronics | https://unsplash.com/photos/black-cordless-headphones-beside-closed-black-laptop-computer-and-smartphone-_aXa21cf7rY | Christopher Gower | https://images.unsplash.com/photo-1498049794561-7780e7231661
-parts | https://unsplash.com/photos/silver-screw-lot-on-brown-wooden-table-cMS2npIGV_g | Robert Ruggiero | https://images.unsplash.com/photo-1607733067403-a0396fa4d3d0
-pharma | https://unsplash.com/photos/a-group-of-pills-sitting-on-top-of-each-other-QACp304EIR0 | Melany @ tuinfosalud.com | https://images.unsplash.com/photo-1631980839613-61a08159d506
-fresh | https://unsplash.com/photos/a-variety-of-vegetables-are-displayed-in-wooden-crates-tHHFiw6GNEU | mk. s | https://images.unsplash.com/photo-1632776350300-11016768b521
-frozen | https://unsplash.com/photos/X5ChCOu8CQg (es: https://unsplash.com/es/fotos/arandanos-frambuesas-y-moras-congelados-X5ChCOu8CQg) | Devin Rajaram | https://images.unsplash.com/photo-1438907046657-4ae137eb8c5e
-household | https://unsplash.com/photos/black-and-white-glass-bottles-OHQcMO-8i2I | Kier in Sight Archives | https://images.unsplash.com/photo-1622866027662-14e3c5ee67e7
-buildmat | https://unsplash.com/photos/a-pile-of-metal-pipes-stacked-on-top-of-each-other-LT-oz1yj0_0 | Mohammad Hossein Farahzadi | https://images.unsplash.com/photo-1709244596176-0e14b3b8a517
-parcel | https://unsplash.com/photos/cardboard-boxes-against-brown-background-DevJkLB3hWE | Kadarius Seegars | https://images.unsplash.com/photo-1624137527136-66e631bdaa0e
-gift | https://unsplash.com/photos/gift-boxes-PxM8aeJbzvk | freestocks | https://images.unsplash.com/photo-1513885535751-8b9238bd345a
-docs | https://unsplash.com/photos/stacks-of-paper-documents-and-file-folders-snNHKZ-mGfE | Wesley Tingey | https://images.unsplash.com/photo-1583521214690-73421a1829a9
-event | https://unsplash.com/photos/a-light-shines-brightly-on-a-stack-of-crates-l7kXTAgF8F8 | Eduardo Soares | https://images.unsplash.com/photo-1642607003308-9caa9e8aeadd
-pallet | https://unsplash.com/photos/a-warehouse-filled-with-lots-of-boxes-and-pallets-VnMbc9Szs-E | Arum Visuals | https://images.unsplash.com/photo-1672552226380-486fe900b322
-machine | https://unsplash.com/photos/grey-industrial-equipment-mhUsz2ezlXQ | Crystal Kwok | https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0
-auto | https://unsplash.com/photos/orange-traffic-cone-near-pile-of-vehicle-tires-rRaApBvfSkA | Jon Tyson | https://images.unsplash.com/photo-1546522072-96134aefbd24
-samples | https://unsplash.com/photos/white-drop-bottle-on-white-surface-WdJ4WnLxyDs | Content Pixie | https://images.unsplash.com/photo-1576426863848-c21f53c60b19
-franchise | https://unsplash.com/photos/assorted-spices-in-clear-glass-jars-Zjyx5CYVcho | Jas Min | https://images.unsplash.com/photo-1621318551436-68573392fd5c
+electronics | https://unsplash.com/photos/a-row-of-washing-machines-R5NdfEnbcYo | Yun Cho | https://images.unsplash.com/photo-1657064575960-efefbe831c2e
+parts | https://unsplash.com/photos/a-couple-of-metal-parts-sitting-on-top-of-a-table-D60xwIqu-jA | Diecasting Mould | https://images.unsplash.com/photo-1723632670536-e3104577a19c
+pharma | https://unsplash.com/photos/a-room-filled-with-lots-of-shelves-filled-with-boxes-and-boxes-tvP6pCnq9iI | Árpád Czapp | https://images.unsplash.com/photo-1642055514517-7b52288890ec
+fresh | https://unsplash.com/photos/a-wooden-crate-filled-with-assorted-fruits-and-vegetables-OqXXSSPs4zw | Skön Communication | https://images.unsplash.com/photo-1635341083777-5f93a755e916
+frozen | https://unsplash.com/photos/fresh-seafood-on-crushed-ice-tHjXXy1kk_Q | Mike Bergmann | https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62
+household | https://unsplash.com/photos/white-plastic-bottles-on-white-plastic-container-XxAy813D66I | Giorgio Trovato | https://images.unsplash.com/photo-1626379481874-3dc5678fa8ca
+buildmat | https://unsplash.com/photos/a-group-of-men-standing-on-top-of-a-pile-of-metal-6CT4cYdSNaI | Glenov Brankovic | https://images.unsplash.com/photo-1694521787673-28cbd8830ea5
+parcel | https://unsplash.com/photos/brown-cardboard-boxes-on-white-floor-tiles-8wy9mGgmGoU | MAK | https://images.unsplash.com/photo-1609143739217-01b60dad1c67
+gift | https://unsplash.com/photos/brown-gift-box-with-pink-ribbon-f94JPVrDbnY | Jess Bailey | https://images.unsplash.com/photo-1513201099705-a9746e1e201f
+docs | https://unsplash.com/photos/a-stack-of-thick-folders-on-a-white-surface-XN4T2PVUUgk | Beatriz Pérez Moya | https://images.unsplash.com/photo-1468779036391-52341f60b55d
+event | https://unsplash.com/photos/rows-of-empty-white-plastic-chairs-indoors-_tLkNnL5kwM | runda choo | https://images.unsplash.com/photo-1763375214136-8a7a8706f96c
+pallet | https://unsplash.com/photos/a-forklift-driving-through-a-warehouse-filled-with-pallets-F2C_mSrb6iM | Bernd Dittrich | https://images.unsplash.com/photo-1645736315000-6f788915923b
+machine | https://unsplash.com/photos/a-large-machine-in-a-large-building-pWUyHVJgLhg | Homa Appliances | https://images.unsplash.com/photo-1717386255773-1e3037c81788
+auto | https://unsplash.com/photos/piles-of-car-tires-WHPOFFzY9gU | Robert Laursoo | https://images.unsplash.com/photo-1578844251758-2f71da64c96f
+samples | https://unsplash.com/photos/white-box-on-white-table-GopRYASfsOc | Kelli McClintock | https://images.unsplash.com/photo-1573376670774-4427757f7963
+franchise | https://unsplash.com/photos/stainless-steel-bowls-5E0d3lfoC1w | Jonathan Borba | https://images.unsplash.com/photo-1551218372-a8789b81b253
