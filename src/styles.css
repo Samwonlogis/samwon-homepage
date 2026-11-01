@@ -1659,14 +1659,25 @@ p, li, dd { text-wrap: pretty; }
 .hero__en { font-size: clamp(2.24rem, 5.92vw, 5.28rem); }
 @media (max-width: 699px) { .hero__en { font-size: clamp(2rem, 9.6vw, 2.72rem); } }
 
-/* 서브 배너(사진형): 메뉴 뒤는 흐린 확장 배경, 사진 본체는 메뉴 아래에서 시작 → 인물 머리끝까지 노출 */
-.page-head--photo img.page-head__blur { inset: 0; height: 100%; object-position: center top; filter: blur(26px) brightness(.8) saturate(1.1); transform: scale(1.15); animation: none; }
-.page-head--photo img.page-head__img { top: var(--header-h); height: calc(100% - var(--header-h)); object-position: center 4%; transform-origin: center top; animation: kb-top 18s ease-out both;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 46px); mask-image: linear-gradient(180deg, transparent 0, #000 46px); }
-@keyframes kb-top { from { transform: scale(1.08); } to { transform: scale(1); } }
-.page-head--photo img[src*="banner_contact"] { object-position: 70% 6%; }
-.page-head--photo img[src*="biz_warehouse"], .page-head--photo img[src*="biz_consulting"] { object-position: center 12%; }
-@media (prefers-reduced-motion: reduce) { .page-head--photo img.page-head__img { animation: none; } }
+/* 서브 배너(사진형): 사진 전체가 메뉴 뒤까지 깔리되, 배너를 사진 비율에 가깝게 키워 인물·트럭이 잘리지 않고 중심에 보이도록 */
+.page-head--photo { min-height: min(52vw, 760px); }
+.page-head--photo img.page-head__img { object-position: center 30%; transform-origin: center center; animation: kb 18s ease-out both; }
+.page-head--photo::after { background: linear-gradient(90deg, rgba(6,18,42,.72) 0%, rgba(6,18,42,.35) 45%, rgba(6,18,42,0) 72%), linear-gradient(180deg, rgba(6,18,42,.38) 0, transparent 22%), linear-gradient(0deg, rgba(6,18,42,.4), transparent 40%); }
+.page-head--photo img[src*="banner_contact"] { object-position: 62% 20%; }
+.page-head--photo img[src*="banner_drivers"] { object-position: 55% 30%; }
+.page-head--photo img[src*="banner_talent"] { object-position: 70% 25%; }
+.page-head--photo img[src*="biz_warehouse"] { object-position: 75% 30%; }
+.page-head--photo img[src*="biz_consulting"] { object-position: 40% 25%; }
+.page-head--photo img[src*="biz_corporate"] { object-position: 60% 55%; }
+@media (max-width: 767px) {
+  .page-head--photo { min-height: 520px; }
+  .page-head--photo img[src*="banner_contact"] { object-position: 72% 20%; }
+  .page-head--photo img[src*="banner_drivers"] { object-position: 32% 30%; }
+  .page-head--photo img[src*="banner_talent"] { object-position: 76% 25%; }
+  .page-head--photo img[src*="biz_warehouse"] { object-position: 78% 30%; }
+  .page-head--photo img[src*="biz_consulting"] { object-position: 22% 25%; }
+  .page-head--photo img[src*="biz_corporate"] { object-position: 62% 55%; }
+}
 
 /* 회사소개 배너: SAMWON 로고 클로즈업 → 줌아웃, 글자 라인을 따라 흐르는 광택 */
 .page-head--logo { background: radial-gradient(120% 140% at 78% 45%, #12408a 0%, #0a2556 38%, #050f26 78%); }
@@ -1689,4 +1700,3 @@ p, li, dd { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) { .ph-logo, .ph-logo__mark::after { animation: none; } }
 .ph-logo { width: min(42vw, 700px); right: 4%; }
 @media (min-width: 768px) { .page-head--logo p { max-width: 25em; } }
-.page-head--photo img[src*="biz_corporate"] { object-position: 60% 42%; }

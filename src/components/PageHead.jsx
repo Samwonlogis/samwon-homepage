@@ -16,7 +16,6 @@ export default function PageHead({ label, title, desc, crumb = [], subnav, docTi
             <div className="ph-logo__mark" style={{ '--logo': `url(${asset('samwon_logo.svg')})` }} />
           </div>
         )}
-        {image && !logo && <img className="page-head__blur" src={asset(image)} alt="" aria-hidden="true" />}
         {image && !logo && <img className="page-head__img" src={asset(image)} alt="" />}
         <div className="wrap page-head__in">
           {label && <div className="page-head__label">{titleCase(label)}</div>}
