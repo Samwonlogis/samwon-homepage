@@ -1649,3 +1649,7 @@ p, li, dd { text-wrap: pretty; }
 .header.is-home:not(.is-scrolled):not(.is-mega) .btn--portal:not(.btn--portal-quick) { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.55); }
 .header.is-home:not(.is-scrolled):not(.is-mega) .header__logo img { filter: drop-shadow(0 0 10px rgba(255,255,255,.55)) drop-shadow(0 0 2px rgba(255,255,255,.8)) !important; }
 .header { transition: background .35s ease, border-color .35s ease, box-shadow .35s ease; }
+/* v4.3 — 주요 취급 품목: 실사 사진, 품목이 프레임을 꽉 채우지 않도록 20% 축소(여백 매트) */
+.cargo__img { background: #eef1f5; display: grid; place-items: center; }
+.cargo__img img { width: 80% !important; height: 80% !important; object-fit: cover; box-shadow: 0 10px 24px -14px rgba(15,22,38,.35); }
+.cargo:hover .cargo__img img { transform: scale(1.03); }
