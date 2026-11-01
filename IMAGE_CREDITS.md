@@ -11,3 +11,9 @@
 
 - 외부 사이트에서 무단 수집한 사진은 사용하지 않음.
 - 신규 이미지 추가 시 이 표에 출처를 기록할 것.
+
+## 회사홍보영상 (public/video/promo.mp4, 2026-11-01)
+- 영상 소스: 메인 영상(Gemini Veo 생성)과 홈페이지용 Canva AI 생성 사진으로만 구성
+- 나레이션: Microsoft Azure 신경망 음성(ko-KR Hyunsu) 합성 — 실존 성우 음성 아님
+- 배경음악: 수치 합성으로 직접 제작(Python) — 외부 음원 미사용
+- 로고: 자사 CI(SAMWON_logo_EN.png)

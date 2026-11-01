@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
+import PromoButton from './PromoButton'
 import { useReveal } from '../hooks/useReveal'
 
 export default function Layout() {
@@ -12,5 +13,5 @@ export default function Layout() {
     return () => clearTimeout(t)
   }, [pathname, hash])
   useReveal([pathname])
-  return (<><Header /><main><Outlet /></main><Footer /></>)
+  return (<><Header /><main><Outlet /></main><Footer /><PromoButton /></>)
 }

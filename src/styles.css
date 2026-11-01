@@ -1710,3 +1710,17 @@ p, li, dd { text-wrap: pretty; }
 /* 헤더 차주 전용·에스원퀵: 아이콘 30% 확대, 버튼 10% 축소 */
 .header .btn--portal { min-height: 41px; padding: 0 18px; font-size: 16.65px; gap: 9px; }
 .header .btn--portal svg { width: 23.4px; height: 23.4px; }
+/* v4.6 — 회사홍보영상 고정 버튼(좌하단, 로고 블루) + 영상 레이어 */
+.promo-fab { position: fixed; left: 22px; bottom: 22px; z-index: 60; display: inline-flex; align-items: center; gap: 10px; padding: 0 20px 0 8px; height: 52px; border: 0; border-radius: 999px; background: #064285; color: #fff; font-family: inherit; font-weight: 700; font-size: 16.5px; letter-spacing: -.01em; box-shadow: 0 10px 28px -10px rgba(6,66,133,.7), 0 0 0 0 rgba(6,66,133,.45); cursor: pointer; transition: transform .25s var(--ease), background .25s; animation: promo-pulse 2.8s ease-out infinite; }
+.promo-fab:hover { transform: translateY(-2px); background: #0b55a8; }
+.promo-fab__ic { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #fff; color: #064285; }
+.promo-fab__ic svg { margin-left: 2px; }
+@keyframes promo-pulse { 0% { box-shadow: 0 10px 28px -10px rgba(6,66,133,.7), 0 0 0 0 rgba(6,66,133,.5); } 70% { box-shadow: 0 10px 28px -10px rgba(6,66,133,.7), 0 0 0 16px rgba(6,66,133,0); } 100% { box-shadow: 0 10px 28px -10px rgba(6,66,133,.7), 0 0 0 0 rgba(6,66,133,0); } }
+@media (max-width: 767px) { .promo-fab { left: 14px; bottom: calc(66px + env(safe-area-inset-bottom)); height: 46px; font-size: 15px; padding-right: 16px; } .promo-fab__ic { width: 32px; height: 32px; } }
+@media (prefers-reduced-motion: reduce) { .promo-fab { animation: none; } }
+.promo-modal { position: fixed; inset: 0; z-index: 200; background: rgba(3,10,26,.88); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); display: grid; place-items: center; padding: 24px; animation: promo-in .25s ease-out; }
+@keyframes promo-in { from { opacity: 0; } to { opacity: 1; } }
+.promo-modal__in { position: relative; width: min(1280px, 100%); aspect-ratio: 16 / 9; background: #000; border-radius: 10px; overflow: hidden; box-shadow: 0 40px 100px -30px rgba(0,0,0,.8); }
+.promo-modal__in video { width: 100%; height: 100%; display: block; }
+.promo-modal__close { position: absolute; right: 10px; top: 10px; z-index: 2; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255,255,255,.14); color: #fff; font-size: 30px; line-height: 1; cursor: pointer; }
+.promo-modal__close:hover { background: rgba(255,255,255,.3); }
