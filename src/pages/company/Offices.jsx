@@ -35,7 +35,7 @@ export default function Offices() {
 
   return (
     <>
-      <PageHead label="OFFICES" title="사무소" desc="서울 본사를 중심으로 전국을 잇는 삼원종합물류의 사업장을 안내합니다." image="img/banner_company.jpg" crumb={['회사소개', '사무소']} subnav={COMPANY_NAV} />
+      <PageHead label="OFFICES" title="사무소" desc="서울 본사를 중심으로 전국을 잇는 삼원종합물류의 사업장을 안내합니다." logo crumb={['회사소개', '사무소']} subnav={COMPANY_NAV} />
 
       <section className="section ofx-sec">
         <div className="wrap">

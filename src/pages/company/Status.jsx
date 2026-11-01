@@ -11,7 +11,7 @@ export default function Status() {
   const { content: c } = useContent(); const f = c.fleet
   return (
     <>
-      <PageHead label="STATUS" title="주요현황" desc="1,000대 이상의 운송 네트워크와 30개 이상의 장기 파트너사가 만드는 물류 인프라를 소개합니다" image="img/banner_business.jpg" crumb={['회사소개', '주요현황']} subnav={COMPANY_NAV} />
+      <PageHead label="STATUS" title="주요현황" desc="1,000대 이상의 운송 네트워크와 30개 이상의 장기 파트너사가 만드는 물류 인프라를 소개합니다" logo crumb={['회사소개', '주요현황']} subnav={COMPANY_NAV} />
 
       <section className="section">
         <div className="wrap">

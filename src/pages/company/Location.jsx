@@ -9,7 +9,7 @@ export default function Location() {
   const q = encodeURIComponent(d.mapQuery || co.address)
   return (
     <>
-      <PageHead label="LOCATION" title="찾아오시는 길" desc="삼원종합물류 서울 본사(서초구) 방문 안내입니다." image="img/banner_company.jpg" crumb={['회사소개', '찾아오시는 길']} subnav={COMPANY_NAV} />
+      <PageHead label="LOCATION" title="찾아오시는 길" desc="삼원종합물류 서울 본사(서초구) 방문 안내입니다." logo crumb={['회사소개', '찾아오시는 길']} subnav={COMPANY_NAV} />
       <section className="section">
         <div className="wrap" style={{ maxWidth: 1000 }}>
           <SectionHead center eyebrow="LOCATION & MAP" title="본사 오시는 길" />

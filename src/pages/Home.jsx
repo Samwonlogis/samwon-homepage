@@ -40,7 +40,7 @@ function Hero({ hero }) {
       </div>
       <div className="wrap hero__in hero__in--left">
         {hero.kicker && <span className="hero__kicker" data-reveal="">{hero.kicker}</span>}
-        <h1 className="hero__en pre" data-reveal="" style={{ transitionDelay: '.08s' }}>{hero.enTitle || 'Total Logistics\nPartner'}</h1>
+        <h1 className="hero__en pre" data-reveal="" style={{ transitionDelay: '.08s' }}>{String(hero.enTitle || 'Total Logistics\nPartner').replace(/\s*,\s*SAMWON\s*$/i, '')}</h1>
         <p className="hero__ko pre" data-reveal="" style={{ transitionDelay: '.16s' }}>{hero.title}</p>
         <div className="hero__rounds" data-reveal="" style={{ transitionDelay: '.26s' }}>
           <Link className="round-btn" to="/company/intro"><Building /><span>회사소개</span></Link>

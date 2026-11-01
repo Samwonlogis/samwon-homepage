@@ -12,7 +12,7 @@ export default function Vision() {
   const v = c.visionPage || {}
   return (
     <>
-      <PageHead label="VISION" title="기업비전" desc="고객의 공급망을 끝까지 책임지는 대한민국 대표 통합물류 그룹" image="img/banner_company.jpg" crumb={['회사소개', '기업비전']} subnav={COMPANY_NAV} />
+      <PageHead label="VISION" title="기업비전" desc="고객의 공급망을 끝까지 책임지는 대한민국 대표 통합물류 그룹" logo crumb={['회사소개', '기업비전']} subnav={COMPANY_NAV} />
 
       {/* 1. 비전 선언 */}
       <section className="vs-intro">

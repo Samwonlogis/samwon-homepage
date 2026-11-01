@@ -22,7 +22,7 @@ export default function History() {
 
   return (
     <>
-      <PageHead label="HISTORY" title="회사연혁" desc="설립부터 오늘까지, 화주와 함께 걸어온 삼원종합물류의 발자취입니다" image="img/banner_company.jpg" crumb={['회사소개', '회사연혁']} subnav={COMPANY_NAV} />
+      <PageHead label="HISTORY" title="회사연혁" desc="설립부터 오늘까지, 화주와 함께 걸어온 삼원종합물류의 발자취입니다" logo crumb={['회사소개', '회사연혁']} subnav={COMPANY_NAV} />
       <section className="section hz-sec">
         <div className="wrap">
           <div className="title-block" data-reveal="">
