@@ -1692,3 +1692,21 @@ p, li, dd { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) { .ph-logo, .ph-logo__mark::after { animation: none; } }
 .ph-logo { width: min(42vw, 700px); right: 4%; }
 @media (min-width: 768px) { .page-head--logo p { max-width: 25em; } }
+/* v4.5 — 회사소개만 줌인→줌아웃, 나머지 회사소개 계열은 최종 배치 상태 고정(광택 유지) */
+.page-head--logo:not(.page-head--zoom) .ph-logo { animation: none; }
+.page-head--logo:not(.page-head--zoom) .ph-logo__mark::after { animation-delay: .6s; }
+/* 사업영역 전체소개: 현장 슬라이드 배너 */
+.page-head--slides img.ph-slide { opacity: 0; transition: opacity 1.1s ease; animation: none; }
+.page-head--slides img.ph-slide.is-on { opacity: 1; animation: kb-soft 6s ease-out both; }
+.ph-cap { position: absolute; right: var(--gutter); bottom: 34px; z-index: 2; display: flex; align-items: center; gap: 16px; padding: 12px 18px; border-radius: 6px; background: rgba(7,26,58,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: #fff; min-width: 300px; }
+.ph-cap__no { font-family: var(--font-en); font-weight: 700; font-size: 18px; letter-spacing: .02em; }
+.ph-cap__no i { font-style: normal; font-weight: 500; opacity: .6; margin-left: 4px; font-size: 14px; }
+.ph-cap__txt { display: flex; flex-direction: column; line-height: 1.35; font-size: 15px; color: rgba(255,255,255,.88); }
+.ph-cap__txt b { font-size: 16.5px; color: #fff; }
+.ph-cap__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(255,255,255,.18); overflow: hidden; border-radius: 0 0 6px 6px; }
+.ph-cap__bar i { display: block; height: 100%; background: #7fb0f4; transform-origin: left; animation: ph-bar 4.2s linear both; }
+@keyframes ph-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (max-width: 767px) { .ph-cap { left: var(--gutter); right: var(--gutter); top: calc(var(--header-h) + 62vw - 64px); bottom: auto; min-width: 0; padding: 9px 14px; } .ph-cap__txt { font-size: 13.5px; } .ph-cap__txt b { font-size: 14.5px; } }
+/* 헤더 차주 전용·에스원퀵: 아이콘 30% 확대, 버튼 10% 축소 */
+.header .btn--portal { min-height: 41px; padding: 0 18px; font-size: 16.65px; gap: 9px; }
+.header .btn--portal svg { width: 23.4px; height: 23.4px; }
