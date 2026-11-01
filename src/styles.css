@@ -1653,3 +1653,4 @@ p, li, dd { text-wrap: pretty; }
 .cargo__img { background: #eef1f5; display: grid; place-items: center; }
 .cargo__img img { width: 80% !important; height: 80% !important; object-fit: cover; box-shadow: 0 10px 24px -14px rgba(15,22,38,.35); }
 .cargo:hover .cargo__img img { transform: scale(1.03); }
+.page-head img[src*="banner_contact"] { object-position: 70% 22%; }
