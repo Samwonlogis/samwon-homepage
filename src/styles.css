@@ -1916,3 +1916,71 @@ a.cc-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgb
 .hero__rounds { margin-top: 30px; }
 @media (max-width: 699px) { .hero { height: 78svh; min-height: 520px; } .hero__rounds { margin-top: 26px; } }
 .cc-link > svg { width: 22px; height: 22px; } .cc-card p a svg { width: 16px; height: 16px; } .nb-post__link svg { width: 18px; height: 18px; }
+/* v5.3 — 공지사항: 항상 표시되는 페이지 번호·직원 도구·첨부 / 고객센터(.cs) 재디자인 */
+.nb-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 15px; color: var(--ink-3); }
+.nb-meta b { color: var(--ink); }
+.nb-staff { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.nb-list__head { display: grid; grid-template-columns: 64px 96px 1fr 110px; gap: 16px; padding: 12px 14px; font-size: 13.5px; font-weight: 700; color: var(--ink-3); background: var(--bg-soft); }
+.nb-list__head span:nth-child(2), .nb-list__head span:first-child, .nb-list__head span:last-child { text-align: center; }
+.nb-list a { grid-template-columns: 64px 96px 1fr 110px; }
+.nb-list a.has-tools, .nb-list__head:has(span:nth-child(5)) { grid-template-columns: 64px 96px 1fr 110px 120px; }
+.nb-list .nb-cat { justify-self: center; }
+.nb-list time { text-align: center; }
+.nb-tools { display: flex; gap: 6px; justify-content: flex-end; }
+.nb-clip { font-style: normal; margin-left: 6px; font-size: 14px; }
+.nb-pages { display: flex; justify-content: center; align-items: center; gap: 6px; padding-top: 10px; }
+.nb-pages button:disabled { opacity: .35; cursor: default; }
+.nb-attach { display: grid; gap: 8px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 12px; background: var(--bg-soft); }
+.nb-attach__head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 16px; }
+.nb-attach__btn { cursor: pointer; }
+.nb-attach__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.nb-attach__list li { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 15px; }
+.nb-attach__list li span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .nb-attach__list small { color: var(--ink-3); }
+.nb-attach__list button { border: 0; background: transparent; font-size: 20px; line-height: 1; color: var(--ink-3); cursor: pointer; }
+.nb-post__top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.nb-files { margin: 0 8px; padding: 16px 20px; border-radius: 12px; background: var(--bg-soft); border: 1px solid var(--line); display: grid; gap: 8px; }
+.nb-files b { font-size: 14px; color: var(--ink-3); letter-spacing: .04em; }
+.nb-files ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.nb-files a { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--blue); font-size: 16.5px; } .nb-files small { color: var(--ink-3); font-weight: 500; } .nb-files svg { width: 16px; height: 16px; }
+.nb-post footer { justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 767px) { .nb-list__head { display: none; } .nb-list a.has-tools { grid-template-columns: auto 1fr; } .nb-tools { grid-column: 1 / -1; justify-content: flex-start; } .nb-list time { text-align: left; } .nb-list .nb-cat { justify-self: start; } }
+
+.cs-top { display: grid; gap: 20px; }
+@media (min-width: 960px) { .cs-top { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 28px; align-items: stretch; } }
+.cs-hero { position: relative; overflow: hidden; border-radius: 20px; padding: 42px 40px; color: #fff; background: radial-gradient(120% 120% at 100% 0%, #1d5fc2 0%, #0b3f8a 45%, #06275c 100%); display: grid; gap: 22px; align-content: start; }
+.cs-hero::after { content: ''; position: absolute; right: -60px; bottom: -80px; width: 260px; height: 260px; border-radius: 50%; border: 36px solid rgba(255,255,255,.07); }
+.cs-hero .sh-en { color: #a9c8f2; }
+.cs-hero h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); letter-spacing: -.03em; line-height: 1.3; }
+.cs-hero__tel { display: inline-flex; align-items: center; gap: 14px; font-family: var(--font-en); font-weight: 800; font-size: clamp(2rem, 3.6vw, 3rem); letter-spacing: -.02em; color: #fff; width: fit-content; }
+.cs-hero__tel svg { width: 34px; height: 34px; padding: 7px; border-radius: 50%; background: rgba(255,255,255,.16); }
+.cs-hero__time { display: flex; gap: 12px; align-items: flex-start; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.18); font-size: 15px; color: rgba(255,255,255,.85); }
+.cs-hero__time svg { flex: none; margin-top: 2px; color: #a9c8f2; } .cs-hero__time b { display: block; color: #fff; font-size: 17px; margin-bottom: 2px; }
+.cs-ch { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.cs-ch li { display: flex; gap: 18px; align-items: center; padding: 20px 22px; background: #fff; border: 1px solid var(--line); border-radius: 16px; }
+.cs-ch__ic { flex: none; width: 48px; height: 48px; border-radius: 12px; background: var(--blue-50); color: var(--blue); display: grid; place-items: center; }
+.cs-ch__ic svg { width: 22px; height: 22px; }
+.cs-ch small { display: block; font-size: 13.5px; color: var(--ink-3); font-weight: 700; letter-spacing: .02em; margin-bottom: 2px; }
+.cs-ch a, .cs-ch b { display: block; font-size: clamp(1.05rem, 1.4vw, 1.25rem); font-weight: 700; letter-spacing: -.02em; color: var(--ink); line-height: 1.35; word-break: keep-all; }
+.cs-ch a:hover { color: var(--blue); }
+.cs-ch p { margin: 3px 0 0; font-size: 14.5px; color: var(--ink-3); }
+.cs-ch p a { display: inline-flex; align-items: center; gap: 4px; font-size: 14.5px; color: var(--blue); } .cs-ch p a svg { width: 14px; height: 14px; }
+.cs-kakao { margin-top: 20px; display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: 14px; background: #fff8dc; border: 1px solid #f1e0a0; }
+.cs-kakao__ic { flex: none; width: 44px; height: 44px; border-radius: 12px; background: #fee500; color: #3c1e1e; display: grid; place-items: center; font-weight: 800; font-size: 13px; letter-spacing: -.02em; }
+.cs-kakao b { display: block; font-size: 17px; } .cs-kakao p { margin: 2px 0 0; font-size: 15px; color: var(--ink-2); }
+.cs-links { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .cs-links { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.cs-link { position: relative; display: grid; gap: 6px; align-content: start; padding: 26px 24px 24px; background: #fff; border: 1px solid var(--line); border-radius: 16px; color: var(--ink); transition: transform .3s var(--ease), border-color .3s, box-shadow .3s; }
+.cs-link:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: 0 24px 40px -30px rgba(6,66,133,.4); }
+.cs-link__no { font-family: var(--font-en); font-weight: 700; font-size: 13px; color: var(--ink-3); letter-spacing: .04em; }
+.cs-link__ic { width: 46px; height: 46px; border-radius: 12px; background: var(--blue-50); color: var(--blue); display: grid; place-items: center; margin: 6px 0 10px; } .cs-link__ic svg { width: 22px; height: 22px; }
+.cs-link b { font-size: 19px; letter-spacing: -.02em; } .cs-link p { margin: 0; font-size: 14.5px; color: var(--ink-3); line-height: 1.55; }
+.cs-link__arrow { position: absolute; right: 20px; top: 22px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink-3); transition: all .3s; } .cs-link__arrow svg { width: 16px; height: 16px; }
+.cs-link:hover .cs-link__arrow { background: var(--blue); border-color: var(--blue); color: #fff; }
+.cs-faq { display: grid; gap: 28px; }
+@media (min-width: 960px) { .cs-faq { grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: 60px; align-items: start; } .cs-faq__head { position: sticky; top: calc(var(--header-h) + 24px); } }
+.cs-faq__head .lead { margin: 14px 0 22px; }
+.cs-faq .faq-cards { margin-top: 0; }
+@media (max-width: 599px) { .cs-links { grid-template-columns: 1fr; } .cs-hero { padding: 30px 24px; } }
+.cs-hero__time svg { width: 20px; height: 20px; } .cs-hero__tel svg { width: 40px; height: 40px; padding: 9px; }
+@media (max-width: 767px) { .nb-list time { grid-column: 1 / -1; } .nb-list a { grid-template-columns: auto 1fr; } .nb-list b { order: 0; } }
+@media (max-width: 767px) { .nb-bar, .nb-meta, .nb-staff { width: 100%; } .nb-search { flex: 1 1 100%; width: 100%; } .nb-search input { min-width: 0; flex: 1; } .nb-meta { justify-content: flex-start; } .nb { overflow-x: hidden; } }

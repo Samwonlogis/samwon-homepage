@@ -39,3 +39,19 @@ export async function publishContent(content, message = '관리자 모드: 홈�
   if (!p.ok) { const t = await p.text(); throw new Error(`반영 실패 (${p.status}) ${t.slice(0, 120)}`) }
   return true
 }
+
+/** 첨부파일 업로드 — public/files/<folder>/ 에 저장하고 공개 URL을 돌려줌 (반영 키 필요, 20MB 이하) */
+export async function publishFile(file, folder = 'notice') {
+  const key = getPublishKey()
+  if (!key) throw new Error('이 PC에 반영 키가 없어 파일을 올릴 수 없습니다. 관리자 모드 「고급 설정」에서 등록해 주십시오.')
+  if (file.size > 20 * 1024 * 1024) throw new Error('파일은 20MB 이하만 올릴 수 있습니다.')
+  const safe = file.name.normalize('NFC').replace(/[^\w.\-가-힣]+/g, '_')
+  const path = `public/files/${folder}/${Date.now()}_${safe}`
+  const buf = new Uint8Array(await file.arrayBuffer()); let bin = ''
+  for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000))
+  const headers = { Authorization: `Bearer ${key}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' }
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, { method: 'PUT', headers, body: JSON.stringify({ message: `첨부파일 업로드: ${safe}`, branch: BRANCH, content: btoa(bin) }) })
+  if (!r.ok) { const t = await r.text(); throw new Error(`업로드 실패 (${r.status}) ${t.slice(0, 120)}`) }
+  const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '')
+  return { name: file.name, url: `${base}/${path.replace(/^public\//, '')}`, size: file.size }
+}
