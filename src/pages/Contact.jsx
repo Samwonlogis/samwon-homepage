@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import PageHead from '../components/PageHead'
 import { useContent } from '../context/ContentContext'
 import { SUPPORT_NAV } from './support/supportNav'
-import { Phone, Mail, Pin, Fax, Spark, Truck, Handshake, ArrowRight, Clock } from '../components/Icons'
+import { Phone, Mail, Pin, Fax, Spark, ArrowRight, Clock } from '../components/Icons'
 
 // 고객센터 — 대표 연락처(큰 카드) · 채널 목록 · 바로가기 · FAQ
 export default function Contact() {
@@ -32,30 +32,8 @@ export default function Contact() {
         {cp.kakao && <div className="wrap"><div className="cs-kakao" data-reveal=""><span className="cs-kakao__ic">talk</span><div><b>{cp.kakao.title}</b><p>{cp.kakao.desc}</p></div></div></div>}
       </section>
 
-      {/* 바로가기 */}
-      <section className="section section--soft">
-        <div className="wrap">
-          <div className="section-head" data-reveal=""><span className="sh-en">Quick Links</span><h2 className="h-section">용건에 맞는 창구로 바로 연결됩니다</h2></div>
-          <div className="cs-links">
-            {[
-              { to: '/contact/partnership', Ic: Handshake, t: '제휴문의', d: '기업 물류 위탁 · 창고 · 컨설팅 견적 신청' },
-              { to: '/driver', Ic: Truck, t: '차주 전용', d: '운송료내역서 · 보험/할부/공과금 · 차주 공지' },
-              { to: '/recruitment/jobs', Ic: Truck, t: '차주구인', d: '노선별 차주 모집 공고 확인 · 지원' },
-              { to: '/support/notice', Ic: Mail, t: '공지사항', d: '공지 · 삼원소식 · 자료실' },
-            ].map((x, i) => (
-              <Link to={x.to} className="cs-link" key={x.to} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
-                <span className="cs-link__no">{String(i + 1).padStart(2, '0')}</span>
-                <span className="cs-link__ic"><x.Ic /></span>
-                <b>{x.t}</b><p>{x.d}</p>
-                <span className="cs-link__arrow"><ArrowRight /></span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
-      <section className="section">
+      <section className="section section--soft">
         <div className="wrap cs-faq">
           <div className="cs-faq__head" data-reveal="">
             <span className="sh-en">FAQ</span>
