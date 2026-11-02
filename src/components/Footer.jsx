@@ -16,6 +16,7 @@ export default function Footer() {
             <nav className="ft__nav" aria-label="푸터 바로가기">
               <Link to="/company/offices#location">오시는 길</Link>
               <Link to="/#certs">인증</Link>
+              <Link to="/support/notice">공지사항</Link>
               <Link to="/contact">고객센터</Link>
             </nav>
           </div>

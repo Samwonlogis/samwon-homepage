@@ -18,7 +18,9 @@ export const NAV = [
     { label: '인재상', to: '/recruitment/talent' },
     { label: '차주구인', to: '/recruitment/jobs' },
   ]},
-  { label: '고객센터', to: '/contact', children: [
-    { label: '고객센터 & 제휴문의', to: '/contact' },
+  { label: '고객센터', to: '/support/notice', children: [
+    { label: '공지사항', to: '/support/notice' },
+    { label: '고객센터', to: '/contact' },
+    { label: '제휴문의', to: '/contact/partnership' },
   ]},
 ]

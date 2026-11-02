@@ -25,9 +25,10 @@ function Hero({ hero }) {
   useEffect(() => { if (videoOk || imgs.length < 2) return; const t = setInterval(() => setI(v => (v + 1) % imgs.length), 8000); return () => clearInterval(t) }, [imgs.length, videoOk])
   useEffect(() => {
     const v = vref.current; if (!v) return
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (mq.matches || (navigator.connection && navigator.connection.saveData)) { setVideoOk(false); return }
-    v.play().catch(() => setVideoOk(false))
+    if (navigator.connection && navigator.connection.saveData) { setVideoOk(false); return }
+    // 재생 거부(NotAllowedError)일 때만 이미지로 대체 — 로딩 중 play() 중단 같은 일시 오류로 영상이 사라지지 않도록 함
+    const tryPlay = () => v.play().catch(e => { if (e && e.name === 'NotAllowedError') setVideoOk(false) })
+    tryPlay(); const t = setTimeout(tryPlay, 1500); return () => clearTimeout(t)
   }, [hero.video])
   return (
     <section className="hero">
