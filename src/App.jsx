@@ -11,7 +11,7 @@ import BusinessPage from './pages/business/BusinessPage'
 import Talent from './pages/recruitment/Talent'
 import DriverJobs from './pages/recruitment/DriverJobs'
 import Contact from './pages/Contact'
-import Driver from './pages/Driver'
+import { DriverLogin, DriverShell, Statements, Deductions, Board, Post } from './pages/driver/DriverPortal'
 import Admin from './pages/Admin'
 import { Privacy, Terms, NotFound } from './pages/Legal'
 
@@ -33,7 +33,13 @@ export default function App() {
         <Route path="/recruitment/talent" element={<Talent />} />
         <Route path="/recruitment/jobs" element={<DriverJobs />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/driver" element={<Driver />} />
+        <Route path="/driver" element={<DriverLogin />} />
+        <Route path="/driver" element={<DriverShell />}>
+          <Route path="statements" element={<Statements />} />
+          <Route path="deductions" element={<Deductions />} />
+          <Route path="board" element={<Board />} />
+          <Route path="board/:id" element={<Post />} />
+        </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />

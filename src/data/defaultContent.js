@@ -24,6 +24,7 @@ export const defaultContent = {
     website: 'www.3won.kr',
     driverUrl: '/driver',
     driverApi: '',
+    driverLegacyUrl: '',
     driverLabel: '차주 전용',
     s1quickUrl: 'https://samwonlogistics.co.kr/main',
     s1quickLabel: '에스원퀵',
