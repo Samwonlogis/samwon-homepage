@@ -66,7 +66,7 @@ export const defaultContent = {
     { id: 'corporate', name: '기업물류', en: 'MIDDLE MILE', short: '공장과 물류센터 사이 간선 구간을 산업별 전용 차량과 JIT 체계로 무중단 운영합니다.', image: 'img/biz_corporate.jpg' },
     { id: 'distribution', name: '유통물류', en: 'LAST MILE', short: '온라인 커머스부터 대형 유통 점포 납품, 명절 특송까지 채널별 전담 인프라로 운영합니다.', image: 'img/biz_distribution.jpg' },
     { id: 'brokerage', name: '주선 · 에스원퀵', en: 'BROKERAGE & QUICK', short: '웹 접수, 실시간 배차, 카카오톡 관제, 월 통합 정산까지 하나의 디지털 워크플로우로 완결합니다.', image: 'img/biz_brokerage.jpg' },
-    { id: 'warehouse', name: '창고운영', en: 'WAREHOUSING', short: 'WMS 자동화와 종합 보험, 24시간 관제의 이중 안전망으로 재고 오차와 손실 리스크를 차단합니다.', image: 'img/biz_warehouse.jpg' },
+    { id: 'warehouse', name: '창고운영', en: 'WAREHOUSING', short: 'WMS 자동화와 24시간 관제로 입고부터 출고까지 재고 오차 없이 정확하게 보관⁠·운영합니다.', image: 'img/biz_warehouse.jpg' },
     { id: 'consulting', name: '물류컨설팅', en: 'SCM CONSULTING', short: '34년 현장 데이터와 TMS⁠·WMS 시뮬레이션으로 연간 물류비 10~25% 절감안을 설계합니다.', image: 'img/biz_consulting.jpg' },
   ],
 
@@ -395,14 +395,14 @@ export const defaultContent = {
     warehouse: {
       label: 'WAREHOUSING',
       title: '창고운영',
-      slogan: '보이지 않는 곳에서 더 철저하게,\n시스템과 보험의\n이중 안전망을 가동합니다',
-      overview: '창고에서 발생하는 재고 오차, 피킹 오류, 화물 파손은 화주에게 직접적인 금전 손실입니다. 유통기한 관리가 필수인 식자재⁠·의약품은 단 한 건의 실수가 전체 로트 폐기로 이어질 수 있습니다.\n\n삼원종합물류는 WMS 기반 바코드⁠·RFID 자동 검수 체계로 휴먼 에러를 구조적으로 제거하고, 화물⁠·화재⁠·배상책임 종합 보험과 연중무휴 전담 관제팀의 이중 안전망으로 운영 리스크를 원천 차단합니다.',
+      slogan: '보관에서 출고까지,\nWMS 기반의 정확한\n창고 운영을 제공합니다',
+      overview: '창고에서 발생하는 재고 오차, 피킹 오류, 화물 파손은 화주에게 직접적인 금전 손실입니다. 유통기한 관리가 필수인 식자재·의약품은 단 한 건의 실수가 전체 로트 폐기로 이어질 수 있습니다.\n\n삼원종합물류는 WMS 기반 바코드⁠·RFID 자동 검수 체계로 휴먼 에러를 구조적으로 줄이고, 연중무휴 전담 관제팀이 입고부터 출고까지 재고 흐름을 정확하게 관리합니다.',
       image: 'img/biz_warehouse.jpg',
       strengths: [
         { title: '입출고 · 재고 관리 체계', desc: '입고부터 보관, 출고까지 화물 흐름을 기록해 재고 오차를 줄입니다.', points: ['바코드 기반 입출고 기록', '정기 재고 실사', '고객사 시스템 연동 협의'] },
         { title: '프랜차이즈 · F&B 통합 운영', desc: '식자재⁠·원부자재의 보관⁠·분류⁠·배송을 하나의 흐름으로 묶어 운영합니다.', points: ['점포별 분류⁠·출고', '보관과 배송 일원화', '정기 배송 노선 연계'] },
-        { title: '상시 관제 · 안전 관리', desc: '운영 중 발생하는 이상 상황을 빠르게 확인하고 대응하는 관리 체계를 갖추고 있습니다.', points: ['운영 상황 상시 확인', '온도 이탈⁠·도난⁠·화재 대응 절차', '안전 점검 정례화'] },
-        { title: '종합 보험 · 리스크 관리', desc: '화물⁠·적재물⁠·배상책임 보험으로 운송⁠·보관 중 발생할 수 있는 손실에 대비합니다.', points: ['화물⁠·적재물 보험', '배상책임 보험', '사고 보상 절차 안내'] },
+        { title: '상시 관제 · 온도 관리', desc: '보관 중 온도⁠·재고 상태를 상시 확인하고 이상 시 즉시 대응하는 관리 체계를 갖추고 있습니다.', points: ['운영 상황 상시 확인', '온도 이탈 즉시 대응', '정기 점검 정례화'] },
+        { title: '유통기한 · 선입선출 관리', desc: '식자재⁠·의약외품처럼 기한 관리가 필수인 품목을 로트 단위로 추적해 선입선출을 지킵니다.', points: ['로트⁠·유통기한 추적', '선입선출 자동 지정', '임박 재고 사전 알림'] },
         { title: '보관 · 운송 연계', desc: '보관 화물을 삼원의 운송 네트워크와 바로 연결해 출고부터 배송까지 끊김 없이 처리합니다.', points: ['출고 즉시 배차 연계', '전국 운송 네트워크 활용', '보관⁠·운송 단일 창구'] },
         { title: '맞춤형 운영 설계', desc: '품목 특성과 물동량에 맞춰 보관 방식과 출고 프로세스를 함께 설계합니다.', points: ['품목별 보관 조건 검토', '출고 프로세스 설계', '물동량 변화 대응'] },
       ],
@@ -410,7 +410,7 @@ export const defaultContent = {
       metrics: [
         { value: 'WMS', label: '바코드⁠·RFID 검수', desc: '입출고 오류 구조적 차단' },
         { value: '24/7', label: '상시 관제', desc: '연중무휴 모니터링' },
-        { value: '5분', label: '초동 대응', desc: '온도 이탈⁠·이상 상황' },
+        { value: 'FIFO', label: '선입선출 관리', desc: '로트⁠·유통기한 추적' },
         { value: '20+', label: '브랜드 3PL 운영', desc: '식자재⁠·F&B 중심' },
       ],
       flow: [
@@ -429,7 +429,7 @@ export const defaultContent = {
         { title: '백화점 보관품', desc: '점포 내 보관시설 운영', image: 'img/cargo/gift.jpg' },
       ],
       vehicles: ['box', 'reefer', 'wing'],
-      quote: '안전은 보이지 않을 때 가장 빛나고,\n사고는 준비하지 않았을 때 찾아옵니다.',
+      quote: '정확한 재고가 곧 신뢰입니다.\n보이지 않는 창고에서 삼원은 더 철저합니다.',
     },
     consulting: {
       label: 'SCM CONSULTING',

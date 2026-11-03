@@ -15,7 +15,7 @@ export default function Contact() {
     { Ic: Spark, k: '에스원퀵 접수', v: co.quickPhone, href: `tel:${co.quickPhone}`, d: '퀵 · 소형 화물 당일 접수' },
     { Ic: Mail, k: '이메일', v: co.email, href: `mailto:${co.email}`, d: '견적 요청 · 서류 접수' },
     { Ic: Fax, k: '팩스', v: co.fax, d: '계약서 · 거래명세서 송부' },
-    { Ic: Pin, k: '본사', v: co.address, d: '오시는 길 보기', to: '/company/offices#location' },
+    { Ic: Pin, k: '본사', v: co.address, d: '오시는 길', to: '/company/offices#location' },
   ]
   return (
     <>
@@ -29,7 +29,7 @@ export default function Contact() {
             <p>전담 담당자가 직접 답변드립니다. 긴급 배차·운행 문의는 대표 전화로 연결됩니다.</p>
             <dl className="ct__hours">
               <div><dt>평일</dt><dd>09:00 – 18:00</dd></div>
-              <div><dt>점심</dt><dd>12:00 – 13:00</dd></div>
+              <div><dt>점심</dt><dd>12:30 – 13:30</dd></div>
               <div><dt>휴무</dt><dd>토 · 일 · 공휴일</dd></div>
             </dl>
             {cp.kakao && <div className="ct__kakao"><span>talk</span><div><b>{cp.kakao.title}</b><p>{cp.kakao.desc}</p></div></div>}
@@ -40,9 +40,10 @@ export default function Contact() {
                 <span className="ct__k"><r.Ic />{r.k}</span>
                 <div className="ct__v">
                   {r.href ? <a href={r.href}>{r.v}</a> : <b>{r.v}</b>}
-                  {r.to ? <Link to={r.to} className="ct__d ct__d--link">{r.d} <ArrowRight /></Link> : <span className="ct__d">{r.d}</span>}
+                  <span className="ct__d">{r.d}</span>
                 </div>
                 {r.href && <a className="ct__go" href={r.href} aria-label={`${r.k} 연결`}><ArrowRight /></a>}
+                {r.to && <Link className="ct__go" to={r.to} aria-label="오시는 길 보기"><ArrowRight /></Link>}
               </li>
             ))}
           </ul>
@@ -60,7 +61,6 @@ export default function Contact() {
               </div>
             ))}
           </div>
-          <p className="ct__more" data-reveal="">원하는 답을 찾지 못하셨다면 <Link to="/contact/partnership">제휴문의</Link>로 남겨 주십시오. 영업일 기준 1일 이내 답변드립니다.</p>
         </div>
       </section>
     </>
