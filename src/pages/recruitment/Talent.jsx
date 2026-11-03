@@ -7,6 +7,7 @@ import { Chart, Shield, Star, Box, Users, Leaf, Mail, Phone } from '../../compon
 const NAV = [{ to: '/recruitment/talent', label: '인재상' }, { to: '/recruitment/jobs', label: '차주구인' }]
 const VALUE_IMGS = ['img/talent/execution.jpg', 'img/talent/trust.jpg', 'img/talent/expertise.jpg', 'img/talent/teamwork.jpg']
 const BENEFIT_ICONS = [Chart, Shield, Star, Box, Users, Leaf]
+const PROCESS_IMGS = ['img/process/apply.jpg', 'img/process/screen.jpg', 'img/process/interview.jpg', 'img/process/executive.jpg', 'img/process/welcome.jpg']
 // "실행력 (Execution)" → { ko: '실행력', en: 'Execution' }
 const split = (t = '') => { const m = t.match(/^(.*?)\s*\((.*)\)\s*$/); return m ? { ko: m[1], en: m[2] } : { ko: t, en: '' } }
 
@@ -52,12 +53,12 @@ export default function Talent() {
       <section className="section section--soft">
         <div className="wrap">
           <SectionHead eyebrow="PROCESS" title="채용 절차 안내" />
-          <ol className="tp">
+          <ol className="tpx">
             {r.process.map((p, i) => (
               <li key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
-                <span className="tp__no">{p.step || String(i + 1).padStart(2, '0')}</span>
-                <h4>{p.title}</h4>
-                {p.desc && <p>{p.desc}</p>}
+                <div className="tpx__img"><img src={asset(p.image || PROCESS_IMGS[i % PROCESS_IMGS.length])} alt="" loading="lazy" /><span className="tpx__no">{p.step || String(i + 1).padStart(2, '0')}</span></div>
+                <div className="tpx__body"><h4>{p.title}</h4>{p.desc && <p>{p.desc}</p>}</div>
+                {i < r.process.length - 1 && <span className="tpx__arrow" aria-hidden="true" />}
               </li>
             ))}
           </ol>

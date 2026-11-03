@@ -17,3 +17,6 @@
 - 나레이션: Microsoft Azure 신경망 음성(ko-KR Hyunsu) 합성 — 실존 성우 음성 아님
 - 배경음악: 수치 합성으로 직접 제작(Python) — 외부 음원 미사용
 - 로고: 자사 CI(SAMWON_logo_EN.png)
+
+## 채용 절차 사진 (public/img/process/, 2026-11-03)
+- apply · screen · interview · executive: Canva AI 생성(다큐멘터리 스타일, 얼굴 비노출 위주) / welcome: 기존 talent/teamwork.jpg 재단
