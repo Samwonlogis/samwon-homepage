@@ -4,7 +4,7 @@
  * - 비어 있으면 데모 모드(src/driver/mock.js)로 동작하며, 화면 상단에 예시 데이터임을 표시합니다.
  * - 토큰은 '기억하기' 선택 시 localStorage, 아니면 sessionStorage 에 보관합니다.
  */
-import { demoDriver, demoStatement, demoDeductions, demoPosts } from './mock'
+import { demoDriver, demoStatement, demoStatementList, demoInsurance, demoPosts } from './mock'
 
 const KEY = 'samwon_driver_session'
 let base = ''
@@ -40,17 +40,23 @@ export async function login(vehicleNo, password, remember) {
 }
 export async function logout() { if (!isDemo()) { try { await call('/auth/logout', { method: 'POST' }) } catch {} } clearSession() }
 
+/** 운송료내역서 월별 목록 — { items:[{month,payDate,client,fare,vat,deductions,net}], page, pages, total } */
+export async function getStatementList(page = 1, per = 10) {
+  if (isDemo()) { await wait(250); const all = demoStatementList(); return { items: all.slice((page - 1) * per, page * per), page, pages: Math.ceil(all.length / per), total: all.length } }
+  return call(`/statements?page=${page}&per=${per}`)
+}
+/** 월 운송비 내역서 상세 */
 export async function getStatement(month) { if (isDemo()) { await wait(250); return demoStatement(month) } return call(`/statements/${month}`) }
-export async function getStatementMonths() { if (isDemo()) return null; return call('/statements') }
-export async function getDeductions(month) { if (isDemo()) { await wait(250); return demoDeductions(month) } return call(`/deductions/${month}`) }
-export async function getPosts({ category = '', page = 1, q = '' } = {}) {
+/** 보험 · 할부 · 공과금 */
+export async function getInsurance() { if (isDemo()) { await wait(250); return demoInsurance() } return call('/insurance') }
+export async function getPosts({ category = '', page = 1, q = '', per = 10 } = {}) {
   if (isDemo()) {
     await wait(200)
     let list = demoPosts.filter(p => (!category || p.category === category) && (!q || p.title.includes(q)))
     list = [...list].sort((a, b) => (b.pinned - a.pinned) || b.date.localeCompare(a.date))
-    return { items: list, page: 1, pages: 1, total: list.length }
+    return { items: list.slice((page - 1) * per, page * per), page, pages: Math.max(1, Math.ceil(list.length / per)), total: list.length }
   }
-  const qs = new URLSearchParams({ ...(category && { category }), page, ...(q && { q }) })
+  const qs = new URLSearchParams({ ...(category && { category }), page, per, ...(q && { q }) })
   return call(`/board?${qs}`)
 }
 export async function getPost(id) { if (isDemo()) { await wait(150); const p = demoPosts.find(x => String(x.id) === String(id)); if (!p) throw new Error('게시글을 찾을 수 없습니다.'); return p } return call(`/board/${id}`) }

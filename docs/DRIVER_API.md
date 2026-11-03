@@ -1,4 +1,4 @@
-# 삼원종합물류 차주 전용 포털 — API 연동 명세 (v1, 2026-11-02)
+# 삼원종합물류 차주 전용 포털 — API 연동 명세 (v1.1, 2026-11-03 — 기존 차주정보 화면 구조 반영)
 
 홈페이지(정적, GitHub Pages)의 `/driver` 차주 포털이 호출하는 REST API 명세입니다.
 차주전용 프로그램(운송료·공제 데이터 보유 시스템) 쪽에서 아래 규격으로 HTTPS API를 제공하면,
@@ -20,50 +20,69 @@
 요청 `{ "vehicleNo": "경기12바3456", "password": "****" }` (차량번호는 공백 제거 상태로 전송)
 응답
 ```json
-{ "token": "eyJ...", "driver": { "name": "홍길동", "vehicleNo": "경기 12바 3456", "tonnage": "5톤 윙바디", "company": "삼원운수㈜", "manager": "김○○", "managerPhone": "02-598-3001" } }
+{ "token": "eyJ...", "driver": { "name": "홍길동", "vehicleNo": "경기 12바 3456", "tonnage": "5톤 윙바디", "company": "(주)○○백화점 ○○점",
+  "bizNo": "209-70-00000", "bank": "농협", "account": "302-0000-0000-00",
+  "inspection": { "regular": "2026.07.16 ~ 2026.09.11", "check": "", "emission": "2026.08.13 ~ 2026.10.13" } } }
 ```
-실패: 401 `{ "ok": false, "message": "차량번호 또는 비밀번호를 확인해 주십시오." }`
+- `inspection`: 좌측 「검사알림」 박스(정기검사 · 정기점검 · 배출가스 기간). 없으면 빈 문자열
+- 실패: 401 `{ "ok": false, "message": "차량번호 또는 비밀번호를 확인해 주십시오." }`
 
 ### POST /auth/logout — 로그아웃 (토큰 무효화)  → `{ "ok": true }`
 ### POST /auth/password — 비밀번호 변경  요청 `{ "current": "...", "next": "..." }` → `{ "ok": true }`
 
-### GET /statements — 조회 가능한 월 목록 (선택)
-응답 `{ "months": ["2026-11", "2026-10", ...] }`
+### GET /statements?page=1&per=10 — 운송료내역서 월별 목록 (기존 사이트 첫 화면 표)
+```json
+{ "items": [
+    { "month": "2026-10", "payDate": "2026-10-31", "client": "(주)○○백화점 ○○점", "fare": 4300000, "vat": 430000, "deductions": 322180, "net": 4407820 }
+  ], "page": 1, "pages": 3, "total": 24 }
+```
+- 지급월 내림차순. `client`=근무업체, `fare`=운송료계, `deductions`=공제계, `net`=지급계
 
-### GET /statements/{YYYY-MM} — 운송료내역서
+### GET /statements/{YYYY-MM} — 월 운송비 내역서(상세, 인쇄 양식)
 ```json
 {
-  "month": "2026-11", "vehicleNo": "경기 12바 3456",
-  "summary": { "count": 17, "fareTotal": 5150000, "vat": 515000, "deductions": 1933400, "net": 3731600, "payDate": "2026-12-15", "status": "집계 중 | 지급 예정 | 지급 완료" },
-  "trips": [
-    { "id": "T20261101-01", "date": "2026-11-01", "from": "평택 ○○공장", "to": "이천 물류센터", "cargo": "전자부품", "fare": 280000, "extra": 30000, "note": "대기료 포함" }
-  ]
+  "month": "2026-10", "payDate": "2026-10-31", "client": "(주)○○백화점 ○○점",
+  "driver": { "name": "홍길동", "vehicleNo": "경기 12바 3456", "bizNo": "209-70-00000", "bank": "농협", "account": "302-0000-0000-00" },
+  "notice": "◆ 년1회 운수종사자는 직무 보수교육 이수 ... (상단 빨간 안내문, 줄바꿈은 \n)",
+  "income": [ { "title": "운송료", "amount": 4300000 } ],
+  "deductions": [ { "title": "고용보험", "amount": 17230 }, { "title": "산재보험", "amount": 18950 }, { "title": "수수료(지입료)", "amount": 286000 } ],
+  "fuel": { "fuel": 0, "vat": 0, "total": 0 },
+  "insuranceDetail": { "insurer": "", "round": "", "period": "" },
+  "taxInvoice": { "supply": 4300000, "vat": 430000, "total": 4730000 },
+  "totals": { "income": 4730000, "deductions": 322180, "net": 4407820 },
+  "noticeBox": "사업자등록번호, 계좌번호, 차량번호, 성명확인",
+  "fines": [ { "date": "2026-10-02", "item": "과속", "amount": 40000, "due": "2026-11-15", "note": "" } ]
 }
 ```
-- `extra`: 대기료·추가 운임 등 가산액(없으면 0). `net = fareTotal + vat - deductions`
+- `income`/`deductions`는 항목 수 제한 없음(화면은 8~9줄 틀에 맞춰 표시). `totals.income`=소득총계(공급가액+부가세), `totals.net`=실지급액
+- `fines`: 과태내역(없으면 빈 배열)
 
-### GET /deductions/{YYYY-MM} — 보험 · 할부 · 공과금
+### GET /insurance — 보험 / 할부 / 공과금
 ```json
 {
-  "month": "2026-11",
-  "items": [
-    { "category": "보험 | 할부 | 공과금 | 지입료", "title": "화물공제조합 적재물배상책임보험", "amount": 86000, "dueDate": "2026-11-10", "status": "납부 완료 | 납부 예정 | 미납 | 해당 없음", "note": "월 분납" }
-  ],
-  "totals": { "보험": 240000, "할부": 1230000, "공과금": 213400, "지입료": 250000 },
-  "total": 1933400
+  "liability": { "insurer": "경기화물공제조합", "period": "2026-03-27 ~ 2027-03-27", "mandatoryPremium": 340470, "optionalPremium": 1402580, "rate": "70 %", "surcharge": "0 %", "note": "" },
+  "schedule": [ { "no": 1, "date": "2026-03-27", "amount": 454950, "paid": true, "note": "" } ],
+  "cargo": { "insurer": "", "period": "", "annualTotal": null, "annualLimit": null, "perAccidentLimit": null, "deductible": null, "payDate": "" },
+  "installment": [ { "no": 31, "date": "2026-11-25", "amount": 1230000, "paid": false, "note": "60회 중" } ],
+  "autoTax": { "period": "2026-01-01 ~ 2026-12-31", "amount": 13160 },
+  "envCharge": { "period": "", "amount": 0 },
+  "unionFee": { "date": "2026-01-01", "amount": 28200 },
+  "accidentGuide": "◆ 유의사항 ... (사고시 운전자 대처요령 전문, 줄바꿈은 \n)"
 }
 ```
+- `liability`=1.종합보험, `schedule`=종합보험 납부일정(`paid` true면 ★ 표시), `cargo`=2.적재물보험, `installment`=3.차량 할부, `autoTax`/`envCharge`=4.차량공과금·환경개선부담금, `unionFee`=5.화물조합비
 
-### GET /board?category=&page=1&q= — 게시판 목록
+### GET /board?category=&page=1&per=10&q= — 게시판 목록
 - category: 빈값(전체) | 공지 | 차주구인 | 자료
 ```json
-{ "items": [ { "id": 101, "category": "공지", "title": "11월 운송료 지급일 안내", "author": "관리팀", "date": "2026-11-01", "views": 312, "pinned": true } ], "page": 1, "pages": 3, "total": 52 }
+{ "items": [ { "id": 72, "category": "공지", "title": "나누리 노트 [일상 점검] 플랫폼 사용 안내", "author": "삼원종합물류", "date": "2026-10-13", "views": 2, "pinned": false, "hasFile": true } ], "page": 1, "pages": 8, "total": 72 }
 ```
+- `hasFile`: 첨부 아이콘 표시 여부. `id`는 목록 번호로도 표시
 
-### GET /board/{id} — 게시글
+### GET /board/{id} — 게시글 (조회수 +1)
 ```json
-{ "id": 101, "category": "공지", "title": "...", "author": "관리팀", "date": "2026-11-01", "views": 313, "pinned": true,
-  "body": "줄바꿈은 \n 으로 (HTML 아님)", "attachments": [ { "name": "계약서 양식.hwp", "url": "https://.../file.hwp" } ] }
+{ "id": 72, "category": "공지", "title": "...", "author": "삼원종합물류", "date": "2026-10-13", "views": 3, "pinned": false,
+  "body": "줄바꿈은 \n 으로 (HTML 아님)", "attachments": [ { "name": "안내문.pdf", "url": "https://.../file.pdf" } ] }
 ```
 
 ## 3. 연동 절차
