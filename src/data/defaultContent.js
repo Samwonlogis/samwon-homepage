@@ -66,7 +66,7 @@ export const defaultContent = {
     { id: 'corporate', name: '기업물류', en: 'MIDDLE MILE', short: '공장과 물류센터 사이 간선 구간을 산업별 전용 차량과 JIT 체계로 무중단 운영합니다.', image: 'img/biz_corporate.jpg' },
     { id: 'distribution', name: '유통물류', en: 'LAST MILE', short: '온라인 커머스부터 대형 유통 점포 납품, 명절 특송까지 채널별 전담 인프라로 운영합니다.', image: 'img/biz_distribution.jpg' },
     { id: 'brokerage', name: '주선 · 에스원퀵', en: 'BROKERAGE & QUICK', short: '웹 접수, 실시간 배차, 카카오톡 관제, 월 통합 정산까지 하나의 디지털 워크플로우로 완결합니다.', image: 'img/biz_brokerage.jpg' },
-    { id: 'warehouse', name: '창고운영 · 리스크관리', en: 'WAREHOUSING', short: 'WMS 자동화와 종합 보험, 24시간 관제의 이중 안전망으로 재고 오차와 손실 리스크를 차단합니다.', image: 'img/biz_warehouse.jpg' },
+    { id: 'warehouse', name: '창고운영', en: 'WAREHOUSING', short: 'WMS 자동화와 종합 보험, 24시간 관제의 이중 안전망으로 재고 오차와 손실 리스크를 차단합니다.', image: 'img/biz_warehouse.jpg' },
     { id: 'consulting', name: '물류컨설팅', en: 'SCM CONSULTING', short: '34년 현장 데이터와 TMS⁠·WMS 시뮬레이션으로 연간 물류비 10~25% 절감안을 설계합니다.', image: 'img/biz_consulting.jpg' },
   ],
 
@@ -394,7 +394,7 @@ export const defaultContent = {
     },
     warehouse: {
       label: 'WAREHOUSING',
-      title: '창고운영 · 리스크관리',
+      title: '창고운영',
       slogan: '보이지 않는 곳에서 더 철저하게,\n시스템과 보험의\n이중 안전망을 가동합니다',
       overview: '창고에서 발생하는 재고 오차, 피킹 오류, 화물 파손은 화주에게 직접적인 금전 손실입니다. 유통기한 관리가 필수인 식자재⁠·의약품은 단 한 건의 실수가 전체 로트 폐기로 이어질 수 있습니다.\n\n삼원종합물류는 WMS 기반 바코드⁠·RFID 자동 검수 체계로 휴먼 에러를 구조적으로 제거하고, 화물⁠·화재⁠·배상책임 종합 보험과 연중무휴 전담 관제팀의 이중 안전망으로 운영 리스크를 원천 차단합니다.',
       image: 'img/biz_warehouse.jpg',
