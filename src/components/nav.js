@@ -11,7 +11,7 @@ export const NAV = [
     { label: '기업물류', to: '/business/corporate' },
     { label: '유통물류', to: '/business/distribution' },
     { label: '주선 · 퀵서비스', to: '/business/brokerage' },
-    { label: '창고운영 · 리스크관리', to: '/business/warehouse' },
+    { label: '창고운영', to: '/business/warehouse' },
     { label: '물류컨설팅', to: '/business/consulting' },
   ]},
   { label: '채용정보', to: '/recruitment/talent', children: [
