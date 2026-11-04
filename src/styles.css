@@ -2271,3 +2271,19 @@ a.cc-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgb
 .dp-dc--done button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 7px 12px; font-size: 13px; font-weight: 600; font-family: inherit; color: var(--ink-2); cursor: pointer; }
 @media (max-width: 767px) { .dp-dc__list li { grid-template-columns: 24px 1fr; } .dp-dc__btns { grid-column: 2; } .dp-dc__head { flex-direction: column; } .dp-sheet__issue { border-right: 0; border-bottom: 1px solid #dde2ea; } .iv { font-size: 11px; } .iv__amt { display: none; } .iv-sheet { padding: 14px; } }
 @media print { .dp-thanks, .dp-dc, .iv__date, .dp-acc { display: none !important; } .iv-sheet { border: 0; padding: 0; } .iv__cut { page-break-after: always; } }
+
+/* v6.0 — 기사님 안내 글자 크기 확대 */
+.dp-thanks__in { font-size: 17px; }
+.dp-gd-hero b { font-size: 15px; } .dp-gd-hero p { font-size: 19px; line-height: 1.75; }
+.dp-gd-h { font-size: 1.4rem; } .dp-gd-h svg { width: 24px; height: 24px; } .dp-gd-h small { font-size: 14.5px; }
+.dp-gd-card h3 { font-size: 19px; } .dp-gd-card ul { font-size: 17px; line-height: 1.7; } .dp-gd-card li { margin: 6px 0; }
+.dp-gd-duty b { font-size: 18px; } .dp-gd-duty p { font-size: 16.5px; line-height: 1.7; } .dp-gd-duty small { font-size: 14px; }
+.dp-gd-intro { font-size: 16.5px; }
+.dp-gd-steps li { font-size: 16.5px; line-height: 1.65; padding-left: 40px; } .dp-gd-steps li::before { width: 28px; height: 28px; font-size: 14px; }
+.dp-gd-contacts a { font-size: 16px; padding: 12px 16px; } .dp-gd-contacts b { font-size: 19px; }
+.dp-gd-health { font-size: 16.5px; line-height: 1.75; }
+.dp-dc__head h3 { font-size: 1.4rem; } .dp-dc__head p { font-size: 15px; }
+.dp-dc__txt { font-size: 16.5px; } .dp-dc__txt small { font-size: 12.5px; }
+.dp-dc__btns button { font-size: 14.5px; padding: 7px 13px; }
+.dp-dc__foot p { font-size: 15px; }
+.dp-guide { font-size: 16.5px; } .dp-guide h3 { font-size: 1.2rem; }
