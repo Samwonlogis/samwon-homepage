@@ -32,9 +32,7 @@ export async function login(vehicleNo, password, remember) {
   if (isDemo()) {
     await wait(400)
     if (!vno || password !== '1234') throw new Error('데모 모드입니다. 차량번호를 입력하고 비밀번호는 1234를 입력해 주십시오.')
-    const raw = vehicleNo.trim() || demoDriver.vehicleNo
-    // 데모 시험용: 차량번호에 '법인' 이 있으면 웹 접속불가(내역서 숨김), '전자' 가 있으면 전자세금계산서 대상(수기 출력 없음), '차단' 이 있으면 수기 출력만 막음
-    const driver = { ...demoDriver, vehicleNo: raw.replace(/법인|전자|차단/g, '').trim() || demoDriver.vehicleNo, webAccess: !/법인/.test(raw), taxType: /전자/.test(raw) ? 'electronic' : 'manual', manualInvoice: !/차단/.test(raw) }
+    const driver = { ...demoDriver, vehicleNo: vehicleNo.trim() || demoDriver.vehicleNo }
     setSession({ token: 'demo', driver, at: Date.now() }, remember); return driver
   }
   const d = await call('/auth/login', { method: 'POST', body: { vehicleNo: vno, password }, auth: false })
