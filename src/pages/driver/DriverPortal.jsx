@@ -9,12 +9,20 @@ const { won, fmtDate } = api
 const num = (n) => (n == null || n === '' ? '' : Number(n).toLocaleString('ko-KR'))
 const ymLabel = (ym = '') => { const [y, m] = ym.split('-'); return `${String(y).slice(2)}년 ${Number(m)}월` }
 const ymFull = (ym = '') => { const [y, m] = ym.split('-'); return `${y}년 ${Number(m)}월` }
+/** 거래처 담당자 — API 가 manager/phone 을 주면 그대로, 없으면 관리자 설정(driverContacts)에서 근무업체명으로 매칭, 그래도 없으면 기본 담당자 */
+export function resolveManager(client, dc) {
+  if (client?.manager && client?.phone) return { manager: client.manager, phone: client.phone }
+  const name = String(client?.name || client || '').replace(/\s+/g, '').toLowerCase()
+  for (const m of dc?.managers || []) if ((m.clients || []).some(k => k && name.includes(String(k).replace(/\s+/g, '').toLowerCase()))) return { manager: m.name, phone: m.phone }
+  return dc?.default ? { manager: dc.default.name, phone: dc.default.phone } : { manager: client?.manager || '', phone: client?.phone || '' }
+}
 const todayKey = () => new Date().toISOString().slice(0, 10)
 const MENUS = [
   { to: '/driver/statements', label: '운송료내역서', d: 'M4 4h16v16H4z M8 9h8 M8 13h8 M8 17h5' },
-  { to: '/driver/insurance', label: '보험 / 할부 / 공과금', short: '보험/할부/공과금', d: 'M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z M9 12l2 2 4-4' },
+  { to: '/driver/insurance', label: '보험 / 할부 / 공과금', short: '보험·할부', d: 'M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z M9 12l2 2 4-4' },
   { to: '/driver/board', label: '게시판', d: 'M4 5h16v11H8l-4 3z M8 9h8 M8 12h5' },
   { to: '/driver/guide', label: '기사님 안내', short: '안내', d: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M12 8v5 M12 16h.01' },
+  { to: '/driver/checklist', label: '일상점검표', short: '점검표', d: 'M9 3h6v3H9z M6 5h12v15H6z M9 12l2 2 4-4' },
 ]
 const Ic = ({ d }) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
 function useDriverApi() { const { content } = useContent(); api.configure(content.company.driverApi); return content }
@@ -83,8 +91,11 @@ function ThanksBar({ name, msgs = [] }) {
 
 /* ───────── 운행 전 일상점검(법정) — 매일 표시, 당일 완료 시 접힘 ───────── */
 const CHECK_KEY = 'samwon_dp_dailycheck'
+const CHECK_LOG = 'samwon_dp_dailycheck_log'
+export const checkDoneToday = () => { try { const v = JSON.parse(localStorage.getItem(CHECK_KEY) || '{}'); return v.date === todayKey() && !!v.done } catch { return false } }
+const loadLog = () => { try { return JSON.parse(localStorage.getItem(CHECK_LOG) || '[]') } catch { return [] } }
 function loadCheck() { try { const v = JSON.parse(localStorage.getItem(CHECK_KEY) || '{}'); return v.date === todayKey() ? v : { date: todayKey(), result: {} } } catch { return { date: todayKey(), result: {} } } }
-export function DailyCheck({ compact }) {
+export function DailyCheck({ compact, onDone }) {
   const { content: c } = useContent(); const g = c.driverGuide || {}
   const items = (g.checklist || []).map(x => typeof x === 'string' ? { group: '', text: x } : x)
   const [st, setSt] = useState(loadCheck)
@@ -93,7 +104,14 @@ export function DailyCheck({ compact }) {
   const mark = (i, v) => save({ ...st, result: { ...st.result, [i]: st.result[i] === v ? undefined : v } })
   const answered = items.filter((_, i) => st.result[i]).length
   const bad = items.filter((_, i) => st.result[i] === 'x').length
-  const finish = () => { if (answered < items.length) { alert('모든 항목을 양호 또는 불량으로 표시해 주십시오.'); return } save({ ...st, done: true, at: new Date().toISOString() }); setOpen(false) }
+  const finish = () => {
+    if (answered < items.length) { alert('모든 항목을 양호 또는 불량으로 표시해 주십시오.'); return }
+    const at = new Date().toISOString(); const results = items.map((_, i) => st.result[i])
+    save({ ...st, done: true, at }); setOpen(false)
+    try { const log = loadLog().filter(l => l.date !== st.date); log.unshift({ date: st.date, at, bad, results }); localStorage.setItem(CHECK_LOG, JSON.stringify(log.slice(0, 60))) } catch {}
+    api.submitChecklist({ date: st.date, results, at }).catch(() => {})
+    onDone && onDone()
+  }
   const d = new Date(); const dateLabel = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`
   if (!items.length) return null
   if (st.done && !open) return (
@@ -119,8 +137,83 @@ export function DailyCheck({ compact }) {
         ))}
       </ul>
       <div className="dp-dc__foot">
-        <p className="small muted">이 화면의 점검 결과는 이 기기에 오늘 하루 보관되는 보조 기록입니다. 법정 기록은 회사가 비치한 「운수종사자 일상점검표」(또는 회사 지정 전자 점검 앱)에 함께 기록해 주십시오. 불량 항목은 조치 후 운행하십시오.</p>
+        <p className="small muted">{api.isDemo() ? '연동 전에는 점검 결과가 이 기기에만 보관됩니다. 연동 후에는 점검 완료 즉시 회사로 전송되어 관리팀이 확인합니다.' : '점검 완료를 누르면 결과가 회사로 전송되어 관리팀이 확인합니다.'} 불량 항목은 조치 후 운행하십시오.</p>
         <button type="button" className="btn btn--primary btn--sm" onClick={finish}>점검 완료</button>
+      </div>
+    </div>
+  )
+}
+
+/* 운송료내역서·안내 상단 한 줄 안내 */
+function CheckReminder() {
+  const done = checkDoneToday()
+  return (
+    <Link to="/driver/checklist" className={`dp-cr ${done ? 'is-done' : ''}`}>
+      <span className="dp-cr__ic">{done ? <Check /> : <Shield />}</span>
+      <span className="dp-cr__txt"><b>운행 전 일상점검표는 매일 작성해야 합니다.</b><span>{done ? '오늘 점검 완료' : '오늘 점검 미작성'}</span></span>
+      <span className="dp-cr__go">{done ? '보기' : '작성하기'} <ArrowRight /></span>
+    </Link>
+  )
+}
+
+/* ───────── 일상점검표 (/driver/checklist) ───────── */
+export function Checklist() {
+  const { content: c } = useContent(); const g = c.driverGuide || {}
+  const [, tick] = useState(0); const log = loadLog()
+  const items = (g.checklist || [])
+  return (
+    <section className="dp-sec">
+      <header className="dp-head"><div><span className="sh-en">Daily Check</span><h1>일상점검표</h1></div><span className="dp-head__page">매일 운행 전 작성</span></header>
+      <DailyCheck onDone={() => tick(t => t + 1)} />
+      <div className="dp-cl-info">
+        <h3>운수종사자 일상점검표란</h3>
+        <p>{g.checklistLaw}</p>
+        <p>항목은 외관(번호판·등화장치·와이퍼·적재함 등) {items.filter(x => x.group === '외관').length}개, 상태(타이어·고정·바퀴 너트) {items.filter(x => x.group === '상태').length}개, 기타(계기판·안전띠·소화기·삼각대) {items.filter(x => x.group === '기타').length}개로 구성됩니다. 불량 항목은 정비 조치 후 운행하시고, 조치가 어려우면 배차팀에 먼저 알려 주십시오.</p>
+      </div>
+      <div className="dp-cl-log">
+        <h3>최근 점검 이력 <small>{api.isDemo() ? '이 기기 기록' : '회사 전송 완료'}</small></h3>
+        {log.length === 0 ? <p className="dp-ins__none">아직 기록이 없습니다. 오늘 점검을 완료하면 이곳에 쌓입니다.</p> : (
+          <ul>{log.slice(0, 30).map(l => <li key={l.date} className={l.bad > 0 ? 'is-bad' : ''}><b>{fmtDate(l.date)}</b><span>{new Date(l.at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })}</span><em>{l.bad > 0 ? `불량 ${l.bad}건` : '전 항목 양호'}</em></li>)}</ul>
+        )}
+      </div>
+    </section>
+  )
+}
+
+/* ───────── 미납 안내 팝업 ───────── */
+const OVER_KEY = 'samwon_dp_overdue_seen'
+function OverduePopup({ company }) {
+  const [list, setList] = useState(null); const [info, setInfo] = useState({})
+  useEffect(() => {
+    let on = true
+    api.getInsurance().then(d => {
+      if (!on) return
+      const today = todayKey(); const out = []
+      ;(d.overdue || []).forEach(x => out.push({ ...x }))
+      ;(d.schedule || []).forEach(r => { if (!r.paid && r.date && r.date < today) out.push({ title: `종합보험 ${r.no}회차`, date: r.date, amount: r.amount }) })
+      ;(d.installment || []).forEach(r => { if (!r.paid && r.date && r.date < today) out.push({ title: `차량 할부 ${r.no}회차`, date: r.date, amount: r.amount }) })
+      setInfo({ payTo: d.payTo, contact: d.contact }); setList(out)
+    }).catch(() => setList([]))
+    return () => { on = false }
+  }, [])
+  const [closed, setClosed] = useState(() => { try { return sessionStorage.getItem(OVER_KEY) === todayKey() } catch { return false } })
+  if (closed || !list || list.length === 0) return null
+  const total = list.reduce((s, x) => s + (Number(x.amount) || 0), 0)
+  const close = () => { try { sessionStorage.setItem(OVER_KEY, todayKey()) } catch {} setClosed(true) }
+  return (
+    <div className="dp-pop" role="dialog" aria-modal="true" aria-labelledby="dp-pop-t">
+      <div className="dp-pop__box">
+        <span className="dp-pop__tag">입금 요청</span>
+        <h2 id="dp-pop-t">미납 내역이 있습니다</h2>
+        <p>아래 금액이 납부 기한을 지났습니다. 확인 후 입금해 주시고, 이미 입금하셨다면 관리팀으로 알려 주십시오.</p>
+        <table className="dp-pop__tbl"><tbody>{list.map((x, i) => <tr key={i}><th>{x.title}</th><td>{fmtDate(x.date)}</td><td className="num">{num(x.amount)}원</td></tr>)}</tbody>
+          <tfoot><tr><th colSpan="2">합계</th><td className="num">{num(total)}원</td></tr></tfoot></table>
+        {info.payTo && <div className="dp-pop__acct"><span>입금 계좌</span><b>{info.payTo.bank} {info.payTo.account}</b><small>예금주 {info.payTo.holder}</small></div>}
+        <div className="dp-pop__act">
+          <a className="btn btn--ghost" href={`tel:${info.contact?.phone || company?.phone || ''}`}><Phone /> 관리팀 문의</a>
+          <Link className="btn btn--primary" to="/driver/insurance" onClick={close}>내역 확인</Link>
+          <button type="button" className="dp-pop__x" onClick={close} aria-label="닫기">오늘 그만 보기</button>
+        </div>
       </div>
     </div>
   )
@@ -147,6 +240,7 @@ export function DriverShell() {
       </div>
       {api.isDemo() && <div className="dp-demo dp-demo--bar">연동 전 예시 데이터입니다. 실제 운송료·공제 내역과 다릅니다.</div>}
       {!isInvoice && <ThanksBar name={d.name} msgs={c.driverGuide?.thanks} />}
+      {!isInvoice && <OverduePopup company={c.company} />}
       <div className={`wrap dp-body ${isInvoice ? '' : 'dp-body--side'}`}>
         {!isInvoice && (
           <aside className="dp-side">
@@ -176,7 +270,7 @@ export function Statements() {
   const st = useLoad(() => api.getStatementList(page), [page]); const d = st.data
   return (
     <section className="dp-sec">
-      <DailyCheck />
+      <CheckReminder />
       <header className="dp-head"><div><span className="sh-en">Statements</span><h1>운송료내역서</h1></div>{d && <span className="dp-head__page">Page ( {d.page} / {d.pages} )</span>}</header>
       <State st={st}>{d && (<>
         {d.page === 1 && d.items[0] && (
@@ -217,7 +311,9 @@ export function StatementDetail() {
   const { month } = useParams(); const nav = useNavigate()
   const st = useLoad(() => api.getStatement(month), [month]); const d = st.data
   const rows = (arr, n) => [...arr, ...Array.from({ length: Math.max(0, n - arr.length) }, () => null)]
+  const { content: cc } = useContent()
   const client = d && (typeof d.client === 'string' ? { name: d.client } : d.client || {})
+  const mgr = d ? resolveManager(client, cc.driverContacts) : {}
   return (
     <section className="dp-sec dp-sheet-wrap">
       <State st={st}>{d && (<>
@@ -233,7 +329,7 @@ export function StatementDetail() {
               <tr><th rowSpan="5" className="dp-sheet__rowhead">차량보험료<br />회차확인<br />/<br />공제항목<br />확인철저</th><td><b>대표자명 :</b> {d.driver.name} 님</td><td><b>운송료 월 :</b> {ymFull(d.month)} 운송료{d.paidAt ? ` (지급일 ${fmtDate(d.paidAt)})` : ' (지급 예정)'}</td></tr>
               <tr><td><b>차량번호 :</b> {d.driver.vehicleNo}</td><td><b>사업자번호 :</b> {d.driver.bizNo}</td></tr>
               <tr><td><b>은 행 명 :</b> {d.driver.bank}</td><td><b>계좌번호 :</b> {d.driver.account}</td></tr>
-              <tr><td><b>근무업체 :</b> {client.name}</td><td><b>거래처 담당 :</b> {client.manager || '-'}{client.phone && <> · <a href={`tel:${client.phone}`}>{client.phone}</a></>}</td></tr>
+              <tr><td><b>근무업체 :</b> {client.name}</td><td><b>거래처 담당 :</b> {mgr.manager || '-'}{mgr.phone && <> · <a href={`tel:${mgr.phone}`}>{mgr.phone}</a></>}</td></tr>
               <tr><td colSpan="2" className="dp-sheet__check">▶ 차량번호 · 사업자등록번호 · 계좌번호 확인 철저 / 세금계산서는 아래 「발행 대상」 사업자번호로 발행</td></tr>
             </tbody>
           </table>
@@ -436,8 +532,7 @@ export function Guide() {
     <section className="dp-sec dp-guide-page">
       <header className="dp-head"><div><span className="sh-en">For Drivers</span><h1>기사님 안내</h1></div></header>
       <div className="dp-gd-hero"><span className="dp-gd-hero__ic"><Truck /></span><div><b>삼원종합물류 임직원 일동</b><p>{g.greeting}</p></div></div>
-
-      <DailyCheck />
+      <CheckReminder />
 
       <h2 className="dp-gd-h"><Shield /> 안전운행 수칙</h2>
       <div className="dp-gd-grid">{(g.safety || []).map((s, i) => <div className="dp-gd-card" key={i}><h3><span>{String(i + 1).padStart(2, '0')}</span>{s.title}</h3><ul>{s.items.map((x, k) => <li key={k}>{x}</li>)}</ul></div>)}</div>

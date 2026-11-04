@@ -11,7 +11,7 @@ export const demoDriver = {
   taxType: 'manual', // electronic: 전자세금계산서 발행 대상 / manual: 수기세금계산서
   inspection: { regular: '2026.07.16 ~ 2026.09.11', check: '', emission: '2026.08.13 ~ 2026.10.13' },
 }
-const demoClient = { name: '(주)○○백화점 ○○점', manager: '○○○ 과장', phone: '02-0000-0000', bizName: '삼원운수㈜', bizNo: '000-00-00000', address: '경기도 이천시 율면 석산리 505' }
+const demoClient = { name: '(주)○○백화점 ○○점', manager: '', phone: '', bizName: '삼원운수㈜', bizNo: '000-00-00000', address: '경기도 이천시 율면 석산리 505' }
 
 /* 운송료내역서 — 월별 목록 */
 export function demoStatementList() {
@@ -53,13 +53,15 @@ export function demoStatement(ym) {
 
 /* 보험 / 할부 / 공과금 */
 export function demoInsurance() {
-  const sched = [0, 2, 4, 6, 8, 10].map((m, i) => { const d = new Date(2026, 2 + m, 27); return { no: i + 1, date: `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`, amount: i === 0 ? 454950 : 257620, paid: d < new Date(), note: '' } })
+  const sched = [0, 2, 4, 6, 8, 10].map((m, i) => { const d = new Date(2026, 2 + m, 27); return { no: i + 1, date: `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`, amount: i === 0 ? 454950 : 257620, paid: d < new Date() && i !== 3, note: i === 3 ? '미납' : '' } })
   return {
     liability: { insurer: '경기화물공제조합', period: '2026-03-27 ~ 2027-03-27', coverages: ['대인Ⅰ(책임)', '대인Ⅱ', '대물 2억', '자기신체사고', '무보험차상해', '긴급출동'], mandatoryPremium: 340470, optionalPremium: 1402580, rate: '70 %', surcharge: '0 %', note: '' },
     schedule: sched.map(r => ({ ...r, deductedMonth: r.paid ? r.date.slice(0, 7) : '' })),
     accidentContacts: [{ label: '사고접수(공제조합 콜센터)', value: '1577-8278' }, { label: '화물공제조합 경기지부', value: '031-828-9911' }, { label: '화물공제조합 서울지부', value: '02-3433-8023' }],
     cargo: { insurer: '', period: '', annualTotal: null, annualLimit: null, perAccidentLimit: null, deductible: null, payDate: '' },
     installment: [],
+    payTo: { bank: '농협', account: '301-0000-0000-00', holder: '삼원종합물류㈜' },
+    contact: { name: '관리팀', phone: '02-598-3001' },
     autoTax: { period: '2026-01-01 ~ 2026-12-31', amount: 13160 },
     envCharge: { period: '', amount: 0 },
     unionFee: { date: '2026-01-01', amount: 28200 },

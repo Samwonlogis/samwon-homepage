@@ -32,6 +32,7 @@ const SECTIONS = [
   { key: 'principles', label: '운영 원칙', hint: '사업영역 개요 하단 4대 원칙' },
   { key: 'recruitment', label: '채용⁠·차주 모집', hint: '인재상⁠·채용공고⁠·차주 모집 공고' },
   { key: 'driverGuide', label: '차주 포털 기사님 안내', hint: '감사 문구(순환)⁠·안전운행 수칙⁠·법정 의무⁠·비상 연락⁠·건강⁠·일상점검' },
+  { key: 'driverContacts', label: '차주 포털 거래처 담당자', hint: '근무업체명에 clients 단어가 포함되면 해당 담당자 표시, 없으면 default 담당자' },
   { key: 'notices', label: '공지사항 게시판', hint: '공지사항⁠·삼원소식⁠·자료실 글 등록 (category에 분류명, pinned에 Y를 쓰면 상단 고정, date는 YYYY-MM-DD)' },
   { key: 'contactPage', label: '고객센터 · 제휴문의', hint: '고객센터 문구⁠·제휴문의 절차⁠·FAQ' },
   { key: 'footer', label: '푸터', hint: '하단 소개 문구⁠·저작권' },
@@ -48,6 +49,7 @@ const LABELS = {
   openings: '채용 공고', benefits: '복리후생', step: '단계', coreValues: '핵심 역량 4종', kakao: '카카오톡 관제 안내 박스', income: '급여/수입', contactPerson: '담당자', contactPhone: '담당자 연락처', total: '총 운용 대수', totalDesc: '총계 설명', dept: '부서', deadline: '마감', driverIntro: '차주 소개 문구', driverJobs: '차주 공고', vehicle: '차량', area: '구간', hours: '시간', driverRequirements: '지원 자격', driverBenefits: '파트너 지원', processSteps: '상담 절차', faqs: 'FAQ', q: '질문', a: '답변', description: '소개 문구', copyright: '저작권 표기',
   thanks: '감사 문구(순환 표시)', checklistLaw: '일상점검 법적 근거 문구', group: '점검 구분', text: '점검 항목', greeting: '인사말', safety: '안전운행 수칙', duties: '법정 의무 안내', law: '근거 법령', emergency: '사고 시 조치', steps: '조치 순서', contacts: '비상 연락처', health: '건강 관리', checklist: '일상점검 항목', intro: '안내 문장',
   body: '본문(줄바꿈 그대로 표시)', category: '분류(공지사항 · 삼원소식 · 자료실)', date: '날짜(YYYY-MM-DD)', pinned: '상단 고정(Y 또는 비움)', link: '첨부·관련 링크 URL', id: '고유 번호(변경 금지)', partnershipTitle: '제휴문의 제목', partnershipLead: '제휴문의 리드 문장', notices: '공지사항 글',
+  default: '기본 담당자(해당 없음 시)', managers: '담당자 목록', clients: '담당 거래처 키워드',
   corporate: '기업물류', distribution: '유통물류', brokerage: '주선 · 에스원퀵', warehouse: '창고운영', consulting: '물류컨설팅',
 }
 const L = (k) => LABELS[k] || k

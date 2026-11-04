@@ -60,6 +60,8 @@ export async function getPosts({ category = '', page = 1, q = '', per = 10 } = {
   return call(`/board?${qs}`)
 }
 export async function getPost(id) { if (isDemo()) { await wait(150); const p = demoPosts.find(x => String(x.id) === String(id)); if (!p) throw new Error('게시글을 찾을 수 없습니다.'); return p } return call(`/board/${id}`) }
+/** 운행 전 일상점검 결과 전송 — 연동 전(데모)에는 기기 내 보관만 */
+export async function submitChecklist(payload) { if (isDemo()) { await wait(100); return { ok: true, local: true } } const d = getSession()?.driver; return call('/checklist', { method: 'POST', body: { vehicleNo: d?.vehicleNo, ...payload } }) }
 export async function changePassword(current, next) { if (isDemo()) { await wait(300); return { ok: true } } return call('/auth/password', { method: 'POST', body: { current, next } }) }
 
 export const won = (n) => (n == null ? '-' : `${Number(n).toLocaleString('ko-KR')}원`)
