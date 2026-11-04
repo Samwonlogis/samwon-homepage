@@ -41,27 +41,40 @@
 ### GET /statements/{YYYY-MM} — 월 운송비 내역서(상세, 인쇄 양식)
 ```json
 {
-  "month": "2026-10", "payDate": "2026-10-31", "client": "(주)○○백화점 ○○점",
-  "driver": { "name": "홍길동", "vehicleNo": "경기 12바 3456", "bizNo": "209-70-00000", "bank": "농협", "account": "302-0000-0000-00" },
-  "notice": "◆ 년1회 운수종사자는 직무 보수교육 이수 ... (상단 빨간 안내문, 줄바꿈은 \n)",
-  "income": [ { "title": "운송료", "amount": 4300000 } ],
-  "deductions": [ { "title": "고용보험", "amount": 17230 }, { "title": "산재보험", "amount": 18950 }, { "title": "수수료(지입료)", "amount": 286000 } ],
-  "fuel": { "fuel": 0, "vat": 0, "total": 0 },
-  "insuranceDetail": { "insurer": "", "round": "", "period": "" },
-  "taxInvoice": { "supply": 4300000, "vat": 430000, "total": 4730000 },
-  "totals": { "income": 4730000, "deductions": 322180, "net": 4407820 },
-  "noticeBox": "사업자등록번호, 계좌번호, 차량번호, 성명확인",
+  "month": "2026-10", "payDate": "2026-10-31", "paidAt": "2026-11-15",
+  "client": { "name": "(주)○○백화점 ○○점", "manager": "○○○ 과장", "phone": "02-0000-0000" },
+  "driver": { "name": "홍길동", "vehicleNo": "경기 12바 3456", "bizNo": "209-70-00000", "bizName": "홍길동", "address": "경기도 이천시 ○○로 00", "bank": "농협", "account": "302-0000-0000-00", "taxType": "manual" },
+  "notice": "◆ 상단 빨간 안내문 (줄바꿈은 \n)",
+  "income": [ { "title": "운송료", "supply": 4300000, "vat": 430000 } ],
+  "deductions": [ { "title": "고용보험", "amount": 17230 }, { "title": "산재보험", "amount": 18950 }, { "title": "수수료(지입료)", "amount": 299160 } ],
+  "expenses": [ { "category": "지입료", "title": "위·수탁 관리비", "period": "2026-10 분", "amount": 299160, "note": "운송료에서 공제" }, { "category": "보험료", "title": "종합보험 분납 3회차", "period": "2026-07-27", "amount": 257620, "note": "" } ],
+  "taxInvoice": { "type": "manual", "issueTo": { "name": "삼원운수㈜", "bizNo": "000-00-00000", "address": "경기도 이천시 ...", "ceo": "", "bizType": "운수업", "bizItem": "화물운송" }, "supply": 4300000, "vat": 430000, "total": 4730000 },
+  "totals": { "supply": 4300000, "vat": 430000, "income": 4730000, "deductions": 335340, "net": 4394660 },
+  "noticeBox": "전체 공지(모든 차주 공통)", "memo": "담당자 메모(해당 차주 개인, 없으면 빈 문자열)",
   "fines": [ { "date": "2026-10-02", "item": "과속", "amount": 40000, "due": "2026-11-15", "note": "" } ]
 }
 ```
-- `income`/`deductions`는 항목 수 제한 없음(화면은 8~9줄 틀에 맞춰 표시). `totals.income`=소득총계(공급가액+부가세), `totals.net`=실지급액
+- `month`=운송료 작업 월(기준월). `payDate`=기존 시스템의 지급월 날짜(월말), `paidAt`=실제 지급일(미정이면 빈 문자열 → 화면에 "지급 예정")
+- `client`: 근무업체와 거래처 담당자·전화(내역서 상단 표시)
+- `income[]`: 항목별 **공급가액·부가세**를 각각 제공 (화면: 지급내역 표 항목|공급가액|부가세, 합계 행)
+- `deductions[]`: 공제내역(급여성 공제). `expenses[]`: 하단 **지출내역 상세**(지입료·보험료·공과금·과태료 등, category로 구분)
+- `taxInvoice.issueTo`: **세금계산서 발행 대상(공급받는 자) 법인·사업자번호** — 차주가 삼원종합물류 본사 번호로 잘못 발행하지 않도록 반드시 제공. `type`: electronic(전자 발행 대상) | manual(수기 — 포털에서 수기세금계산서 출력 가능)
+- `noticeBox`=전체 공지, `memo`=담당자 개인 메모 — 둘 다 내역서 안에 표시
 - `fines`: 과태내역(없으면 빈 배열)
+
+### GET /statements/{YYYY-MM}/invoice — (선택) 수기세금계산서 발행 기록
+포털은 `/statements/{YYYY-MM}` 응답만으로 수기세금계산서를 출력합니다. 발행 이력을 서버에 남기려면 `POST /statements/{YYYY-MM}/invoice` `{ "issueDate": "2026-11-04" }` 를 구현하고 포털에 연동 요청하십시오(현재 미호출).
+
+### POST /checklist — (선택) 운행 전 일상점검 결과 저장
+포털은 운수종사자 일상점검표(시행규칙 별지 제14호의5, 2026-06-30 시행) 11개 항목을 매일 표시합니다. 결과를 서버에 보관하려면 아래 형식을 받도록 구현하십시오(현재는 기기 내 보관).
+`{ "date": "2026-11-04", "vehicleNo": "경기12바3456", "results": ["o","o","x", ...11개], "at": "2026-11-04T06:12:00+09:00" }`
 
 ### GET /insurance — 보험 / 할부 / 공과금
 ```json
 {
-  "liability": { "insurer": "경기화물공제조합", "period": "2026-03-27 ~ 2027-03-27", "mandatoryPremium": 340470, "optionalPremium": 1402580, "rate": "70 %", "surcharge": "0 %", "note": "" },
-  "schedule": [ { "no": 1, "date": "2026-03-27", "amount": 454950, "paid": true, "note": "" } ],
+  "accidentContacts": [ { "label": "사고접수(공제조합 콜센터)", "value": "1577-8278" }, { "label": "화물공제조합 경기지부", "value": "031-828-9911" }, { "label": "화물공제조합 서울지부", "value": "02-3433-8023" } ],
+  "liability": { "insurer": "경기화물공제조합", "period": "2026-03-27 ~ 2027-03-27", "coverages": ["대인Ⅰ(책임)", "대인Ⅱ", "대물 2억", "자기신체사고", "긴급출동"], "mandatoryPremium": 340470, "optionalPremium": 1402580, "rate": "70 %", "surcharge": "0 %", "note": "" },
+  "schedule": [ { "no": 1, "date": "2026-03-27", "amount": 454950, "paid": true, "deductedMonth": "2026-03", "note": "" } ],
   "cargo": { "insurer": "", "period": "", "annualTotal": null, "annualLimit": null, "perAccidentLimit": null, "deductible": null, "payDate": "" },
   "installment": [ { "no": 31, "date": "2026-11-25", "amount": 1230000, "paid": false, "note": "60회 중" } ],
   "autoTax": { "period": "2026-01-01 ~ 2026-12-31", "amount": 13160 },
@@ -70,6 +83,7 @@
   "accidentGuide": "◆ 유의사항 ... (사고시 운전자 대처요령 전문, 줄바꿈은 \n)"
 }
 ```
+- `accidentContacts`: 상단 사고접수 번호 띠. `liability.coverages`: 가입 담보 목록(칩으로 표시). `schedule[].deductedMonth`: 어느 달 운송료에서 공제했는지(비고에 "26년 3월 운송료에서 공제"로 표시)
 - `liability`=1.종합보험, `schedule`=종합보험 납부일정(`paid` true면 ★ 표시), `cargo`=2.적재물보험, `installment`=3.차량 할부, `autoTax`/`envCharge`=4.차량공과금·환경개선부담금, `unionFee`=5.화물조합비
 
 ### GET /board?category=&page=1&per=10&q= — 게시판 목록

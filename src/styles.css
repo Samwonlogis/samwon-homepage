@@ -2219,3 +2219,55 @@ a.cc-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgb
 .dp-gd-check input { width: 16px; height: 16px; accent-color: var(--blue); }
 @media (max-width: 599px) { .dp-gd-check { grid-template-columns: 1fr; } }
 @media (max-width: 899px) { .dp-mtabs { grid-template-columns: repeat(4, 1fr); } }
+/* v5.9 — 운송비 내역서 개편(지급·공제 2단, 세금계산서 발행 대상, 지출 상세), 수기세금계산서, 일상점검, 보험 담보·사고접수 */
+.dp-sheet__cols--2 { grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 900px) { .dp-sheet__cols--2 { grid-template-columns: 1.3fr 1fr; } .dp-sheet__cols--2 table + table th:first-child, .dp-sheet__cols--2 table + table td:first-child { border-left: 1px solid #dde2ea; } }
+.dp-sheet__sub2 th { background: #eef3fb !important; color: var(--ink-2) !important; font-size: 12.5px; text-align: center; }
+.dp-sheet__t--3 th { width: 34%; }
+.dp-sheet__sum--total th, .dp-sheet__sum--total td { background: #ffe9a8; font-size: 15px; }
+.dp-sheet__tax { border: 1px solid #dde2ea; border-radius: 8px; overflow: hidden; }
+.dp-sheet__tax-h { background: var(--ink); color: #fff; padding: 8px 12px; font-size: 13.5px; } .dp-sheet__tax-h b { color: #ffd166; }
+.dp-sheet__tax-b { display: grid; gap: 0; } @media (min-width: 900px) { .dp-sheet__tax-b { grid-template-columns: 1.2fr 1fr; } }
+.dp-sheet__issue { padding: 14px 16px; display: grid; gap: 2px; background: #fffbeb; border-right: 1px solid #dde2ea; }
+.dp-sheet__issue small { font-size: 12px; color: var(--ink-3); margin-top: 6px; } .dp-sheet__issue b { font-size: 17px; letter-spacing: -.02em; } .dp-sheet__issue .dp-sheet__bizno { font-size: 22px; color: #b4432f; font-family: var(--font-en); letter-spacing: .02em; }
+.dp-sheet__issue span { font-size: 13px; color: var(--ink-2); } .dp-sheet__issue em { font-style: normal; font-size: 12.5px; color: #b4432f; margin-top: 8px; }
+.dp-sheet__tax-b .dp-sheet__t th, .dp-sheet__tax-b .dp-sheet__t td { border-left: 0; border-right: 0; } .dp-sheet__tax-b .dp-sheet__t tr:first-child th, .dp-sheet__tax-b .dp-sheet__t tr:first-child td { border-top: 0; }
+.dp-sheet__memo { background: #eef7ee; color: #1f5a32; font-weight: 600; }
+.dp-sheet__head td a { color: var(--blue); font-weight: 700; }
+.dp-sheet-tools a.dp-print { display: inline-flex; align-items: center; }
+.dp-sheet-tools--left { justify-content: flex-start; align-items: center; flex-wrap: wrap; }
+.iv__date { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; margin-left: auto; } .iv__date input { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-family: inherit; }
+/* 수기세금계산서 */
+.iv-sheet { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 26px; display: grid; gap: 18px; }
+.iv { display: grid; gap: 6px; font-size: 12.5px; color: #1f2a44; }
+.iv table { width: 100%; border-collapse: collapse; table-layout: fixed; } .iv th, .iv td { border: 1px solid #c63; padding: 4px 5px; text-align: center; vertical-align: middle; color: inherit; word-break: keep-all; } .iv th { background: #fdf3f0; font-weight: 600; }
+.iv__top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; } .iv__top h2 { text-align: center; font-size: 1.5rem; letter-spacing: .4em; color: #c63; margin: 0; } .iv__copy { font-weight: 700; color: #c63; } .iv__book { text-align: right; font-size: 11.5px; color: #c63; line-height: 1.5; }
+.iv__party th { width: 9%; } .iv__party .iv__side { width: 4%; background: #fbe4dd; } .iv__party td { text-align: left; } .iv__party .iv__big { font-size: 16px; font-weight: 800; letter-spacing: .12em; text-align: center; font-family: var(--font-en); }
+.iv__amt th, .iv__amt td { padding: 3px 1px; font-size: 11px; } .iv__amt td { height: 26px; font-weight: 700; }
+.iv__items td { height: 30px; } .iv__items td:nth-child(3) { text-align: left; } .iv__items .num { text-align: right; }
+.iv__total td { height: 30px; } .iv__total .iv__big { font-size: 15px; font-weight: 800; } .iv__total .iv__recv { background: #fff; width: 22%; } .iv__total .num { text-align: right; }
+.iv__cut { text-align: center; color: var(--ink-3); font-size: 12px; letter-spacing: .05em; }
+/* 보험 담보·사고접수 */
+.dp-acc { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 18px; border-radius: 14px; background: #fff6f4; border: 1px solid #f3c9c2; }
+.dp-acc > b { font-size: 15px; color: #9b2d1f; margin-right: 6px; } .dp-acc a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: #fff; border: 1px solid #f3c9c2; font-size: 13.5px; color: var(--ink-2); } .dp-acc a strong { color: #b4432f; font-size: 15px; }
+.dp-cov { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; } .dp-cov small { font-size: 12.5px; color: var(--ink-3); font-weight: 700; margin-right: 4px; } .dp-cov span { padding: 4px 10px; border-radius: 999px; background: var(--blue-50); color: var(--blue); font-size: 13px; font-weight: 700; }
+/* 운행 전 일상점검 */
+.dp-dc { background: #fff; border: 2px solid var(--blue); border-radius: 16px; padding: 20px 22px; display: grid; gap: 14px; box-shadow: 0 16px 40px -30px rgba(6,66,133,.5); }
+.dp-dc__head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+.dp-dc__tag { display: inline-block; padding: 3px 9px; border-radius: 6px; background: #b4432f; color: #fff; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.dp-dc__head h3 { font-size: 1.2rem; letter-spacing: -.02em; } .dp-dc__head p { margin: 4px 0 0; font-size: 13.5px; color: var(--ink-3); line-height: 1.5; max-width: 60ch; }
+.dp-dc__prog { flex: none; font-size: 14px; color: var(--ink-3); } .dp-dc__prog b { font-size: 26px; color: var(--blue); font-family: var(--font-en); }
+.dp-dc__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.dp-dc__list li { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; }
+.dp-dc__list li.is-ok { background: #f3f8ff; border-color: var(--blue-100); } .dp-dc__list li.is-bad { background: #fff6f4; border-color: #f3c9c2; }
+.dp-dc__no { width: 26px; height: 26px; border-radius: 50%; background: var(--bg-soft); display: grid; place-items: center; font-size: 12.5px; font-weight: 700; color: var(--ink-3); }
+.dp-dc__txt { font-size: 14.5px; line-height: 1.45; } .dp-dc__txt small { display: inline-block; margin-right: 6px; padding: 1px 6px; border-radius: 4px; background: var(--bg-soft); color: var(--ink-3); font-size: 11.5px; font-weight: 700; }
+.dp-dc__btns { display: flex; gap: 4px; } .dp-dc__btns button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 700; color: var(--ink-3); font-family: inherit; cursor: pointer; }
+.dp-dc__btns button.is-on { background: var(--blue); color: #fff; border-color: var(--blue); } .dp-dc__btns button.is-on.is-x { background: #b4432f; border-color: #b4432f; }
+.dp-dc__foot { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; } .dp-dc__foot p { margin: 0; max-width: 70ch; }
+.dp-dc--done { grid-template-columns: auto 1fr auto; align-items: center; border-color: var(--blue-100); box-shadow: none; padding: 14px 18px; }
+.dp-dc--done .dp-dc__ic { width: 36px; height: 36px; border-radius: 50%; background: var(--blue); color: #fff; display: grid; place-items: center; } .dp-dc--done .dp-dc__ic svg { width: 18px; height: 18px; }
+.dp-dc--done b { display: block; font-size: 15.5px; } .dp-dc--done span { font-size: 13.5px; color: var(--ink-3); }
+.dp-dc--done button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 7px 12px; font-size: 13px; font-weight: 600; font-family: inherit; color: var(--ink-2); cursor: pointer; }
+@media (max-width: 767px) { .dp-dc__list li { grid-template-columns: 24px 1fr; } .dp-dc__btns { grid-column: 2; } .dp-dc__head { flex-direction: column; } .dp-sheet__issue { border-right: 0; border-bottom: 1px solid #dde2ea; } .iv { font-size: 11px; } .iv__amt { display: none; } .iv-sheet { padding: 14px; } }
+@media print { .dp-thanks, .dp-dc, .iv__date, .dp-acc { display: none !important; } .iv-sheet { border: 0; padding: 0; } .iv__cut { page-break-after: always; } }
