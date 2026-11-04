@@ -2346,3 +2346,5 @@ a.cc-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgb
   .dp-sheet th, .dp-sheet td { white-space: normal; } .dp-sheet .num { white-space: nowrap; }
   .dp-head .dp-search { flex: 1 1 100%; min-width: 0; } .dp-head .dp-search input { min-width: 0; width: 100%; flex: 1 1 0; }
 }
+
+@media (max-width: 899px) { .dp-mtabs--4 { grid-template-columns: repeat(4, 1fr); } }

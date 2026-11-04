@@ -16,6 +16,9 @@ export function resolveManager(client, dc) {
   for (const m of dc?.managers || []) if ((m.clients || []).some(k => k && name.includes(String(k).replace(/\s+/g, '').toLowerCase()))) return { manager: m.name, phone: m.phone }
   return dc?.default ? { manager: dc.default.name, phone: dc.default.phone } : { manager: client?.manager || '', phone: client?.phone || '' }
 }
+/** ERP 개인정보 설정값 — webAccess:false(웹 접속불가) → 운송료내역서 숨김, taxType:'electronic' 또는 manualInvoice:false → 수기세금계산서 출력 없음 */
+export const canSeeStatements = (d) => d?.webAccess !== false
+export const canPrintInvoice = (d, stmt) => d?.webAccess !== false && d?.manualInvoice !== false && d?.taxType !== 'electronic' && stmt?.taxInvoice?.type !== 'electronic'
 const todayKey = () => new Date().toISOString().slice(0, 10)
 const MENUS = [
   { to: '/driver/statements', label: '운송료내역서', d: 'M4 4h16v16H4z M8 9h8 M8 13h8 M8 17h5' },
@@ -49,10 +52,10 @@ export function DriverLogin() {
   const [f, setF] = useState({ vehicleNo: '', password: '', remember: false })
   const [msg, setMsg] = useState(''); const [busy, setBusy] = useState(false)
   useEffect(() => { document.title = '차주정보 | 삼원종합물류㈜' }, [])
-  if (api.getSession()) return <Navigate to={loc.state?.from || '/driver/statements'} replace />
+  if (api.getSession()) return <Navigate to={loc.state?.from || (canSeeStatements(api.getSession().driver) ? '/driver/statements' : '/driver/insurance')} replace />
   const submit = async (e) => {
     e.preventDefault(); setMsg(''); setBusy(true)
-    try { await api.login(f.vehicleNo, f.password, f.remember); nav(loc.state?.from || '/driver/statements', { replace: true }) }
+    try { const dr = await api.login(f.vehicleNo, f.password, f.remember); nav(loc.state?.from || (canSeeStatements(dr) ? '/driver/statements' : '/driver/insurance'), { replace: true }) }
     catch (err) { setMsg(err.message) } finally { setBusy(false) }
   }
   return (
@@ -229,12 +232,14 @@ export function DriverShell() {
   const d = s.driver; const ins = d.inspection || {}
   const out = async () => { await api.logout(); nav('/driver', { replace: true }) }
   const isInvoice = /\/invoice$/.test(loc.pathname)
+  const MENUS_V = canSeeStatements(d) ? MENUS : MENUS.filter(m => !m.to.includes('/statements'))
+  if (!canSeeStatements(d) && /\/driver\/statements/.test(loc.pathname)) return <Navigate to="/driver/insurance" replace />
   return (
     <div className="dp">
       <div className="dp-top">
         <div className="wrap dp-top__in">
           <div className="dp-top__who"><span className="dp-top__avatar" aria-hidden="true"><Truck /></span><div><b>{d.name} 기사님</b><span>{d.vehicleNo}{d.tonnage ? ` · ${d.tonnage}` : ''}</span></div></div>
-          <nav className="dp-tabs" aria-label="차주정보 메뉴">{MENUS.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.label}</span></NavLink>)}</nav>
+          <nav className="dp-tabs" aria-label="차주정보 메뉴">{MENUS_V.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.label}</span></NavLink>)}</nav>
           <div className="dp-top__act"><a href={`tel:${c.company.phone}`} className="dp-top__tel"><Phone /> {c.company.phone}</a><button type="button" onClick={out}>로그아웃</button></div>
         </div>
       </div>
@@ -244,7 +249,7 @@ export function DriverShell() {
       <div className={`wrap dp-body ${isInvoice ? '' : 'dp-body--side'}`}>
         {!isInvoice && (
           <aside className="dp-side">
-            <nav className="dp-side__menu">{MENUS.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.label}</span><ArrowRight /></NavLink>)}</nav>
+            <nav className="dp-side__menu">{MENUS_V.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.label}</span><ArrowRight /></NavLink>)}</nav>
             <div className="dp-side__card">
               <h4>검사알림</h4>
               <p>안녕하세요. <b>{d.name}</b>님<br />삼원에 오신 것을 환영합니다.</p>
@@ -259,7 +264,7 @@ export function DriverShell() {
         )}
         <main className="dp-main"><Outlet context={{ driver: d, company: c.company }} /></main>
       </div>
-      <nav className="dp-mtabs" aria-label="차주정보 하단 메뉴">{MENUS.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.short || m.label}</span></NavLink>)}</nav>
+      <nav className={`dp-mtabs ${MENUS_V.length === 4 ? 'dp-mtabs--4' : ''}`} aria-label="차주정보 하단 메뉴">{MENUS_V.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.short || m.label}</span></NavLink>)}</nav>
     </div>
   )
 }
@@ -319,7 +324,7 @@ export function StatementDetail() {
       <State st={st}>{d && (<>
         <div className="dp-sheet-tools">
           <button type="button" className="dp-print" onClick={() => nav('/driver/statements')}>리스트</button>
-          {d.taxInvoice?.type !== 'electronic' && <Link className="dp-print" to={`/driver/statements/${month}/invoice`}>수기세금계산서 출력</Link>}
+          {canPrintInvoice(api.getSession()?.driver, d) && <Link className="dp-print" to={`/driver/statements/${month}/invoice`}>수기세금계산서 출력</Link>}
           <button type="button" className="dp-print dp-print--main" onClick={() => window.print()}>프린트 · PDF</button>
         </div>
         <article className="dp-sheet">
@@ -387,6 +392,7 @@ export function ManualInvoice() {
   const { month } = useParams(); const nav = useNavigate()
   const st = useLoad(() => api.getStatement(month), [month]); const d = st.data
   const [issueDate, setIssueDate] = useState(() => todayKey())
+  if (d && !canPrintInvoice(api.getSession()?.driver, d)) return <section className="dp-sec"><div className="dp-state dp-state--err">수기세금계산서 출력 대상이 아닙니다. 전자세금계산서 발행 대상이거나 출력이 제한된 차량입니다. 문의: 관리팀 02-598-3001</div><div><button type="button" className="btn btn--ghost" onClick={() => nav(-1)}>돌아가기</button></div></section>
   const copy = (label) => {
     const t = d.taxInvoice || {}; const to = t.issueTo || {}; const dr = d.driver || {}
     const [y, m] = d.month.split('-'); const sup = String(t.supply ?? 0); const vat = String(t.vat ?? 0)
