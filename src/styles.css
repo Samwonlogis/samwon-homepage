@@ -2181,3 +2181,41 @@ a.cc-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgb
 @media (max-width: 767px) { .dp-hl__sub { grid-template-columns: 1fr; } .dp-sheet { padding: 18px; } .dp-month-btn b { font-size: 15px; } }
 .dp-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px; color: var(--ink-3); } .dp-meta b { color: var(--ink); }
 @media (max-width: 1023px) { .dp-body--side { display: flex; flex-direction: column; } .dp-side { order: 2; } .dp-main { order: 1; } .dp-side__card p { padding-top: 12px; } }
+/* v5.8 — 차주 포털: 아바타 아이콘, 감사 문구 띠, 기사님 안내 페이지 */
+.dp-top__avatar { background: var(--blue-50); color: var(--blue); } .dp-top__avatar svg { width: 20px; height: 20px; }
+.dp-thanks { background: var(--ink); color: #fff; }
+.dp-thanks__in { display: flex; align-items: center; gap: 14px; padding-top: 12px; padding-bottom: 12px; font-size: 15px; }
+.dp-thanks__ic { flex: none; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-items: center; color: #9cc3ff; } .dp-thanks__ic svg { width: 16px; height: 16px; }
+.dp-thanks p { margin: 0; flex: 1; color: rgba(255,255,255,.88); line-height: 1.5; } .dp-thanks p b { color: #fff; }
+.dp-thanks > .wrap > a { flex: none; display: inline-flex; align-items: center; gap: 4px; color: #9cc3ff; font-weight: 700; font-size: 14px; white-space: nowrap; } .dp-thanks a svg { width: 14px; height: 14px; }
+@media (max-width: 767px) { .dp-thanks__in { flex-wrap: wrap; } .dp-thanks > .wrap > a { margin-left: 44px; } }
+.dp-gd-hero { display: flex; gap: 18px; align-items: flex-start; padding: 24px 26px; border-radius: 16px; background: linear-gradient(135deg, #0b3f8a, #1d5fc2); color: #fff; }
+.dp-gd-hero__ic { flex: none; width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,.14); display: grid; place-items: center; } .dp-gd-hero__ic svg { width: 26px; height: 26px; }
+.dp-gd-hero b { display: block; font-size: 14px; color: #a9c8f2; margin-bottom: 6px; } .dp-gd-hero p { margin: 0; font-size: 16.5px; line-height: 1.7; }
+.dp-gd-h { display: flex; align-items: center; gap: 10px; font-size: 1.15rem; letter-spacing: -.02em; margin-top: 10px; } .dp-gd-h svg { width: 20px; height: 20px; color: var(--blue); } .dp-gd-h small { margin-left: auto; font-size: 13px; color: var(--ink-3); font-weight: 600; }
+.dp-gd-grid { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 1100px) { .dp-gd-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 599px) { .dp-gd-grid { grid-template-columns: 1fr; } }
+.dp-gd-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 16px; }
+.dp-gd-card h3 { font-size: 16px; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; } .dp-gd-card h3 span { font-family: var(--font-en); font-size: 12px; color: #fff; background: var(--blue); border-radius: 6px; padding: 2px 7px; }
+.dp-gd-card ul { margin: 0; padding-left: 16px; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); } .dp-gd-card li { margin: 4px 0; }
+.dp-gd-duty { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+@media (min-width: 900px) { .dp-gd-duty { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.dp-gd-duty > div { background: #fff; padding: 16px 18px; display: grid; gap: 4px; }
+.dp-gd-duty b { font-size: 15.5px; } .dp-gd-duty p { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; } .dp-gd-duty small { font-size: 12.5px; color: var(--blue); font-weight: 700; }
+.dp-gd-two { display: grid; gap: 16px; } @media (min-width: 960px) { .dp-gd-two { grid-template-columns: 1fr 1fr; align-items: start; } }
+.dp-gd-box { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; display: grid; gap: 12px; }
+.dp-gd-box--red { border-color: #f3c9c2; background: #fffaf9; }
+.dp-gd-intro { margin: 0; font-size: 14.5px; color: var(--ink-2); }
+.dp-gd-steps { margin: 0; padding-left: 0; list-style: none; counter-reset: st; display: grid; gap: 8px; }
+.dp-gd-steps li { position: relative; padding-left: 36px; font-size: 14.5px; line-height: 1.55; counter-increment: st; }
+.dp-gd-steps li::before { content: counter(st); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: #b4432f; color: #fff; font-weight: 700; font-size: 13px; display: grid; place-items: center; }
+.dp-gd-contacts { display: grid; gap: 8px; }
+.dp-gd-contacts a { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 10px; background: #fff; border: 1px solid #f3c9c2; font-size: 14px; color: var(--ink); } .dp-gd-contacts b { color: #b4432f; font-size: 16px; }
+.dp-gd-health { margin: 0; padding-left: 18px; font-size: 14.5px; color: var(--ink-2); line-height: 1.65; } .dp-gd-health li { margin: 4px 0; }
+.dp-gd-check { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.dp-gd-check label { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; cursor: pointer; }
+.dp-gd-check li.is-done label { background: var(--blue-50); border-color: var(--blue-100); color: var(--blue); text-decoration: line-through; }
+.dp-gd-check input { width: 16px; height: 16px; accent-color: var(--blue); }
+@media (max-width: 599px) { .dp-gd-check { grid-template-columns: 1fr; } }
+@media (max-width: 899px) { .dp-mtabs { grid-template-columns: repeat(4, 1fr); } }

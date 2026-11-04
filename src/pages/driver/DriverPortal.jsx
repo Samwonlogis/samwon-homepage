@@ -3,7 +3,7 @@ import { Link, NavLink, Navigate, Outlet, useLocation, useNavigate, useParams, u
 import { useContent } from '../../context/ContentContext'
 import { asset } from '../../utils/storage'
 import * as api from '../../driver/api'
-import { ArrowRight, Phone } from '../../components/Icons'
+import { ArrowRight, Phone, Truck, Shield, Check } from '../../components/Icons'
 
 const { won, fmtDate } = api
 const num = (n) => (n == null || n === '' ? '' : Number(n).toLocaleString('ko-KR'))
@@ -12,6 +12,7 @@ const MENUS = [
   { to: '/driver/statements', label: '운송료내역서', d: 'M4 4h16v16H4z M8 9h8 M8 13h8 M8 17h5' },
   { to: '/driver/insurance', label: '보험 / 할부 / 공과금', short: '보험/할부/공과금', d: 'M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z M9 12l2 2 4-4' },
   { to: '/driver/board', label: '게시판', d: 'M4 5h16v11H8l-4 3z M8 9h8 M8 12h5' },
+  { to: '/driver/guide', label: '기사님 안내', short: '안내', d: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M12 8v5 M12 16h.01' },
 ]
 const Ic = ({ d }) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
 function useDriverApi() { const { content } = useContent(); api.configure(content.company.driverApi); return content }
@@ -84,12 +85,13 @@ export function DriverShell() {
     <div className="dp">
       <div className="dp-top">
         <div className="wrap dp-top__in">
-          <div className="dp-top__who"><span className="dp-top__avatar">{d.name?.[0] || '차'}</span><div><b>{d.name} 기사님</b><span>{d.vehicleNo}{d.tonnage ? ` · ${d.tonnage}` : ''}</span></div></div>
+          <div className="dp-top__who"><span className="dp-top__avatar" aria-hidden="true"><Truck /></span><div><b>{d.name} 기사님</b><span>{d.vehicleNo}{d.tonnage ? ` · ${d.tonnage}` : ''}</span></div></div>
           <nav className="dp-tabs" aria-label="차주정보 메뉴">{MENUS.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.label}</span></NavLink>)}</nav>
           <div className="dp-top__act"><a href={`tel:${c.company.phone}`} className="dp-top__tel"><Phone /> {c.company.phone}</a><button type="button" onClick={out}>로그아웃</button></div>
         </div>
       </div>
       {api.isDemo() && <div className="dp-demo dp-demo--bar">연동 전 예시 데이터입니다. 실제 운송료·공제 내역과 다릅니다.</div>}
+      <ThanksBar name={d.name} msgs={c.driverGuide?.thanks} />
       <div className="wrap dp-body dp-body--side">
         <aside className="dp-side">
           <nav className="dp-side__menu">{MENUS.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.label}</span><ArrowRight /></NavLink>)}</nav>
@@ -108,6 +110,48 @@ export function DriverShell() {
       </div>
       <nav className="dp-mtabs" aria-label="차주정보 하단 메뉴">{MENUS.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.short || m.label}</span></NavLink>)}</nav>
     </div>
+  )
+}
+
+/* 감사 문구 띠 — 날짜 기준으로 문구 순환 */
+function ThanksBar({ name, msgs = [] }) {
+  if (!msgs.length) return null
+  const i = Math.floor(Date.now() / 86400000) % msgs.length
+  return <div className="dp-thanks"><div className="wrap dp-thanks__in"><span className="dp-thanks__ic"><Check /></span><p><b>{name} 기사님,</b> {msgs[i]}</p><Link to="/driver/guide">기사님 안내 <ArrowRight /></Link></div></div>
+}
+
+/* ───────── 기사님 안내 (감사·안전·법정 의무·비상·건강·점검) ───────── */
+export function Guide() {
+  const { content: c } = useContent(); const g = c.driverGuide || {}
+  const [done, setDone] = useState(() => { try { return JSON.parse(sessionStorage.getItem('samwon_dp_check') || '[]') } catch { return [] } })
+  const toggle = (i) => { const n = done.includes(i) ? done.filter(x => x !== i) : [...done, i]; setDone(n); try { sessionStorage.setItem('samwon_dp_check', JSON.stringify(n)) } catch {} }
+  return (
+    <section className="dp-sec dp-guide-page">
+      <header className="dp-head"><div><span className="sh-en">For Drivers</span><h1>기사님 안내</h1></div></header>
+      <div className="dp-gd-hero"><span className="dp-gd-hero__ic"><Truck /></span><div><b>삼원종합물류 임직원 일동</b><p>{g.greeting}</p></div></div>
+
+      <h2 className="dp-gd-h"><Shield /> 안전운행 수칙</h2>
+      <div className="dp-gd-grid">{(g.safety || []).map((s, i) => <div className="dp-gd-card" key={i}><h3><span>{String(i + 1).padStart(2, '0')}</span>{s.title}</h3><ul>{s.items.map((x, k) => <li key={k}>{x}</li>)}</ul></div>)}</div>
+
+      <h2 className="dp-gd-h"><Check /> 기사님이 꼭 지켜야 할 법정 의무</h2>
+      <div className="dp-gd-duty">{(g.duties || []).map((x, i) => <div key={i}><b>{x.title}</b><p>{x.desc}</p><small>{x.law}</small></div>)}</div>
+
+      <div className="dp-gd-two">
+        <div className="dp-gd-box dp-gd-box--red">
+          <h2 className="dp-gd-h">🚨 사고 발생 시 조치 순서</h2>
+          <p className="dp-gd-intro">{g.emergency?.intro}</p>
+          <ol className="dp-gd-steps">{(g.emergency?.steps || []).map((x, i) => <li key={i}>{x}</li>)}</ol>
+          <div className="dp-gd-contacts">{(g.emergency?.contacts || []).map((x, i) => <a key={i} href={/^[\d-]+$/.test(x.value) ? `tel:${x.value}` : undefined}><span>{x.label}</span><b>{x.value}</b></a>)}</div>
+        </div>
+        <div className="dp-gd-box">
+          <h2 className="dp-gd-h">💙 기사님 건강 관리</h2>
+          <ul className="dp-gd-health">{(g.health || []).map((x, i) => <li key={i}>{x}</li>)}</ul>
+          <h2 className="dp-gd-h" style={{ marginTop: 22 }}>✅ 오늘의 운행 전 점검 <small>{done.length}/{(g.checklist || []).length}</small></h2>
+          <ul className="dp-gd-check">{(g.checklist || []).map((x, i) => <li key={i} className={done.includes(i) ? 'is-done' : ''}><label><input type="checkbox" checked={done.includes(i)} onChange={() => toggle(i)} /><span>{x}</span></label></li>)}</ul>
+          <p className="small muted">점검 표시는 이 기기에서만 오늘 하루 유지되며 회사로 전송되지 않습니다.</p>
+        </div>
+      </div>
+    </section>
   )
 }
 

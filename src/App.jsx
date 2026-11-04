@@ -13,7 +13,7 @@ import DriverJobs from './pages/recruitment/DriverJobs'
 import Contact from './pages/Contact'
 import Partnership from './pages/support/Partnership'
 import { Notice, NoticePost } from './pages/support/Notice'
-import { DriverLogin, DriverShell, Statements, StatementDetail, Insurance, Board, Post } from './pages/driver/DriverPortal'
+import { DriverLogin, DriverShell, Statements, StatementDetail, Insurance, Board, Post, Guide } from './pages/driver/DriverPortal'
 import Admin from './pages/Admin'
 import { Privacy, Terms, NotFound } from './pages/Legal'
 
@@ -47,6 +47,7 @@ export default function App() {
           <Route path="deductions" element={<Navigate to="/driver/insurance" replace />} />
           <Route path="board" element={<Board />} />
           <Route path="board/:id" element={<Post />} />
+          <Route path="guide" element={<Guide />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/privacy" element={<Privacy />} />
