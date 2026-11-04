@@ -92,7 +92,7 @@ export function DriverShell() {
       {api.isDemo() && <div className="dp-demo dp-demo--bar">연동 전 예시 데이터입니다. 실제 운송료·공제 내역과 다릅니다.</div>}
       <div className="wrap dp-body dp-body--side">
         <aside className="dp-side">
-          <nav className="dp-side__menu">{MENUS.map(m => <NavLink key={m.to} to={m.to}>{m.label}</NavLink>)}</nav>
+          <nav className="dp-side__menu">{MENUS.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.label}</span><ArrowRight /></NavLink>)}</nav>
           <div className="dp-side__card">
             <h4>검사알림</h4>
             <p>안녕하세요. <b>{d.name}</b>님<br />삼원에 오신 것을 환영합니다.</p>
@@ -119,6 +119,12 @@ export function Statements() {
     <section className="dp-sec">
       <header className="dp-head"><div><span className="sh-en">Statements</span><h1>운송료내역서</h1></div>{d && <span className="dp-head__page">Page ( {d.page} / {d.pages} )</span>}</header>
       <State st={st}>{d && (<>
+        {d.page === 1 && d.items[0] && (
+          <div className="dp-hl">
+            <div className="dp-hl__main"><span>최근 지급월 · {ymLabel(d.items[0].month)}</span><b>{won(d.items[0].net)}</b><em>지급일 {fmtDate(d.items[0].payDate)} · {d.items[0].client}</em><Link className="dp-hl__btn" to={`/driver/statements/${d.items[0].month}`}>내역서 보기 <ArrowRight /></Link></div>
+            <div className="dp-hl__sub"><div><span>운송료계</span><b>{won(d.items[0].fare)}</b></div><div><span>부가세</span><b>{won(d.items[0].vat)}</b></div><div><span>공제계</span><b className="dp-minus">- {won(d.items[0].deductions)}</b></div></div>
+          </div>
+        )}
         <div className="dp-table-wrap">
           <table className="dp-table dp-table--grid">
             <thead><tr><th>번호</th><th>지급월</th><th>근무업체</th><th className="num">운송료계</th><th className="num">부가세</th><th className="num">공제계</th><th className="num">지급계</th></tr></thead>
@@ -127,7 +133,7 @@ export function Statements() {
               {d.items.map((r, i) => (
                 <tr key={r.month}>
                   <td data-l="번호" className="num muted">{(d.page - 1) * 10 + i + 1}</td>
-                  <td data-l="지급월"><Link className="dp-link" to={`/driver/statements/${r.month}`}>{(r.payDate || r.month).replace(/-/g, '')}</Link></td>
+                  <td data-l="지급월"><Link className="dp-month-btn" to={`/driver/statements/${r.month}`}><b>{ymLabel(r.month)}</b><small>{(r.payDate || r.month).replace(/-/g, '.')}</small></Link></td>
                   <td data-l="근무업체">{r.client}</td>
                   <td data-l="운송료계" className="num">{num(r.fare)}</td>
                   <td data-l="부가세" className="num">{num(r.vat)}</td>
@@ -214,6 +220,8 @@ export function Insurance() {
           <div className="dp-ins__box"><h3>2. 적재물보험</h3><KV rows={[['가입보험사', d.cargo?.insurer], ['계약기간', d.cargo?.period], ['연간보험총액', w(d.cargo?.annualTotal)], ['연간총보상한도', w(d.cargo?.annualLimit)], ['사고당보상한도', w(d.cargo?.perAccidentLimit)], ['자기부담금', w(d.cargo?.deductible)], ['납입일자', fmtDate(d.cargo?.payDate)]]} /></div>
           <div className="dp-ins__box">
             <h3>종합보험 납부일정</h3>
+            {(d.schedule || []).length > 0 && (() => { const t = d.schedule.length, pd = d.schedule.filter(r => r.paid).length; return (
+              <div className="dp-prog"><div className="dp-prog__bar"><i style={{ width: `${Math.round(pd / t * 100)}%` }} /></div><span>{pd} / {t}회 납부 완료 · 잔여 {num(d.schedule.filter(r => !r.paid).reduce((s, r) => s + (r.amount || 0), 0))}원</span></div>) })()}
             <table className="dp-table dp-table--grid dp-table--compact">
               <thead><tr><th>순번</th><th>납부일자</th><th className="num">금액</th><th>납부</th><th>비고</th></tr></thead>
               <tbody>{(d.schedule || []).map(r => <tr key={r.no}><td data-l="순번" className="num">{r.no}</td><td data-l="납부일자">{fmtDate(r.date)}</td><td data-l="금액" className="num">{num(r.amount)}</td><td data-l="납부" className="dp-star">{r.paid ? '★' : ''}</td><td data-l="비고">{r.note}</td></tr>)}</tbody>
