@@ -5,9 +5,7 @@ import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
 import { asset } from '../../utils/storage'
 import { COMPANY_NAV } from './companyNav'
-import { Leaf, Building, Box, Pin, Globe, Phone, ArrowRight, Truck, Route, Users, Spark, Target } from '../../components/Icons'
-
-const SUB_ICON = [Truck, Route, Box, Users, Spark]
+import { Leaf, Building, Box, Pin, Globe, Phone, ArrowRight } from '../../components/Icons'
 
 const cat = (name) => {
   if (name.includes('본사')) return { label: '본사 (HQ)', type: 'hq', Icon: Building }
@@ -79,37 +77,32 @@ export default function Intro() {
         </div>
       </section>
 
-      {/* 계열사 현황 — 그룹 구조도 */}
-      <section className="section section--soft" id="group">
+      {/* 계열사 현황 — 에디토리얼 구조도 */}
+      <section className="section" id="group">
         <div className="wrap">
-          <SectionHead eyebrow="GROUP STRUCTURE" title="계열사 현황" lead="삼원종합물류를 중심으로 6개 전문 법인이 운송⁠·배송⁠·특수화물⁠·인력⁠·플랫폼을 분담합니다. 하나의 창구로 계약하면 그룹 전체의 역량이 움직입니다." />
-          <div className="grp" data-reveal="">
-            <div className="grp__hub">
-              <div className="grp__hub-head">
-                <img className="grp__logo" src={asset('samwon_logo.svg')} alt="SAMWON" />
-                <span className="grp__tag">{parent.role}</span>
-              </div>
+          <SectionHead eyebrow="GROUP COMPANIES" title="계열사 현황" lead="삼원종합물류를 중심으로 6개 전문 법인이 운송⁠·배송⁠·특수화물⁠·인력⁠·플랫폼을 분담합니다. 하나의 창구로 계약하면 그룹 전체의 역량이 움직입니다." />
+          <div className="gc" data-reveal="">
+            <aside className="gc__parent">
+              <img className="gc__logo" src={asset('samwon_logo.svg')} alt="SAMWON" />
+              <span className="gc__kicker">Holding · {parent.role}</span>
               <h3>{parent.name}</h3>
               <p>{parent.desc}</p>
-              <ul className="grp__stats">
-                <li><b>1992</b><span>창립</span></li>
-                <li><b>6</b><span>전문 법인</span></li>
-                <li><b>1,000<em>+</em></b><span>운송 네트워크</span></li>
-                <li><b>{parent.location}</b><span>본사⁠·거점</span></li>
-              </ul>
-            </div>
-            <div className="grp__line" aria-hidden="true"><span /></div>
-            <ol className="grp__list">
-              {subs.map((s, i) => { const Icon = SUB_ICON[i % SUB_ICON.length]; return (
-                <li key={i} className="grp__card" style={{ transitionDelay: `${i * .06}s` }}>
-                  <span className="grp__tick" aria-hidden="true" />
-                  <div className="grp__card-top"><span className="grp__ic"><Icon /></span><span className="grp__no">{String(i + 1).padStart(2, '0')}</span></div>
-                  <span className="grp__role">{s.role}</span>
-                  <h4>{s.name}</h4>
-                  <p>{s.desc}</p>
-                  <span className="grp__loc"><Pin /> {s.location}</span>
+              <dl className="gc__facts">
+                <div><dt>창립</dt><dd>1992</dd></div>
+                <div><dt>계열 법인</dt><dd>6개사</dd></div>
+                <div><dt>운송 네트워크</dt><dd>1,000대 이상</dd></div>
+                <div><dt>본사⁠·거점</dt><dd>{parent.location}</dd></div>
+              </dl>
+            </aside>
+            <ol className="gc__list">
+              {subs.map((s, i) => (
+                <li key={i} className="gc__row">
+                  <span className="gc__no">{String(i + 1).padStart(2, '0')}</span>
+                  <div className="gc__name"><h4>{s.name}</h4><span>{s.role}</span></div>
+                  <p className="gc__desc">{s.desc}</p>
+                  <span className="gc__loc">{s.location}</span>
                 </li>
-              ) })}
+              ))}
             </ol>
           </div>
         </div>

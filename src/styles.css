@@ -2347,39 +2347,57 @@ a.cc-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgb
   .dp-head .dp-search { flex: 1 1 100%; min-width: 0; } .dp-head .dp-search input { min-width: 0; width: 100%; flex: 1 1 0; }
 }
 
-/* v6.2 — 계열사 현황: 그룹 구조도 */
-.grp { display: grid; gap: 0; }
-.grp__hub { position: relative; background: linear-gradient(135deg, #0a2a5e 0%, var(--blue) 55%, #1a66c4 120%); color: #fff; border-radius: 22px; padding: 40px 44px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px 48px; align-items: center; overflow: hidden; box-shadow: 0 30px 60px -36px rgba(5,69,146,.6); }
-.grp__hub::before { content: ''; position: absolute; right: -120px; top: -140px; width: 420px; height: 420px; border-radius: 50%; border: 60px solid rgba(255,255,255,.06); pointer-events: none; }
-.grp__hub::after { content: ''; position: absolute; right: 36px; bottom: -60px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(122,167,230,.35), transparent 70%); pointer-events: none; }
-.grp__hub-head { grid-column: 1; display: flex; align-items: center; gap: 14px; }
-.grp__logo { height: 34px; width: auto; filter: brightness(0) invert(1); }
-.grp__tag { font-size: 13px; font-weight: 700; letter-spacing: .04em; padding: 5px 11px; border-radius: 999px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); }
-.grp__hub h3 { grid-column: 1; font-size: clamp(1.7rem, 2.6vw, 2.3rem); letter-spacing: -.03em; font-weight: 800; margin-top: 6px; }
-.grp__hub > p { grid-column: 1; font-size: 17px; line-height: 1.7; color: rgba(255,255,255,.82); margin: 0; max-width: 46ch; }
-.grp__stats { grid-column: 2; grid-row: 1 / span 3; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative; z-index: 1; }
-.grp__stats li { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 16px 18px; display: grid; gap: 4px; backdrop-filter: blur(4px); }
-.grp__stats b { font-family: var(--font-en); font-size: 1.7rem; font-weight: 800; letter-spacing: -.02em; line-height: 1; } .grp__stats b em { font-style: normal; color: var(--blue-300); font-size: 1.2rem; }
-.grp__stats span { font-size: 13.5px; color: rgba(255,255,255,.75); font-weight: 600; }
-.grp__line { display: grid; justify-items: center; height: 56px; position: relative; }
-.grp__line span { width: 2px; height: 100%; background: linear-gradient(var(--blue), var(--blue-300)); }
-.grp__line::after { content: ''; position: absolute; left: 10%; right: 10%; bottom: 0; height: 2px; background: var(--blue-300); }
-.grp__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-.grp__card { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 44px 22px 22px; display: grid; gap: 10px; align-content: start; transition: transform .3s, box-shadow .3s, border-color .3s; }
-.grp__card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(5,69,146,.35); border-color: var(--blue-300); }
-.grp__tick { position: absolute; top: -16px; left: 50%; width: 2px; height: 16px; background: var(--blue-300); transform: translateX(-50%); }
-.grp__tick::after { content: ''; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; border-radius: 50%; background: var(--blue); transform: translateX(-50%); box-shadow: 0 0 0 4px var(--blue-100); }
-.grp__card-top { position: absolute; top: 18px; left: 22px; right: 22px; display: flex; justify-content: space-between; align-items: center; }
-.grp__ic { width: 44px; height: 44px; border-radius: 12px; background: var(--blue-50); color: var(--blue); display: grid; place-items: center; } .grp__ic svg { width: 22px; height: 22px; }
-.grp__no { font-family: var(--font-en); font-style: italic; font-weight: 800; font-size: 20px; color: var(--blue-300); }
-.grp__role { margin-top: 22px; font-size: 13.5px; font-weight: 700; color: var(--blue); letter-spacing: .02em; }
-.grp__card h4 { font-size: 1.22rem; font-weight: 800; letter-spacing: -.02em; }
-.grp__card p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); }
-.grp__loc { display: inline-flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 10px; font-size: 13.5px; color: var(--ink-3); font-weight: 600; } .grp__loc svg { width: 14px; height: 14px; }
-@media (max-width: 1100px) { .grp__list { grid-template-columns: repeat(3, 1fr); } .grp__line::after { left: 16%; right: 16%; } }
+/* v6.2 — 계열사 현황: 에디토리얼 구조도 (좌 모회사 패널 · 우 계열사 리스트) */
+.gc { display: grid; grid-template-columns: 360px 1fr; gap: 0; border-top: 2px solid var(--ink); }
+.gc__parent { background: var(--blue); color: #fff; padding: 40px 36px 36px; display: grid; align-content: start; gap: 14px; position: relative; }
+.gc__parent::after { content: ''; position: absolute; right: -1px; top: 40px; bottom: 40px; width: 1px; background: rgba(255,255,255,.25); }
+.gc__logo { height: 30px; width: auto; filter: brightness(0) invert(1); justify-self: start; margin-bottom: 18px; }
+.gc__kicker { font-family: var(--font-en); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--blue-300); }
+.gc__parent h3 { font-size: 1.85rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.15; }
+.gc__parent > p { margin: 0; font-size: 15.5px; line-height: 1.7; color: rgba(255,255,255,.82); }
+.gc__facts { margin: 18px 0 0; padding: 0; display: grid; }
+.gc__facts div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 11px 0; border-top: 1px solid rgba(255,255,255,.22); }
+.gc__facts div:last-child { border-bottom: 1px solid rgba(255,255,255,.22); }
+.gc__facts dt { font-size: 13.5px; color: rgba(255,255,255,.7); font-weight: 600; } .gc__facts dd { margin: 0; font-weight: 800; font-size: 16px; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.gc__list { list-style: none; margin: 0; padding: 0 0 0 48px; display: grid; align-content: start; }
+.gc__row { display: grid; grid-template-columns: 56px 240px 1fr 88px; gap: 20px; align-items: baseline; padding: 26px 0; border-bottom: 1px solid var(--line); transition: background .25s; }
+.gc__row:first-child { padding-top: 22px; }
+.gc__row:hover { background: linear-gradient(90deg, var(--blue-50), transparent 70%); }
+.gc__no { font-family: var(--font-en); font-weight: 800; font-size: 15px; letter-spacing: .06em; color: var(--blue); }
+.gc__name h4 { font-size: 1.28rem; font-weight: 800; letter-spacing: -.025em; line-height: 1.2; } .gc__name span { display: block; margin-top: 5px; font-size: 13.5px; font-weight: 700; color: var(--blue); letter-spacing: .01em; }
+.gc__desc { margin: 0; font-size: 15.5px; line-height: 1.7; color: var(--ink-2); word-break: keep-all; }
+.gc__loc { font-size: 13.5px; color: var(--ink-3); font-weight: 600; text-align: right; white-space: nowrap; }
+@media (max-width: 1100px) { .gc { grid-template-columns: 300px 1fr; } .gc__list { padding-left: 32px; } .gc__row { grid-template-columns: 44px 190px 1fr 70px; gap: 14px; } }
+@media (max-width: 899px) {
+  .gc { grid-template-columns: 1fr; } .gc__parent { padding: 28px 22px; } .gc__parent::after { display: none; } .gc__parent h3 { font-size: 1.55rem; }
+  .gc__list { padding: 0; } .gc__row { grid-template-columns: 36px 1fr; grid-template-rows: auto auto; gap: 6px 12px; padding: 18px 0; }
+  .gc__name { grid-column: 2; } .gc__desc { grid-column: 2; font-size: 15px; } .gc__loc { grid-column: 2; text-align: left; } .gc__no { grid-row: 1 / span 3; padding-top: 4px; }
+}
+
+/* v6.3 — 회사연혁 압축 재디자인 (시대 띠 + 연도 카드 그리드) */
+.hy-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+.hy-kpi { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; }
+.hy-kpi li { display: grid; gap: 2px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 12px; min-width: 112px; background: #fff; }
+.hy-kpi b { font-family: var(--font-en); font-size: 1.6rem; font-weight: 800; line-height: 1; color: var(--blue); letter-spacing: -.02em; } .hy-kpi span { font-size: 13px; color: var(--ink-3); font-weight: 600; }
+.hy-era { margin-top: 28px; padding-top: 24px; border-top: 2px solid var(--ink); }
+.hy-era:first-of-type { margin-top: 0; }
+.hy-era__head { display: grid; grid-template-columns: 170px 220px 1fr; gap: 10px 28px; align-items: start; margin-bottom: 18px; }
+.hy-era__range { font-family: var(--font-en); font-weight: 800; font-size: 1.55rem; letter-spacing: -.02em; color: var(--blue); line-height: 1.1; }
+.hy-era__en { display: block; font-size: 12px; letter-spacing: .14em; font-weight: 800; color: var(--blue-300); margin-bottom: 4px; }
+.hy-era__head h4 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; }
+.hy-era__head p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); }
+.hy-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.hy-card { display: grid; grid-template-columns: 74px 1fr; gap: 0 14px; align-items: start; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: #fff; transition: border-color .25s, box-shadow .25s; }
+.hy-card:hover { border-color: var(--blue-300); box-shadow: 0 14px 30px -22px rgba(5,69,146,.35); }
+.hy-card.is-key { border-left: 3px solid var(--blue); }
+.hy-card__year { font-family: var(--font-en); font-weight: 800; font-style: italic; font-size: 1.5rem; color: var(--blue); line-height: 1; padding-top: 3px; letter-spacing: -.02em; }
+.hy-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.hy-card li { display: grid; grid-template-columns: 34px 1fr; gap: 6px; font-size: 14.5px; line-height: 1.5; color: var(--ink); word-break: keep-all; }
+.hy-card li span { font-weight: 800; color: var(--blue-300); font-size: 12.5px; padding-top: 2px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hy-card li.is-key { font-weight: 700; }
+@media (max-width: 1023px) { .hy-grid { grid-template-columns: repeat(2, 1fr); } .hy-era__head { grid-template-columns: 150px 1fr; } .hy-era__head p { grid-column: 1 / -1; } }
 @media (max-width: 767px) {
-  .grp__hub { grid-template-columns: 1fr; padding: 28px 22px; gap: 10px; } .grp__stats { grid-column: 1; grid-row: auto; margin-top: 10px; } .grp__stats b { font-size: 1.45rem; } .grp__hub > p { font-size: 15.5px; }
-  .grp__line { height: 36px; } .grp__line::after { display: none; }
-  .grp__list { grid-template-columns: 1fr; gap: 12px; } .grp__tick { display: none; } .grp__card { padding: 20px 20px 20px 84px; }
-  .grp__card-top { top: 20px; left: 20px; right: auto; } .grp__no { display: none; } .grp__role { margin-top: 0; }
+  .hy-head { margin-bottom: 24px; } .hy-kpi li { min-width: 0; flex: 1; padding: 10px 12px; } .hy-kpi b { font-size: 1.3rem; }
+  .hy-era__head { grid-template-columns: 1fr; gap: 6px; } .hy-era__range { font-size: 1.3rem; }
+  .hy-grid { grid-template-columns: 1fr; gap: 8px; } .hy-card { grid-template-columns: 62px 1fr; padding: 12px 14px; } .hy-card__year { font-size: 1.3rem; } .hy-card li { font-size: 14px; }
 }

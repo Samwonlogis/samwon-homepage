@@ -215,11 +215,14 @@ export const defaultContent = {
     { date: '2016.02', cat: 'award', text: '서울특별시 화물자동차 운송사업 표창' },
     { date: '2016.10', cat: 'award', text: '우수 중소물류기업 우수상' },
     { date: '2020.03', cat: 'award', text: '경기도 모범 운수종사자 표창' },
+    { date: '2025.01', cat: 'biz', text: '이천물류창고 운영 개시', key: true },
+    { date: '2025.04', cat: 'award', text: '경기도 우수물류기업 표창', key: true },
+    { date: '2025', cat: 'cert', text: 'ISO 인증 획득', key: true },
   ],
   historyEras: [
     { from: 1995, to: 1999, en: 'FOUNDATION', title: '기반 구축', desc: '삼원종합물류 설립과 함께 운송⁠·식품⁠·축산물 운반 허가를 갖추고, 현대백화점을 시작으로 유통⁠·식품 화주와의 협력 기반을 다졌습니다.' },
     { from: 2000, to: 2009, en: 'GROWTH', title: '성장과 신뢰', desc: '미8군⁠·유한킴벌리⁠·현대로지스틱스 등 대형 화주로 협력을 넓히고, 물류대상과 장관 표창으로 운영 역량을 인정받았습니다.' },
-    { from: 2010, to: 2029, en: 'QUALITY', title: '품질 경영', desc: 'HACCP과 우수물류기업 인증으로 품질 체계를 공인받고, 이마트 등 대형 유통 채널과 함께 전국 운송 네트워크를 완성했습니다.' },
+    { from: 2010, to: 2029, en: 'QUALITY', title: '품질 경영', desc: 'HACCP⁠·우수물류기업⁠·ISO 인증으로 품질 체계를 공인받고, 이마트 등 대형 유통 채널과 이천물류창고 운영으로 전국 운송⁠·보관 네트워크를 완성했습니다.' },
   ],
 
   subsidiaries: [
