@@ -5,7 +5,9 @@ import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
 import { asset } from '../../utils/storage'
 import { COMPANY_NAV } from './companyNav'
-import { Leaf, Building, Box, Pin, Globe, Phone, ArrowRight } from '../../components/Icons'
+import { Leaf, Building, Box, Pin, Globe, Phone, ArrowRight, Truck, Route, Users, Spark, Target } from '../../components/Icons'
+
+const SUB_ICON = [Truck, Route, Box, Users, Spark]
 
 const cat = (name) => {
   if (name.includes('본사')) return { label: '본사 (HQ)', type: 'hq', Icon: Building }
@@ -19,6 +21,7 @@ export default function Intro() {
   const it = c.intro, ceo = c.ceo
   const [copied, setCopied] = useState(null)
   const subs = c.subsidiaries.filter(s => !/^삼원종합물류/.test(s.name))
+  const parent = c.subsidiaries.find(s => /^삼원종합물류/.test(s.name)) || c.subsidiaries[0]
   const hq = c.offices.find(o => cat(o.name).type === 'hq') || c.offices[0]
   const GROUPS = [['main', '물류 거점', '차량 운영⁠·상하차 거점', Box], ['retail', '백화점 유통망', '점포 상주 배송 거점', Globe], ['local', '지역 사무소', '권역 영업⁠·운영 지원', Pin]]
   const groups = GROUPS.map(([t, label, sub, Icon]) => ({ t, label, sub, Icon, list: c.offices.filter(o => o !== hq && cat(o.name).type === t) })).filter(g => g.list.length)
@@ -76,20 +79,39 @@ export default function Intro() {
         </div>
       </section>
 
-      {/* 계열사 현황 */}
-      <section className="section">
+      {/* 계열사 현황 — 그룹 구조도 */}
+      <section className="section section--soft" id="group">
         <div className="wrap">
-          <SectionHead eyebrow="SUBSIDIARIES" title="계열사 현황" lead="6개 전문 법인이 각 물류 영역의 핵심 역량을 담당하며, 그룹 차원의 통합 시너지를 실현합니다." />
-          <ol className="subx">
-            {subs.map((s, i) => (
-              <li key={i} data-reveal="" style={{ transitionDelay: `${i * .05}s` }}>
-                <span className="subx__no">{String(i + 1).padStart(2, '0')}</span>
-                <span className="subx__role">{s.role}</span>
-                <h3>{s.name}</h3>
-                <p>{s.desc}</p>
-              </li>
-            ))}
-          </ol>
+          <SectionHead eyebrow="GROUP STRUCTURE" title="계열사 현황" lead="삼원종합물류를 중심으로 6개 전문 법인이 운송⁠·배송⁠·특수화물⁠·인력⁠·플랫폼을 분담합니다. 하나의 창구로 계약하면 그룹 전체의 역량이 움직입니다." />
+          <div className="grp" data-reveal="">
+            <div className="grp__hub">
+              <div className="grp__hub-head">
+                <img className="grp__logo" src={asset('samwon_logo.svg')} alt="SAMWON" />
+                <span className="grp__tag">{parent.role}</span>
+              </div>
+              <h3>{parent.name}</h3>
+              <p>{parent.desc}</p>
+              <ul className="grp__stats">
+                <li><b>1992</b><span>창립</span></li>
+                <li><b>6</b><span>전문 법인</span></li>
+                <li><b>1,000<em>+</em></b><span>운송 네트워크</span></li>
+                <li><b>{parent.location}</b><span>본사⁠·거점</span></li>
+              </ul>
+            </div>
+            <div className="grp__line" aria-hidden="true"><span /></div>
+            <ol className="grp__list">
+              {subs.map((s, i) => { const Icon = SUB_ICON[i % SUB_ICON.length]; return (
+                <li key={i} className="grp__card" style={{ transitionDelay: `${i * .06}s` }}>
+                  <span className="grp__tick" aria-hidden="true" />
+                  <div className="grp__card-top"><span className="grp__ic"><Icon /></span><span className="grp__no">{String(i + 1).padStart(2, '0')}</span></div>
+                  <span className="grp__role">{s.role}</span>
+                  <h4>{s.name}</h4>
+                  <p>{s.desc}</p>
+                  <span className="grp__loc"><Pin /> {s.location}</span>
+                </li>
+              ) })}
+            </ol>
+          </div>
         </div>
       </section>
     </>
