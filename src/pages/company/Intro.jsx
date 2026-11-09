@@ -62,7 +62,7 @@ export default function Intro() {
       {/* CEO 인사말 */}
       <section className="section" id="ceo">
         <div className="wrap">
-          <SectionHead eyebrow="CEO MESSAGE" title="대표이사 인사말" />
+          <SectionHead eyebrow="MESSAGE FROM THE CHAIRMAN" title="회장 인사말" />
           <div className="ceo">
             <div className="ceo__photo" data-reveal="">
               <div className="photo photo--portrait">{ceo.photo ? <img src={asset(ceo.photo)} alt={`${ceo.name} ${ceo.title}`} /> : <img src={asset('img/hero_3.jpg')} alt="삼원종합물류 운송 차량" />}</div>
