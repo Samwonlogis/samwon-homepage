@@ -2419,3 +2419,4 @@ a.cc-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgb
   .ofy-info { padding: 18px; } .ofy-info h4 { font-size: 1.25rem; } .ofy-info dl div { grid-template-columns: 68px 1fr; font-size: 14.5px; }
   .ofy-way div { grid-template-columns: 64px 1fr; font-size: 15px; }
 }
+@media (max-width: 1023px) { .lg { grid-template-columns: minmax(0, 1fr); } } .lg-body, .lg-toc, .lg-sec { min-width: 0; }
