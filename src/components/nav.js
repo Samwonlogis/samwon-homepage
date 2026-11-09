@@ -1,16 +1,15 @@
 export const NAV = [
   { label: '회사소개', to: '/company/intro', children: [
-    { label: '회사소개', to: '/company/intro' },
+    { label: '회사개요', to: '/company/intro' },
     { label: '기업비전', to: '/company/vision' },
     { label: '회사연혁', to: '/company/history' },
     { label: '사무소', to: '/company/offices' },
     { label: '주요현황', to: '/company/status' },
   ]},
   { label: '사업영역', to: '/business', children: [
-    { label: '전체소개', to: '/business' },
     { label: '기업물류', to: '/business/corporate' },
     { label: '유통물류', to: '/business/distribution' },
-    { label: '주선 · 퀵서비스', to: '/business/brokerage' },
+    { label: '주선 · 에스원퀵', to: '/business/brokerage' },
     { label: '창고운영', to: '/business/warehouse' },
     { label: '물류컨설팅', to: '/business/consulting' },
   ]},
@@ -20,7 +19,7 @@ export const NAV = [
   ]},
   { label: '고객센터', to: '/support/notice', children: [
     { label: '공지사항', to: '/support/notice' },
-    { label: '고객센터', to: '/contact' },
+    { label: '문의하기', to: '/contact' },
     { label: '제휴문의', to: '/contact/partnership' },
   ]},
 ]

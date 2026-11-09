@@ -5,7 +5,14 @@ import { asset } from '../utils/storage'
 // 좌하단 고정 '회사홍보영상' 버튼(로고 블루) → 클릭 시 전체 화면 영상 레이어
 export default function PromoButton() {
   const [open, setOpen] = useState(false)
+  const [mini, setMini] = useState(false)
   const loc = useLocation()
+  // 첫 화면을 지나면 아이콘만 남겨 본문을 가리지 않게, 스크롤이 멈추면 다시 펼침
+  useEffect(() => {
+    let t
+    const onScroll = () => { setMini(window.scrollY > 240); clearTimeout(t); t = setTimeout(() => setMini(false), 1600) }
+    window.addEventListener('scroll', onScroll, { passive: true }); return () => { window.removeEventListener('scroll', onScroll); clearTimeout(t) }
+  }, [])
   useEffect(() => {
     if (!open) return
     const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
@@ -15,7 +22,7 @@ export default function PromoButton() {
   if (loc.pathname.startsWith('/admin')) return null
   return (
     <>
-      <button type="button" className="promo-fab" onClick={() => setOpen(true)} aria-label="회사홍보영상 재생">
+      <button type="button" className={`promo-fab ${mini ? 'is-mini' : ''}`} onClick={() => setOpen(true)} aria-label="회사홍보영상 재생">
         <span className="promo-fab__ic"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z" /></svg></span>
         <span className="promo-fab__txt">회사홍보영상</span>
       </button>

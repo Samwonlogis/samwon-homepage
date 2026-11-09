@@ -28,7 +28,7 @@ export default function Intro() {
 
   return (
     <>
-      <PageHead label="COMPANY" title="회사소개" desc="34년간 축적한 현장 역량과 6개 전문 계열사의 통합 인프라로 대한민국 공급망을 설계합니다." logo="zoom" crumb={['회사소개', '회사소개']} subnav={COMPANY_NAV} />
+      <PageHead label="COMPANY" title="회사개요" desc="34년간 축적한 현장 역량과 6개 전문 계열사의 통합 인프라로 대한민국 공급망을 설계합니다." logo="zoom" crumb={['회사소개', '회사개요']} subnav={COMPANY_NAV} />
 
       {/* 회사 개요 — 좌측 정렬 에디토리얼 */}
       <section className="section">

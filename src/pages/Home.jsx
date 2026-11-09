@@ -155,7 +155,7 @@ export default function Home() {
 
       {/* 4. 비전 밴드 */}
       <section className="vband">
-        <img src={asset((c.visionPage && c.visionPage.bandImage) || 'img/vision.jpg')} alt="" loading="lazy" />
+        <img src={asset(c.home?.visionBandImage || 'img/hero_3.jpg')} alt="" loading="lazy" />
         <div className="wrap">
           <div className="vband__in" data-reveal="">
             <span className="vband__en">Vision</span>

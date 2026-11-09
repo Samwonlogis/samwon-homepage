@@ -15,7 +15,7 @@ export default function Footer() {
             <img className="ft__logo" src={asset('samwon_logo.svg')} alt="SAMWON" />
             <nav className="ft__nav" aria-label="푸터 바로가기">
               <Link to="/company/offices#location">오시는 길</Link>
-              <Link to="/#certs">인증</Link>
+              <Link to="/company/status">주요현황</Link>
               <Link to="/support/notice">공지사항</Link>
               <Link to="/contact">고객센터</Link>
             </nav>

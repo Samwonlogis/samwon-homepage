@@ -2420,3 +2420,14 @@ a.cc-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgb
   .ofy-way div { grid-template-columns: 64px 1fr; font-size: 15px; }
 }
 @media (max-width: 1023px) { .lg { grid-template-columns: minmax(0, 1fr); } } .lg-body, .lg-toc, .lg-sec { min-width: 0; }
+
+/* v6.8 — 전체 점검 반영 */
+.bc__track { scroll-padding-inline: max(var(--gutter), calc((100vw - var(--w)) / 2 + var(--gutter))); }
+.jobs__sample-note { margin: 0 0 18px; padding: 12px 16px; border: 1px dashed var(--blue-300); border-radius: 10px; background: var(--blue-50); font-size: 14.5px; color: var(--ink-2); }
+.jobcard__sample { position: absolute; top: 18px; left: 18px; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--bg-soft); color: var(--ink-3); border: 1px solid var(--line); }
+.promo-fab__txt { white-space: nowrap; overflow: hidden; max-width: 140px; transition: max-width .3s var(--ease), opacity .25s; }
+.promo-fab.is-mini { padding-right: 8px; animation: none; } .promo-fab.is-mini .promo-fab__txt { max-width: 0; opacity: 0; }
+.promo-fab.is-mini:hover { padding-right: 20px; } .promo-fab.is-mini:hover .promo-fab__txt { max-width: 140px; opacity: 1; }
+/* 인증 배지 — 모바일 한 줄 가로 스크롤 */
+@media (max-width: 767px) { .certs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; gap: 18px; padding: 4px var(--gutter) 12px; margin: 0 calc(-1 * var(--gutter)); scroll-snap-type: x mandatory; scrollbar-width: none; } .certs > * { flex: 0 0 172px; scroll-snap-align: center; } .cert p, .cert span, .cert small { white-space: nowrap; font-size: 13.5px; } .certs::-webkit-scrollbar { display: none; } }
+.bc__body p { min-height: calc(1.7em * 3); }

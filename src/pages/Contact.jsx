@@ -19,7 +19,7 @@ export default function Contact() {
   ]
   return (
     <>
-      <PageHead label="CUSTOMER CENTER" title={cp.title} desc={cp.lead} image="img/banner_contact.jpg" crumb={['고객센터', '고객센터']} subnav={SUPPORT_NAV} />
+      <PageHead label="CUSTOMER CENTER" title={cp.title} desc={cp.lead} image="img/banner_contact.jpg" crumb={['고객센터', '문의하기']} subnav={SUPPORT_NAV} />
 
       <section className="section ct">
         <div className="wrap ct__grid">

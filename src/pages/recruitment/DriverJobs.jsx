@@ -48,7 +48,7 @@ export default function DriverJobs() {
   }
   const logout = () => { setStaff(null); sessionStorage.removeItem(SESSION_KEY) }
   const openAdd = () => { setEditing(null); setForm(EMPTY); setModal(true) }
-  const openEdit = (p) => { setEditing(p); setForm({ ...p }); setModal(true) }
+  const openEdit = (p) => { const { sample, ...rest } = p; setEditing(p); setForm(rest); setModal(true) }
   const remove = (id) => { if (window.confirm('이 구인 공고를 삭제하시겠습니까?')) save(postings.filter(p => p.id !== id)) }
   const submit = (e) => {
     e.preventDefault()
@@ -84,12 +84,16 @@ export default function DriverJobs() {
             {['전체', '일자리', '차량분양'].map(t => <button type="button" key={t} className={filter === t ? 'is-on' : ''} onClick={() => setFilter(t)}>{t}</button>)}
           </div>
 
+          {postings && postings.some(p => p.sample) && (
+            <p className="jobs__sample-note">아래 공고는 게시 형식을 보여 드리는 <b>예시</b>입니다. 실제 모집 조건은 배차 담당(02-598-3001)으로 문의해 주시기 바랍니다.</p>
+          )}
           <div className="jobs">
             {postings === null ? null : list.length === 0
               ? <div className="jobs__empty">등록된 공고가 없습니다.</div>
               : list.map((p, i) => (
                 <article className="jobcard" key={p.id} data-reveal="" style={{ transitionDelay: `${(i % 2) * .08}s` }}>
                   <span className={`jobcard__badge ${p.type === '차량분양' ? 'is-sale' : ''}`}>{p.type}</span>
+                  {p.sample && <span className="jobcard__sample">예시</span>}
                   <h3>{p.title}</h3>
                   <dl className="jobcard__info">
                     <div><dt><Chart /> 급여 / 수입</dt><dd>{noOrphan(p.income)}</dd></div>
