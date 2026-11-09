@@ -43,24 +43,8 @@ export default function Intro() {
         </div>
       </section>
 
-      {/* 핵심 역량 */}
-      <section className="section section--soft">
-        <div className="wrap">
-          <SectionHead eyebrow="CORE COMPETENCIES" title="핵심 역량" />
-          <ul className="lc">
-            {(it.coreValues || []).map((v, i) => (
-              <li key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
-                <span className="lc__no">{String(i + 1).padStart(2, '0')}</span>
-                {v.logo ? <div className="lc__logo"><img src={asset(v.logo)} alt={v.title} /></div> : <div className="lc__ic"><Leaf /></div>}
-                <h3>{v.title}</h3><p>{v.desc}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* CEO 인사말 */}
-      <section className="section" id="ceo">
+      <section className="section section--soft" id="ceo">
         <div className="wrap">
           <SectionHead eyebrow="MESSAGE FROM THE CHAIRMAN" title="회장 인사말" />
           <div className="ceo">
@@ -74,6 +58,22 @@ export default function Intro() {
               <div className="ceo__sign"><b>{c.company.name}</b><span>{ceo.title} <strong>{ceo.name}</strong></span></div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 핵심 역량 */}
+      <section className="section">
+        <div className="wrap">
+          <SectionHead eyebrow="CORE COMPETENCIES" title="핵심 역량" />
+          <ul className="lc">
+            {(it.coreValues || []).map((v, i) => (
+              <li key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
+                <span className="lc__no">{String(i + 1).padStart(2, '0')}</span>
+                {v.logo ? <div className="lc__logo"><img src={asset(v.logo)} alt={v.title} /></div> : <div className="lc__ic"><Leaf /></div>}
+                <h3>{v.title}</h3><p>{v.desc}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
