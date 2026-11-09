@@ -192,7 +192,8 @@ export const defaultContent = {
 
   // 회사연혁 — date: 'YYYY.MM', cat: found(설립)⁠·license(허가)⁠·partner(파트너 계약)⁠·award(수상⁠·표창)⁠·cert(인증), key: 주요 연혁 강조
   history: [
-    { date: '1995.02', cat: 'found', text: '삼원종합물류㈜ 설립', key: true },
+    { date: '1992', cat: 'found', text: '삼원종합물류 창립 (백화점 상품 배송 개시)', key: true },
+    { date: '1995.02', cat: 'found', text: '삼원종합물류㈜ 법인 설립', key: true },
     { date: '1995.12', cat: 'license', text: '화물자동차 운송사업 허가 취득' },
     { date: '1995.12', cat: 'partner', text: '현대백화점㈜ 배송 협력업체 체결', key: true },
     { date: '1995.12', cat: 'license', text: '관계사 삼원운수⁠·동국상운⁠·서진물류 화물자동차 운송사업 허가 취득' },
@@ -221,7 +222,7 @@ export const defaultContent = {
     { date: '2025.09', cat: 'cert', text: 'ISO 인증 획득', key: true },
   ],
   historyEras: [
-    { from: 1995, to: 1999, en: 'FOUNDATION', title: '기반 구축', desc: '삼원종합물류 설립과 함께 운송⁠·식품⁠·축산물 운반 허가를 갖추고, 현대백화점을 시작으로 유통⁠·식품 화주와의 협력 기반을 다졌습니다.' },
+    { from: 1992, to: 1999, en: 'FOUNDATION', title: '기반 구축', desc: '1992년 창립 후 1995년 법인 설립과 함께 운송⁠·식품⁠·축산물 운반 허가를 갖추고, 현대백화점을 시작으로 유통⁠·식품 화주와의 협력 기반을 다졌습니다.' },
     { from: 2000, to: 2009, en: 'GROWTH', title: '성장과 신뢰', desc: '미8군⁠·유한킴벌리⁠·현대로지스틱스 등 대형 화주로 협력을 넓히고, 물류대상과 장관 표창으로 운영 역량을 인정받았습니다.' },
     { from: 2010, to: 2029, en: 'QUALITY', title: '품질 경영', desc: 'HACCP⁠·우수물류기업⁠·ISO 인증으로 품질 체계를 공인받고, 이마트 등 대형 유통 채널과 이천물류창고 운영으로 전국 운송⁠·보관 네트워크를 완성했습니다.' },
   ],
