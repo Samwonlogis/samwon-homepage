@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { defaultContent } from '../data/defaultContent'
-import { loadLocal, saveLocal, clearLocal, loadRemote, deepMerge } from '../utils/storage'
+import { loadLocal, saveLocal, clearLocal, loadRemote, deepMerge, diffDeep } from '../utils/storage'
 
 const Ctx = createContext(null)
 
@@ -11,9 +11,10 @@ export function ContentProvider({ children }) {
 
   useEffect(() => { loadRemote().then(r => { setRemote(r); setReady(true) }) }, [])
 
-  const content = deepMerge(deepMerge(defaultContent, remote), local)
+  const base = deepMerge(defaultContent, remote)
+  const content = deepMerge(base, local)
 
-  const updateContent = useCallback((next) => { setLocal(next); saveLocal(next) }, [])
+  const updateContent = useCallback((next) => { const diff = diffDeep(base, next) || null; setLocal(diff); saveLocal(next, base) }, [base])
   const resetLocal = useCallback(() => { clearLocal(); setLocal(null) }, [])
 
   return <Ctx.Provider value={{ content, updateContent, resetLocal, hasLocal: !!local, ready }}>{children}</Ctx.Provider>

@@ -14,11 +14,23 @@ export function asset(url) {
   return BASE + url.replace(/^\//, '')
 }
 
+const LOCAL_VERSION = 2 // v2: 기본값과 다른 부분(diff)만 저장 — 코드 기본값이 바뀌면 편집하지 않은 항목은 새 기본값이 보임
 export function loadLocal() {
-  try { const d = localStorage.getItem(STORAGE_KEY); return d ? JSON.parse(d) : null } catch { return null }
+  try {
+    const d = localStorage.getItem(STORAGE_KEY); if (!d) return null
+    const j = JSON.parse(d)
+    if (!j || j.__v !== LOCAL_VERSION) { localStorage.removeItem(STORAGE_KEY); return null } // 구버전(전체 스냅샷) 초안은 폐기
+    const { __v, ...rest } = j; return rest
+  } catch { return null }
 }
-export function saveLocal(data) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); return true }
+const isObj = (v) => v && typeof v === 'object' && !Array.isArray(v)
+export function diffDeep(base, cur) {
+  if (JSON.stringify(base) === JSON.stringify(cur)) return undefined
+  if (isObj(base) && isObj(cur)) { const out = {}; for (const k of Object.keys(cur)) { const d = diffDeep(base[k], cur[k]); if (d !== undefined) out[k] = d } return Object.keys(out).length ? out : undefined }
+  return cur
+}
+export function saveLocal(data, base) {
+  try { const diff = base ? (diffDeep(base, data) || {}) : data; localStorage.setItem(STORAGE_KEY, JSON.stringify({ __v: LOCAL_VERSION, ...diff })); return true }
   catch (e) { if (e && e.name === 'QuotaExceededError') alert('브라우저 저장 공간이 부족합니다. 이미지 크기를 줄여 주십시오.'); return false }
 }
 export function clearLocal() { try { localStorage.removeItem(STORAGE_KEY) } catch {} }
