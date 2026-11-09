@@ -5,7 +5,7 @@
 export const PRIVACY = {
   effective: '2026-11-03',
   version: '2.0',
-  cpo: { name: '정종혁', title: '대표이사', dept: '총무팀', phone: '02-598-3001', email: 'samwon@3won.kr' },
+  cpo: { name: '정삼희', title: '회장', dept: '총무팀', phone: '02-598-3001', email: 'samwon@3won.kr' },
   sections: [
     { h: '총칙', p: [
       '삼원종합물류㈜(이하 "회사")는 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 다음과 같이 개인정보 처리방침을 수립·공개합니다.',

@@ -25,7 +25,7 @@ export default function Footer() {
               <div><dt>본사</dt><dd>{c.address}</dd></div>
               <div><dt>TEL</dt><dd><a href={`tel:${c.phone}`}>{c.phone}</a></dd><dt>FAX</dt><dd>{c.fax}</dd></div>
               <div><dt>E-MAIL</dt><dd><a href={`mailto:${c.email}`}>{c.email}</a></dd></div>
-              <div><dt>대표이사</dt><dd>{c.ceo}</dd><dt>사업자등록번호</dt><dd>{c.bizNumber}</dd></div>
+              <div><dt>회장</dt><dd>{c.ceo}</dd><dt>사업자등록번호</dt><dd>{c.bizNumber}</dd></div>
             </dl>
             <div className="ft__side">
               <Link to="/privacy" className="ft__privacy">개인정보처리방침</Link>

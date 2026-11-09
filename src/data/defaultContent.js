@@ -17,7 +17,7 @@ export const defaultContent = {
     quickPhone: '1600-3173',
     address: '서울특별시 서초구 효령로 328 아트리트21 6층',
     bizNumber: '126-81-17267',
-    ceo: '정종혁',
+    ceo: '정삼희',
     founded: '1992년 2월 1일',
     revenue: '870억 원 (2024년, 자회사 포함)',
     creditRating: 'BB+ (2024년 4월)',
