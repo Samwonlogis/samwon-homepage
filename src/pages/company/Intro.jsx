@@ -77,34 +77,19 @@ export default function Intro() {
         </div>
       </section>
 
-      {/* 계열사 현황 — 에디토리얼 구조도 */}
+      {/* 계열사 현황 — 미니멀 타이포 그리드 */}
       <section className="section" id="group">
         <div className="wrap">
-          <SectionHead eyebrow="GROUP COMPANIES" title="계열사 현황" lead="삼원종합물류를 중심으로 6개 전문 법인이 운송⁠·배송⁠·특수화물⁠·인력⁠·플랫폼을 분담합니다. 하나의 창구로 계약하면 그룹 전체의 역량이 움직입니다." />
-          <div className="gc" data-reveal="">
-            <aside className="gc__parent">
-              <img className="gc__logo" src={asset('samwon_logo.svg')} alt="SAMWON" />
-              <span className="gc__kicker">Holding · {parent.role}</span>
-              <h3>{parent.name}</h3>
-              <p>{parent.desc}</p>
-              <dl className="gc__facts">
-                <div><dt>창립</dt><dd>1992</dd></div>
-                <div><dt>계열 법인</dt><dd>6개사</dd></div>
-                <div><dt>운송 네트워크</dt><dd>1,000대 이상</dd></div>
-                <div><dt>본사⁠·거점</dt><dd>{parent.location}</dd></div>
-              </dl>
-            </aside>
-            <ol className="gc__list">
-              {subs.map((s, i) => (
-                <li key={i} className="gc__row">
-                  <span className="gc__no">{String(i + 1).padStart(2, '0')}</span>
-                  <div className="gc__name"><h4>{s.name}</h4><span>{s.role}</span></div>
-                  <p className="gc__desc">{s.desc}</p>
-                  <span className="gc__loc">{s.location}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <SectionHead eyebrow="GROUP COMPANIES" title="계열사 현황" lead="삼원종합물류를 중심으로 6개 법인이 함께 움직입니다." />
+          <ul className="aff" data-reveal="">
+            {[parent, ...subs].map((s, i) => (
+              <li key={i} className={`aff__cell ${i === 0 ? 'is-main' : ''}`}>
+                <span className="aff__no">{String(i + 1).padStart(2, '0')}</span>
+                <strong>{s.name}</strong>
+                <span className="aff__role">{s.role}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </>
