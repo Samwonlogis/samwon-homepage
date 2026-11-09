@@ -218,7 +218,7 @@ export const defaultContent = {
     { date: '2020.03', cat: 'award', text: '경기도 모범 운수종사자 표창' },
     { date: '2025.01', cat: 'biz', text: '이천물류창고 운영 개시', key: true },
     { date: '2025.04', cat: 'award', text: '경기도 우수물류기업 표창', key: true },
-    { date: '2025', cat: 'cert', text: 'ISO 인증 획득', key: true },
+    { date: '2025.09', cat: 'cert', text: 'ISO 인증 획득', key: true },
   ],
   historyEras: [
     { from: 1995, to: 1999, en: 'FOUNDATION', title: '기반 구축', desc: '삼원종합물류 설립과 함께 운송⁠·식품⁠·축산물 운반 허가를 갖추고, 현대백화점을 시작으로 유통⁠·식품 화주와의 협력 기반을 다졌습니다.' },
