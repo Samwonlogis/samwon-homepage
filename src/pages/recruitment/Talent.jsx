@@ -1,13 +1,8 @@
 import PageHead from '../../components/PageHead'
 import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
-import { asset } from '../../utils/storage'
-import { Chart, Shield, Star, Box, Users, Leaf, Mail, Phone } from '../../components/Icons'
 
 const NAV = [{ to: '/recruitment/talent', label: '인재상' }, { to: '/recruitment/jobs', label: '차주구인' }]
-const VALUE_IMGS = ['img/talent/execution.jpg', 'img/talent/trust.jpg', 'img/talent/expertise.jpg', 'img/talent/teamwork.jpg']
-const BENEFIT_ICONS = [Chart, Shield, Star, Box, Users, Leaf]
-const PROCESS_IMGS = ['img/process/apply.jpg', 'img/process/screen.jpg', 'img/process/interview.jpg', 'img/process/executive.jpg', 'img/process/welcome.jpg']
 // "실행력 (Execution)" → { ko: '실행력', en: 'Execution' }
 const split = (t = '') => { const m = t.match(/^(.*?)\s*\((.*)\)\s*$/); return m ? { ko: m[1], en: m[2] } : { ko: t, en: '' } }
 
@@ -15,7 +10,7 @@ export default function Talent() {
   const { content: c } = useContent(); const r = c.recruitment
   return (
     <>
-      <PageHead label="CAREERS" title="인재상" desc={r.subtitle} image="img/banner_talent.jpg" crumb={['채용정보', '인재상']} subnav={NAV} />
+      <PageHead label="CAREERS" title="인재상" desc={r.subtitle} logo crumb={['채용정보', '인재상']} subnav={NAV} />
 
       {/* 선언 */}
       <section className="section tl-intro">
@@ -30,35 +25,31 @@ export default function Talent() {
         </div>
       </section>
 
-      {/* 4대 역량 — 이미지 패널 */}
-      <section className="section tl-values-sec">
+      {/* 4대 역량 — 사진 없이 글자와 선으로 (기업비전 핵심가치와 같은 구성) */}
+      <section className="section section--soft">
         <div className="wrap">
-          <SectionHead eyebrow="CORE VALUES" title={r.title} />
-        </div>
-        <div className="wrap tv">
-          {r.values.map((v, i) => { const t = split(v.title); return (
-            <article className="tv__panel" key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
-              <img src={asset(v.image || VALUE_IMGS[i % VALUE_IMGS.length])} alt="" loading="lazy" />
-              <div className="tv__body">
-                <span className="tv__no">{String(i + 1).padStart(2, '0')}</span>
-                <span className="tv__en">{t.en}</span>
+          <SectionHead eyebrow="Core Values" title={r.title} />
+          <ul className="vgrid" data-reveal="">
+            {r.values.map((v, i) => { const t = split(v.title); return (
+              <li key={i}>
+                <span className="vgrid__en">{t.en}</span>
                 <h3>{t.ko}</h3>
                 <p>{v.desc}</p>
-              </div>
-            </article>) })}
+              </li>) })}
+          </ul>
         </div>
       </section>
 
-      {/* 채용 절차 */}
-      <section className="section section--soft">
+      {/* 채용 절차 — 실제 순서이므로 번호 사용 */}
+      <section className="section">
         <div className="wrap">
-          <SectionHead eyebrow="PROCESS" title="채용 절차 안내" />
-          <ol className="tpx">
+          <SectionHead eyebrow="Process" title="채용 절차 안내" lead={r.processLead} />
+          <ol className="stepx" data-reveal="">
             {r.process.map((p, i) => (
-              <li key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
-                <div className="tpx__img"><img src={asset(p.image || PROCESS_IMGS[i % PROCESS_IMGS.length])} alt="" loading="lazy" /><span className="tpx__no">{p.step || String(i + 1).padStart(2, '0')}</span></div>
-                <div className="tpx__body"><h4>{p.title}</h4>{p.desc && <p>{p.desc}</p>}</div>
-                {i < r.process.length - 1 && <span className="tpx__arrow" aria-hidden="true" />}
+              <li key={i}>
+                <span className="stepx__no">{p.step || String(i + 1).padStart(2, '0')}</span>
+                <h3>{p.title}</h3>
+                {p.desc && <p>{p.desc}</p>}
               </li>
             ))}
           </ol>
@@ -66,33 +57,33 @@ export default function Talent() {
       </section>
 
       {/* 복리후생 */}
-      <section className="section">
+      <section className="section section--soft">
         <div className="wrap tb">
           <div className="tb__head" data-reveal="">
             <span className="sh-en">Welfare</span>
             <h2>임직원 복리후생</h2>
             <p>{r.welfareLead || '구성원 한 사람 한 사람의 전문성과 성장이 존중받는 근무 환경을 만들어 갑니다.'}</p>
           </div>
-          <ul className="tb__list">
-            {(r.benefits || []).map((b, i) => { const Ic = BENEFIT_ICONS[i % BENEFIT_ICONS.length]; return (
-              <li key={i} data-reveal="" style={{ transitionDelay: `${i * .05}s` }}>
-                <span className="tb__ic"><Ic /></span>
-                <h4>{b.title}</h4><p>{b.desc}</p>
-              </li>) })}
+          <ul className="tb__list" data-reveal="">
+            {(r.benefits || []).map((b, i) => (
+              <li key={i}><h4>{b.title}</h4><p>{b.desc}</p></li>
+            ))}
           </ul>
         </div>
       </section>
 
-      {/* 지원 안내 밴드 */}
-      <section className="tl-apply">
-        <img src={asset('img/banner_talent.jpg')} alt="" loading="lazy" />
-        <div className="wrap" data-reveal="">
-          <span className="sh-en">Join Us</span>
-          <h2>삼원과 함께 성장할 동료를 기다립니다</h2>
-          <div className="tl-apply__links">
-            <a href={`mailto:${c.company.email}`}><Mail /> {c.company.email}</a>
-            <a href={`tel:${c.company.phone}`}><Phone /> {c.company.phone}</a>
+      {/* 지원 안내 */}
+      <section className="applyx">
+        <div className="wrap applyx__in" data-reveal="">
+          <div>
+            <span className="sh-en">Join Us</span>
+            <h2>삼원과 함께 성장할 동료를 기다립니다</h2>
+            <p>{r.applyLead || '입사 지원과 채용 관련 문의는 아래 이메일과 전화로 받고 있습니다.'}</p>
           </div>
+          <dl>
+            <div><dt>이메일 지원</dt><dd><a href={`mailto:${c.company.email}`}>{c.company.email}</a></dd></div>
+            <div><dt>채용 문의</dt><dd><a href={`tel:${c.company.phone}`}>{c.company.phone}</a></dd></div>
+          </dl>
         </div>
       </section>
     </>

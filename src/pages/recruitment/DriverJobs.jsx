@@ -64,7 +64,7 @@ export default function DriverJobs() {
 
   return (
     <>
-      <PageHead label="DRIVER RECRUIT" title="차주구인" desc={r.driverIntro} image="img/banner_drivers.jpg" crumb={['채용정보', '차주구인']} subnav={NAV} />
+      <PageHead label="DRIVER RECRUIT" title="차주구인" desc={r.driverIntro} image="img/hero_3.jpg" crumb={['채용정보', '차주구인']} subnav={NAV} />
       <section className="section">
         <div className="wrap">
           <div className="jobs__head" data-reveal="">
@@ -92,8 +92,10 @@ export default function DriverJobs() {
               ? <div className="jobs__empty">등록된 공고가 없습니다.</div>
               : list.map((p, i) => (
                 <article className="jobcard" key={p.id} data-reveal="" style={{ transitionDelay: `${(i % 2) * .08}s` }}>
-                  <span className={`jobcard__badge ${p.type === '차량분양' ? 'is-sale' : ''}`}>{p.type}</span>
-                  {p.sample && <span className="jobcard__sample">예시</span>}
+                  <div className="jobcard__tags">
+                    <span className={`jobcard__badge ${p.type === '차량분양' ? 'is-sale' : ''}`}>{p.type}</span>
+                    {p.sample && <span className="jobcard__sample">예시</span>}
+                  </div>
                   <h3>{p.title}</h3>
                   <dl className="jobcard__info">
                     <div><dt><Chart /> 급여 / 수입</dt><dd>{noOrphan(p.income)}</dd></div>

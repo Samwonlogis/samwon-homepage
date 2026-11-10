@@ -64,10 +64,10 @@ export default function VehicleGuide({ filter }) {
   const list = VEHICLES.filter(v => (!filter || filter.includes(v.id)) && inTab(v))
   return (
     <div className="vguide">
-      {!filter && <div className="filters filters--center">{groups.map(([k, l]) => <button type="button" key={k} className={tab === k ? 'is-on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>}
+      {!filter && <div className="filters">{groups.map(([k, l]) => <button type="button" key={k} className={tab === k ? 'is-on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>}
       <div className="vguide__grid">{list.map(v => <VehicleCard key={v.id} v={v} />)}</div>
       <p className="small muted vguide__note">{VEHICLE_NOTE}</p>
-      <div style={{ textAlign: 'center', marginTop: 24 }}><Link className="btn btn--primary" to="/contact">화물에 맞는 차종 상담 <ArrowRight /></Link></div>
+      <div className="sec-foot"><Link className="btn btn--primary" to="/contact/partnership">화물에 맞는 차종 상담 <ArrowRight /></Link></div>
     </div>
   )
 }

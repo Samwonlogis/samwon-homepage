@@ -19,7 +19,7 @@ export default function Contact() {
   ]
   return (
     <>
-      <PageHead label="CUSTOMER CENTER" title={cp.title} desc={cp.lead} image="img/banner_contact.jpg" crumb={['고객센터', '문의하기']} subnav={SUPPORT_NAV} />
+      <PageHead label="CUSTOMER CENTER" title={cp.title} desc={cp.lead} logo crumb={['고객센터', '문의하기']} subnav={SUPPORT_NAV} />
 
       <section className="section ct">
         <div className="wrap ct__grid">
@@ -52,7 +52,7 @@ export default function Contact() {
 
       <section className="section section--soft">
         <div className="wrap wrap--narrow">
-          <SectionHead center eyebrow="FAQ" title="자주 묻는 질문" lead="고객님들이 많이 질문하시는 내용을 요약해 드립니다." />
+          <SectionHead eyebrow="FAQ" title="자주 묻는 질문" lead="고객님들이 많이 질문하시는 내용을 요약해 드립니다." />
           <div className="faq-cards" data-reveal="">
             {cp.faqs.map((q, i) => (
               <div className={`faq-card ${open === i ? 'is-open' : ''}`} key={i}>

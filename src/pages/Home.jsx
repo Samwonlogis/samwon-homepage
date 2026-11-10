@@ -47,7 +47,7 @@ function Hero({ hero, facts = [] }) {
       {facts.length > 0 && (
         <div className="hero__facts">
           <div className="wrap">
-            <dl>{facts.map((f, k) => <div key={k}><dd>{f.value}<small>{f.unit}</small></dd><dt>{f.label}</dt></div>)}</dl>
+            <dl>{facts.map((f, k) => <div key={k}><dt>{f.label}</dt><dd>{f.value}<small>{f.unit}</small></dd></div>)}</dl>
           </div>
         </div>
       )}

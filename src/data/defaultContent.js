@@ -72,7 +72,7 @@ export const defaultContent = {
       { num: '01', icon: 'truck', image: 'img/hero_2.jpg', stat: '1,000대+', statLabel: '운영 차량', title: '즉시 투입 가능한 운송력', desc: '기업물류와 유통물류 차량을 품목⁠·톤수별로 편성해 성수기와 돌발 물량에도 차량 공백 없이 대응합니다.' },
       { num: '02', icon: 'building', image: 'img/banner_company.jpg', stat: '6개 법인', statLabel: '원스톱 창구', title: '하나의 계약, 하나의 담당자', desc: '운송⁠·배송⁠·창고⁠·인력⁠·플랫폼을 담당하는 계열사가 하나의 창구로 연결되어 관리 비용을 줄입니다.' },
       { num: '03', icon: 'shield', image: 'img/fleet/reefer.jpg', stat: '5개 인증', statLabel: '국가⁠·국제 표준', title: '검증된 운영 품질', desc: '우수물류기업 인증, HACCP, ISO 9001⁠·14001⁠·45001 체계로 품질⁠·환경⁠·안전보건 감사 기준에 대응합니다.' },
-      { num: '04', icon: 'chart', image: 'img/biz_consulting.jpg', stat: '34년', statLabel: '현장 운영 데이터', title: '수치로 제시하는 절감안', desc: '34년간 쌓인 노선⁠·차종⁠·적재 데이터를 바탕으로 거점과 경로를 다시 설계해 물류비 절감안을 수치로 제시합니다.' },
+      { num: '04', icon: 'chart', image: 'img/hero_2.jpg', stat: '34년', statLabel: '현장 운영 데이터', title: '수치로 제시하는 절감안', desc: '34년간 쌓인 노선⁠·차종⁠·적재 데이터를 바탕으로 거점과 경로를 다시 설계해 물류비 절감안을 수치로 제시합니다.' },
     ],
   },
 
@@ -81,7 +81,7 @@ export const defaultContent = {
     { id: 'distribution', name: '유통물류', en: 'LAST MILE', short: '온라인 커머스부터 대형 유통 점포 납품, 명절 특송까지 채널별 전담 인프라로 운영합니다.', image: 'img/biz_distribution.jpg' },
     { id: 'brokerage', name: '주선 · 에스원퀵', en: 'BROKERAGE & QUICK', short: '웹 접수, 실시간 배차, 카카오톡 관제, 월 통합 정산까지 하나의 디지털 워크플로우로 완결합니다.', image: 'img/biz_brokerage.jpg' },
     { id: 'warehouse', name: '창고운영', en: 'WAREHOUSING', short: 'WMS 자동화와 24시간 관제로 입고부터 출고까지 재고 오차 없이 정확하게 보관⁠·운영합니다.', image: 'img/biz_warehouse.jpg' },
-    { id: 'consulting', name: '물류컨설팅', en: 'SCM CONSULTING', short: '34년 현장 운영 데이터와 운송 시뮬레이션으로 거점⁠·경로⁠·적재율을 다시 설계해 물류비 절감안을 제시합니다.', image: 'img/biz_consulting.jpg' },
+    { id: 'consulting', name: '물류컨설팅', en: 'SCM CONSULTING', short: '34년 현장 운영 데이터와 운송 시뮬레이션으로 거점⁠·경로⁠·적재율을 다시 설계해 물류비 절감안을 제시합니다.', image: 'img/hero_2.jpg' },
   ],
 
   network: {
@@ -149,7 +149,7 @@ export const defaultContent = {
     eyebrow: 'ABOUT SAMWON',
     title: '귀사의 공급망을 진단하고\n최적의 물류 운영 체계를 설계합니다',
     desc: '삼원종합물류는 1992년 창립 이래 34년간 축적한 현장 운영 노하우와 6개 전문 계열사의 통합 인프라를 바탕으로 산업별 특화 물류 솔루션을 제공하는 종합물류 기업입니다.\n\n생산거점 간 미들마일 수송, 소비자 최종 배송인 라스트마일 유통, HACCP 인증 콜드체인, WMS 기반 창고운영, SCM 컨설팅까지 화주의 원가 절감과 서비스 수준 극대화를 동시에 실현하는 엔드투엔드(End‑to‑End) 물류 파트너십을 제공합니다.',
-    image: 'img/about.jpg',
+    image: 'img/hero_3.jpg',
     vision: { title: '비전', desc: '데이터와 현장이 결합된 대한민국 대표 통합물류 그룹' },
     mission: { title: '미션', desc: '고객의 제품이 최적의 상태로, 약속된 시간에, 정확한 장소에 도달하도록 공급망 전체를 설계하고 실행한다' },
     coreValues: [
@@ -172,6 +172,11 @@ export const defaultContent = {
     statementMain: '고객의 공급망을 끝까지 책임지는',
     statementAccent: '대한민국 대표 통합물류 그룹',
     statementEnd: '을 지향합니다.',
+    statementBody: [
+      '삼원종합물류가 말하는 통합물류는 규모의 이야기가 아닙니다. 공장 출하, 간선 수송, 창고 보관, 점포 납품 가운데 어느 구간을 맡기시더라도 같은 기준으로 운영하고, 구간과 구간 사이에서 책임이 끊기지 않게 하는 것입니다.',
+      '1992년 백화점 상품 배송으로 시작한 회사는 이제 6개 법인이 운송, 배송, 창고, 주선을 나누어 맡고 있습니다. 일의 범위는 넓어졌지만 지향점은 하나입니다. 화주가 물류를 걱정하지 않고 본업에 전념할 수 있게 하는 것입니다.',
+    ],
+    valuesLead: '현장에서 판단이 갈릴 때 기준으로 삼는 네 가지입니다.',
     bandImage: 'img/vision.jpg',
     bandLabel: 'MISSION',
     bandTitle: '약속한 시간, 정확한 장소,\n최적의 상태로.',
@@ -182,7 +187,8 @@ export const defaultContent = {
       { en: 'INNOVATION', title: '혁신', desc: '배차⁠·관제⁠·정산을 디지털로 연결해 물류를 더 빠르고 투명하게 만듭니다.' },
       { en: 'SAFETY', title: '안전', desc: '무사고 운행과 화물 무결성을 최우선으로 지킵니다.' },
     ],
-    infraTitle: '삼원종합물류의 탄탄한 인프라',
+    infraTitle: '비전을 뒷받침하는 운영 기반',
+    infraLead: '지향점은 말이 아니라 갖추고 있는 것으로 설명되어야 한다고 생각합니다.',
     infra: [
       { icon: 'truck', title: '전국 운송 네트워크', desc: '기업물류⁠·유통물류 차량을 품목⁠·톤수별로 편성해 전국을 연결합니다.', foot: '1,000대 이상 운송 네트워크 · 6개 계열 법인' },
       { icon: 'shield', title: '검증된 운영 품질', desc: '국가 공인 인증과 국제 표준 경영시스템으로 품질을 관리합니다.', foot: '우수물류기업 · HACCP · ISO 9001 / 14001 / 45001' },
@@ -251,7 +257,7 @@ export const defaultContent = {
   ],
 
   fleet: {
-    title: '차량 Fleet 운용 현황',
+    title: '차량 운용 현황',
     total: '1,000',
     totalDesc: '간선 수송 · 권역 배송 · HACCP 콜드체인 · 특수화물 전 영역 즉시 투입 가능',
     lead: '산업별 특성에 맞는 전문 화물 차량을 전국 네트워크에서 상시 운용합니다. 기업물류와 유통물류 차량을 품목⁠·채널별로 전담 편성합니다.',
@@ -388,10 +394,10 @@ export const defaultContent = {
       ],
       process: ['웹 · 앱 접수', '실시간 배차', '카카오톡 관제', '월 통합 정산'],
       metrics: [
-        { value: '80%↓', label: '접수 대기 시간', desc: '전화 접수 대비 단축' },
+        { value: '웹 접수', label: '온라인 주문', desc: '전화 대기 없이 바로 접수' },
         { value: '1:1', label: '카카오톡 관제', desc: '기사⁠·위치⁠·완료 알림' },
         { value: '월 1회', label: '통합 정산', desc: '세금계산서 일괄 발행' },
-        { value: '오토바이~', label: '전 차종 대응', desc: '퀵부터 컨테이너까지' },
+        { value: '전 차종', label: '퀵부터 컨테이너까지', desc: '오토바이 · 다마스 · 1톤 · 대형' },
       ],
       flow: [
         { title: '접수', desc: '웹⁠·앱⁠·전화로 출발지⁠·도착지⁠·화물 정보 입력' },
@@ -455,7 +461,7 @@ export const defaultContent = {
       title: '물류컨설팅',
       slogan: '34년 현장 노하우와\n데이터 분석으로 찾아내는\n귀사의 숨은 물류 비용',
       overview: '많은 기업이 물류비를 어쩔 수 없는 고정 비용으로 인식합니다. 그러나 운송 거점 재배치, 배차 경로 최적화, 창고 레이아웃 재설계만으로도 물류비를 눈에 띄게 절감할 수 있습니다.\n\n삼원종합물류의 SCM 컨설팅은 34년간 축적된 현장 운영 데이터와 TMS⁠·WMS 시뮬레이션을 결합하여 공급망 전체를 진단하고 실행 가능한 절감안을 제시합니다. 보고서에 그치지 않고 실제 물류 운영까지 책임지는 실행형 컨설팅입니다.',
-      image: 'img/biz_consulting.jpg',
+      image: 'img/hero_2.jpg',
       strengths: [
         { title: '공급망 진단', desc: '조달⁠·생산⁠·보관⁠·배송 전 구간의 물류 흐름을 분석해 병목과 비효율을 찾아냅니다.', points: ['전 구간 물류 흐름 분석', '리드타임 병목 도출', '개선 우선순위 제시'] },
         { title: '운송 비용 시뮬레이션', desc: '실제 운송 데이터를 바탕으로 거점⁠·경로⁠·차종을 바꿨을 때의 효과를 미리 계산합니다.', points: ['거점 재배치 시뮬레이션', '경로 최적화', '절감 효과 사전 검증'] },

@@ -14,7 +14,7 @@ const today = () => new Date().toISOString().slice(0, 10)
 const PER = 10
 const SESSION_KEY = 'samwon_staff_session'
 const EMPTY = { category: '공지사항', title: '', date: today(), pinned: '', body: '', link: '', attachments: [] }
-const HEAD = { label: 'NOTICE', title: '공지사항', desc: '삼원종합물류의 공지사항과 소식, 자료를 안내합니다.', image: 'img/vision.jpg' }
+const HEAD = { label: 'NOTICE', title: '공지사항', desc: '삼원종합물류의 공지사항과 소식, 자료를 안내합니다.', logo: true }
 const sortAll = (list) => [...list].sort((a, b) => ((b.pinned === 'Y') - (a.pinned === 'Y')) || String(b.date).localeCompare(String(a.date)))
 
 /* 직원(관리자) 세션 — 차주구인 페이지와 공유 */

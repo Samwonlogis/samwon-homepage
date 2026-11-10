@@ -3,9 +3,7 @@ import PageHead from '../../components/PageHead'
 import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
 import { SUPPORT_NAV } from './supportNav'
-import { Phone, Chart, Spark, Handshake, ArrowRight, Mail } from '../../components/Icons'
-
-const STEP_ICONS = [Phone, Chart, Spark, Handshake]
+import { Phone, ArrowRight, Mail } from '../../components/Icons'
 
 // 제휴문의 — 절차 + 온라인 문의 양식
 export default function Partnership() {
@@ -19,18 +17,19 @@ export default function Partnership() {
   }
   return (
     <>
-      <PageHead label="PARTNERSHIP" title={cp.partnershipTitle || '제휴문의'} desc={cp.partnershipLead} image="img/biz_consulting.jpg" crumb={['고객센터', '제휴문의']} subnav={SUPPORT_NAV} />
+      <PageHead label="PARTNERSHIP" title={cp.partnershipTitle || '제휴문의'} desc={cp.partnershipLead} logo crumb={['고객센터', '제휴문의']} subnav={SUPPORT_NAV} />
       <section className="section">
         <div className="wrap">
-          <SectionHead center eyebrow="PROCESS" title="제휴 문의 절차" lead="현장 실사 기반의 프로세스로 정확한 견적과 최적의 운영안을 제시합니다." />
-          <div className="proc proc--4">
-            {cp.processSteps.map((s, i) => { const Ic = STEP_ICONS[i % STEP_ICONS.length]; return (
-              <div className="proc__item" key={i} data-reveal="" style={{ transitionDelay: `${i * .1}s` }}>
-                <div className="proc__num proc__num--icon"><Ic /></div>
-                <span className="proc__step">STEP {String(i + 1).padStart(2, '0')}</span>
-                <h4>{s.title}</h4><p>{s.desc}</p>
-              </div>) })}
-          </div>
+          <SectionHead eyebrow="PROCESS" title="제휴 문의 절차" lead="현장 실사 기반의 프로세스로 정확한 견적과 최적의 운영안을 제시합니다." />
+          <ol className="stepx stepx--4" data-reveal="">
+            {cp.processSteps.map((st, i) => (
+              <li key={i}>
+                <span className="stepx__no">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{st.title}</h3>
+                <p>{st.desc}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
       <section className="section section--soft">

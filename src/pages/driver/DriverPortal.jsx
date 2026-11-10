@@ -57,7 +57,7 @@ export function DriverLogin() {
   }
   return (
     <section className="dp-login">
-      <div className="dp-login__bg"><img src={asset('img/banner_drivers.jpg')} alt="" /></div>
+      <div className="dp-login__bg"><img src={asset('img/hero_3.jpg')} alt="" /></div>
       <div className="wrap dp-login__in">
         <div className="dp-login__intro" data-reveal="">
           <span className="sh-en">Driver Partners</span>
