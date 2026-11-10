@@ -31,9 +31,9 @@ export const defaultContent = {
   hero: {
     kicker: '',
     enTitle: 'Total Logistics\nPartner',
-    eyebrow: 'Total Logistics Partner · Since 1992',
+    eyebrow: 'Total Logistics Partner',
     title: '공급망의 시작부터 끝까지\n삼원이 설계하고, 삼원이 책임집니다',
-    subtitle: '공장 출하부터 점포 납품, 콜드체인, 창고 운영까지. 6개 전문 법인과 1,000대 이상의 운송 네트워크가 귀사의 물류를 하나의 창구로 맡습니다.',
+    subtitle: '',
     primaryCta: '물류 상담 신청',
     secondaryCta: '사업영역 보기',
     video: 'video/hero.mp4',
