@@ -467,3 +467,6 @@ b, strong { font-weight: 700; }
 
 /* 푸터: 바로 위가 네이비 섹션일 때 경계가 보이도록 윗선 추가 */
 .ft { border-top: 1px solid rgba(255,255,255,.1); }
+
+/* 섹션 제목 크기 통일(복리후생 제목이 다른 섹션보다 크게 잡혀 있던 것) */
+.tb__head h2 { font-size: clamp(1.75rem, 2.9vw, 2.45rem); letter-spacing: -.035em; line-height: 1.3; }
