@@ -2,22 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useContent } from '../context/ContentContext'
 import { asset } from '../utils/storage'
-import CountUp from '../components/CountUp'
 import KoreaMap from '../components/KoreaMap'
 import { SectionHead } from '../components/Section'
 import { partners } from '../data/partners'
-import { ArrowRight, Check, Truck, Spark, Building, Shield, Chart, Route, Clock, Users, Phone } from '../components/Icons'
+import { ArrowRight } from '../components/Icons'
 
-const ICONS = { truck: Truck, building: Building, shield: Shield, chart: Chart, route: Route, clock: Clock, users: Users, spark: Spark }
-const WHY_ICONS = [Truck, Building, Shield, Chart]
-const NET_ICONS = [Route, Clock, Users]
 const groupHubs = (hubs = []) => {
   const m = new Map()
   hubs.forEach(h => { const g = h.group || h.region || '기타'; if (!m.has(g)) m.set(g, []); m.get(g).push(h) })
   return [...m.entries()]
 }
 
-function Hero({ hero }) {
+function Hero({ hero, facts = [] }) {
   const imgs = (hero.images || []).filter(Boolean)
   const [i, setI] = useState(0)
   const [videoOk, setVideoOk] = useState(!!hero.video)
@@ -31,7 +27,7 @@ function Hero({ hero }) {
     tryPlay(); const t = setTimeout(tryPlay, 1500); return () => clearTimeout(t)
   }, [hero.video])
   return (
-    <section className="hero">
+    <section className="hero hero--v7">
       <div className="hero__media">
         {videoOk && hero.video
           ? <video ref={vref} autoPlay muted loop playsInline poster={asset(hero.poster || imgs[0])} onError={() => setVideoOk(false)}>
@@ -39,121 +35,72 @@ function Hero({ hero }) {
             </video>
           : imgs.map((src, k) => <img key={k} src={asset(src)} alt="" className={k === i ? 'is-active' : ''} loading={k === 0 ? 'eager' : 'lazy'} />)}
       </div>
-      <div className="wrap hero__in hero__in--left">
-        {hero.kicker && <span className="hero__kicker" data-reveal="">{hero.kicker}</span>}
-        <h1 className="hero__en pre" data-reveal="" style={{ transitionDelay: '.08s' }}>{String(hero.enTitle || 'Total Logistics\nPartner').replace(/\s*,\s*SAMWON\s*$/i, '')}</h1>
-        <p className="hero__ko pre" data-reveal="" style={{ transitionDelay: '.16s' }}>{hero.title}</p>
-        <div className="hero__rounds" data-reveal="" style={{ transitionDelay: '.26s' }}>
-          <Link className="round-btn" to="/company/intro"><Building /><span>회사소개</span></Link>
-          <Link className="round-btn round-btn--accent" to="/contact"><Phone /><span>물류 상담</span></Link>
+      <div className="wrap hero__body">
+        {hero.eyebrow && <span className="hero__kicker" data-reveal="">{hero.eyebrow}</span>}
+        <h1 className="hero__title pre" data-reveal="" style={{ transitionDelay: '.06s' }}>{hero.title}</h1>
+        {hero.subtitle && <p className="hero__sub" data-reveal="" style={{ transitionDelay: '.12s' }}>{hero.subtitle}</p>}
+        <div className="hero__cta" data-reveal="" style={{ transitionDelay: '.18s' }}>
+          <Link className="btn btn--white" to="/contact/partnership">{hero.primaryCta || '물류 상담 신청'} <ArrowRight /></Link>
+          <Link className="btn btn--ghost-white" to="/business">{hero.secondaryCta || '사업영역 보기'}</Link>
         </div>
       </div>
-      {!videoOk && imgs.length > 1 && <div className="hero__dots">{imgs.map((_, k) => <button key={k} className={k === i ? 'is-active' : ''} onClick={() => setI(k)} aria-label={`배경 ${k + 1}`} />)}</div>}
-      <div className="hero__scroll">SCROLL<span /></div>
+      {facts.length > 0 && (
+        <div className="hero__facts">
+          <div className="wrap">
+            <dl>{facts.map((f, k) => <div key={k}><dd>{f.value}<small>{f.unit}</small></dd><dt>{f.label}</dt></div>)}</dl>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
 
-const STRENGTH_IMAGES = ['img/hero_2.jpg', 'img/banner_company.jpg', 'img/biz_warehouse.jpg', 'img/biz_consulting.jpg']
-
-function StrengthSlider({ why }) {
-  const items = why.items || []
-  const [i, setI] = useState(0)
-  const [paused, setPaused] = useState(false)
-  useEffect(() => { if (paused || items.length < 2) return; const t = setInterval(() => setI(v => (v + 1) % items.length), 6000); return () => clearInterval(t) }, [paused, items.length])
-  const cur = items[i] || {}
+// 사업영역 — 좌측 사진(선택 항목에 따라 전환) + 우측 5개 사업 목록. 다섯 개를 한눈에 보이게 하기 위해 캐러셀 대신 목록형
+function Services({ items = [] }) {
+  const [on, setOn] = useState(0)
   return (
-    <div className="ss" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-      <div className="ss__media" data-reveal="">
-        {items.map((w, k) => <img key={k} src={asset(w.image || STRENGTH_IMAGES[k % STRENGTH_IMAGES.length])} alt="" className={k === i ? 'is-on' : ''} loading="lazy" />)}
-        <div className="ss__arrows">
-          <button type="button" aria-label="이전" onClick={() => setI((i - 1 + items.length) % items.length)}><ArrowRight style={{ transform: 'rotate(180deg)' }} /></button>
-          <button type="button" aria-label="다음" onClick={() => setI((i + 1) % items.length)}><ArrowRight /></button>
-        </div>
+    <div className="svc" data-reveal="">
+      <div className="svc__photo" aria-hidden="true">
+        {items.map((b, k) => <img key={b.id} src={asset(b.image)} alt="" className={k === on ? 'is-on' : ''} loading={k === 0 ? 'eager' : 'lazy'} />)}
+        <span className="svc__cap">{String(on + 1).padStart(2, '0')} — {items[on]?.en}</span>
       </div>
-      <div className="ss__text" data-reveal="">
-        <span className="ss__en">Core<br />Strength</span>
-        <h2 className="ss__ko">{why.title}</h2>
-        <div className="ss__tabs" role="tablist">
-          {items.map((w, k) => <button key={k} type="button" role="tab" aria-selected={k === i} className={k === i ? 'is-on' : ''} onClick={() => setI(k)}>{String(k + 1).padStart(2, '0')}</button>)}
-        </div>
-        <div className="ss__body" key={i}>
-          {cur.stat && <div className="ss__stat"><b>{cur.stat}</b><span>{cur.statLabel}</span></div>}
-          <h3>{cur.title}</h3>
-          <p>{cur.desc}</p>
-        </div>
-        <Link className="link ss__more" to="/company/intro">회사소개 보기 <ArrowRight /></Link>
-      </div>
-    </div>
-  )
-}
-
-function BizCarousel({ items = [] }) {
-  const ref = useRef(null)
-  const go = (d) => { const el = ref.current; if (!el) return; const card = el.querySelector('.bc__card'); const w = card ? card.offsetWidth + 24 : 360; el.scrollBy({ left: d * w, behavior: 'smooth' }) }
-  return (
-    <div className="bc">
-      <button type="button" className="bc__nav bc__nav--prev" aria-label="이전" onClick={() => go(-1)}><ArrowRight style={{ transform: 'rotate(180deg)' }} /></button>
-      <div className="bc__track" ref={ref}>
-        {items.map((b, i) => (
-          <Link to={`/business/${b.id}`} className="bc__card" key={b.id} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
-            <div className="bc__img"><img src={asset(b.image)} alt={b.name} loading="lazy" /></div>
-            <div className="bc__body">
-              
-              <h3>{b.name}</h3>
-              <p>{b.short}</p>
-              <span className="bc__more">자세히 보기 <ArrowRight /></span>
-            </div>
-          </Link>
+      <ol className="svc__list">
+        {items.map((b, k) => (
+          <li key={b.id} className={k === on ? 'is-on' : ''} onMouseEnter={() => setOn(k)} onFocus={() => setOn(k)}>
+            <Link to={`/business/${b.id}`}>
+              <span className="svc__no">{String(k + 1).padStart(2, '0')}</span>
+              <img className="svc__thumb" src={asset(b.image)} alt="" loading="lazy" />
+              <span className="svc__txt"><h3>{b.name}</h3><p>{b.short}</p></span>
+              <ArrowRight />
+            </Link>
+          </li>
         ))}
-      </div>
-      <button type="button" className="bc__nav bc__nav--next" aria-label="다음" onClick={() => go(1)}><ArrowRight /></button>
+      </ol>
     </div>
   )
 }
+
+const fmtDate = (d = '') => String(d).replace(/-/g, '.')
 
 export default function Home() {
   const { content: c } = useContent()
   const co = c.company
-  const ext = (u) => /^https?:/.test(u || '')
-  const PortalBtn = ({ url, label, cls }) => ext(url)
-    ? <a className={`btn ${cls}`} href={url} target="_blank" rel="noreferrer">{label} <ArrowRight /></a>
-    : <Link className={`btn ${cls}`} to={url && !url.startsWith('#') ? url : '/driver'}>{label} <ArrowRight /></Link>
   const loop = [...partners, ...partners]
+  const news = [...(c.notices || [])].filter(n => n && n.title).sort((x, y) => String(y.date).localeCompare(String(x.date))).slice(0, 4)
 
   return (
     <>
-      <Hero hero={c.hero} />
+      <Hero hero={c.hero} facts={c.home?.facts} />
 
-      {/* 1. 핵심 역량 (인증) — 첫 사이트 구성 */}
-      <section className="section" id="certs">
+      {/* 1. 사업영역 */}
+      <section className="section" id="business">
         <div className="wrap">
-          <SectionHead center eyebrow="CORE COMPETENCIES" title={c.certifications.title} lead="국가 공인 인증과 국제 표준 경영시스템으로 검증된 운영 품질" />
-          <div className="certs">
-            {c.certifications.items.map((ct, i) => (
-              <div className="cert" key={i} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
-                {ct.logo ? <div className="cert__logo"><img src={asset(ct.logo)} alt={ct.name} loading="lazy" /></div> : <div className="badge">{ct.code}</div>}
-                <h3>{ct.name}</h3><div className="org">{ct.org}</div>
-              </div>
-            ))}
-          </div>
+          <SectionHead eyebrow="Business" title={c.home?.businessTitle || '화주의 공급망 전 구간을\n다섯 개 사업으로 맡습니다'} lead={c.home?.businessLead} />
+          <Services items={c.businessAreas} />
         </div>
       </section>
 
-
-      {/* 3. 사업영역 — 대형 영문 타이틀 + 카드 캐러셀 */}
-      <section className="section biz-sec">
-        <div className="wrap">
-          <div className="big-title" data-reveal="">
-            <h2>BUSINESS</h2>
-            <h3>5대 핵심 물류 서비스</h3>
-            <p>화주의 공급망 전 구간을 삼원이 하나의 창구로 책임집니다.</p>
-          </div>
-        </div>
-        <BizCarousel items={c.businessAreas} />
-      </section>
-
-      {/* 4. 비전 밴드 */}
+      {/* 2. 비전 밴드 */}
       <section className="vband">
         <img src={asset(c.home?.visionBandImage || 'img/hero_3.jpg')} alt="" loading="lazy" />
         <div className="wrap">
@@ -161,19 +108,40 @@ export default function Home() {
             <span className="vband__en">Vision</span>
             <h2>고객의 공급망을<br />끝까지 책임지는 통합물류</h2>
             <p>현장에서 쌓아 온 운영 역량과 6개 계열 법인의 통합 인프라로 <br className="br-pc" />대한민국 대표 통합물류 그룹을 지향합니다.</p>
-            <Link className="pill-btn" to="/company/vision">VIEW MORE</Link>
+            <Link className="btn btn--ghost-white" to="/company/vision">기업비전 보기 <ArrowRight /></Link>
           </div>
         </div>
       </section>
 
-      {/* 5. Core Strength — 번호 탭 슬라이더 */}
-      <section className="section strength-sec">
+      {/* 3. 삼원을 선택하는 이유 + 인증 */}
+      <section className="section" id="why">
         <div className="wrap">
-          <StrengthSlider why={c.why} />
+          <SectionHead eyebrow="Why Samwon" title={c.why.title} lead={c.why.lead} />
+          <ol className="why4" data-reveal="">
+            {(c.why.items || []).map((w, k) => (
+              <li key={k}>
+                <span className="why4__no">{String(k + 1).padStart(2, '0')}</span>
+                {w.stat && <strong className="why4__stat">{w.stat}<small>{w.statLabel}</small></strong>}
+                <h3>{w.title}</h3>
+                <p>{w.desc}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="certrow" id="certs" data-reveal="">
+            <span className="certrow__label">인증 현황</span>
+            <ul>
+              {c.certifications.items.map((ct, i) => (
+                <li key={i}>
+                  {ct.logo && <img src={asset(ct.logo)} alt="" loading="lazy" />}
+                  <span><b>{ct.name}</b>{ct.org}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
-      {/* 5. 네트워크 — 다크 밴드 + 노선 애니메이션 지도 */}
+      {/* 4. 네트워크 — 다크 밴드 + 노선 지도 */}
       <section className="nx">
         <div className="wrap nx__in">
           <div className="nx__copy" data-reveal="">
@@ -186,7 +154,7 @@ export default function Home() {
             </ol>
             <dl className="nx__regions">
               {groupHubs(c.network.hubs).map(([g, list]) => (
-                <div key={g}><dt>{g}</dt><dd>{list.map(h => h.name).join(' · ')}</dd></div>
+                <div key={g}><dt>{g}</dt><dd>{list.map(h => h.name).join(' · ')}</dd></div>
               ))}
             </dl>
           </div>
@@ -197,14 +165,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. 파트너 (컬러) */}
-      <section className="section section--soft">
-        <div className="wrap"><SectionHead center eyebrow={c.partnersSection.eyebrow} title={c.partnersSection.title} lead={c.partnersSection.lead} /></div>
+      {/* 5. 거래처 */}
+      <section className="section section--soft clients">
+        <div className="wrap"><SectionHead eyebrow={c.partnersSection.eyebrow} title={c.partnersSection.title} lead={c.partnersSection.lead} /></div>
         <div className="marquee"><div className="marquee__track">{loop.map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt={p.name} /></div>)}</div></div>
         <div className="marquee marquee--rev"><div className="marquee__track">{[...loop].reverse().map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt={p.name} /></div>)}</div></div>
-        <div className="wrap"><p className="small muted" style={{ marginTop: 24, textAlign: 'center' }}>{c.partnersSection.note}</p></div>
+        <div className="wrap"><p className="clients__note">{c.partnersSection.note}</p></div>
       </section>
 
+      {/* 6. 새 소식 + 상담 안내 */}
+      <section className="section" id="news">
+        <div className="wrap hn">
+          <div className="hn__news" data-reveal="">
+            <header className="hn__head">
+              <div><span className="sh-en">News</span><h2 className="h-section">새 소식</h2></div>
+              <Link className="link" to="/support/notice">전체 보기 <ArrowRight /></Link>
+            </header>
+            <ul className="hn__list">
+              {news.map(n => (
+                <li key={n.id}>
+                  <Link to={`/support/notice/${n.id}`}>
+                    <span className="hn__cat">{n.category}</span>
+                    <b>{n.title}</b>
+                    <time dateTime={n.date}>{fmtDate(n.date)}</time>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <aside className="hn__cta" data-reveal="" style={{ transitionDelay: '.1s' }}>
+            <span className="sh-en">Contact</span>
+            <h2>물류 상담</h2>
+            <p>{c.home?.contactLead || '물동량과 배송 권역을 알려 주시면 담당자가 차량 편성과 견적을 안내해 드립니다.'}</p>
+            <a className="hn__tel" href={`tel:${co.phone}`}>{co.phone}</a>
+            <dl>
+              <div><dt>에스원퀵 접수</dt><dd><a href={`tel:${co.quickPhone}`}>{co.quickPhone}</a></dd></div>
+              <div><dt>이메일</dt><dd><a href={`mailto:${co.email}`}>{co.email}</a></dd></div>
+              <div><dt>상담 시간</dt><dd>평일 09:00 – 18:00</dd></div>
+            </dl>
+            <Link className="btn btn--white" to="/contact/partnership">상담 신청하기 <ArrowRight /></Link>
+          </aside>
+        </div>
+      </section>
     </>
   )
 }

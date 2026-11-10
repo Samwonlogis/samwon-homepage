@@ -25,6 +25,7 @@ const SECTIONS = [
   { key: 'intro', label: '회사개요', hint: '회사소개 본문⁠·비전⁠·미션⁠·핵심가치⁠·대표 이미지' },
   { key: 'ceo', label: '회장 인사말', hint: '회장 사진⁠·헤드라인⁠·본문' },
   { key: 'history', label: '연혁', hint: '연도별 주요 사건' },
+  { key: 'home', label: '메인 화면', hint: '히어로 하단 핵심 지표 4개, 사업영역 머리말, 상담 안내 문구' },
   { key: 'subsidiaries', label: '계열사', hint: '6개 법인' },
   { key: 'fleet', label: '운송 규모', hint: '차종별 운영 설명' },
   { key: 'offices', label: '사업장', hint: '오시는 길 하단 사업장 목록' },
@@ -38,7 +39,7 @@ const SECTIONS = [
   { key: 'footer', label: '푸터', hint: '하단 소개 문구⁠·저작권' },
 ]
 
-const IMG_KEYS = /^(image|images|photo|logo|bannerImage|poster)$/
+const IMG_KEYS = /^(image|images|photo|logo|bannerImage|poster|visionBandImage)$/
 const LONG_KEYS = /^(body|desc|overview|subtitle|lead|message|headline|slogan|a|result|hint|description|paragraphs|points|events)$/
 const LABELS = {
   name: '이름', nameEn: '영문명', title: '제목', subtitle: '부제', desc: '설명', eyebrow: '상단 라벨', lead: '리드 문장', image: '이미지', images: '이미지 목록', photo: '사진',
@@ -49,6 +50,7 @@ const LABELS = {
   openings: '채용 공고', benefits: '복리후생', step: '단계', coreValues: '핵심 역량 4종', kakao: '카카오톡 관제 안내 박스', income: '급여/수입', contactPerson: '담당자', contactPhone: '담당자 연락처', total: '총 운용 대수', totalDesc: '총계 설명', dept: '부서', deadline: '마감', driverIntro: '차주 소개 문구', driverJobs: '차주 공고', vehicle: '차량', area: '구간', hours: '시간', driverRequirements: '지원 자격', driverBenefits: '파트너 지원', processSteps: '상담 절차', faqs: 'FAQ', q: '질문', a: '답변', description: '소개 문구', copyright: '저작권 표기',
   thanks: '감사 문구(순환 표시)', checklistLaw: '일상점검 법적 근거 문구', group: '점검 구분', text: '점검 항목', greeting: '인사말', safety: '안전운행 수칙', duties: '법정 의무 안내', law: '근거 법령', emergency: '사고 시 조치', steps: '조치 순서', contacts: '비상 연락처', health: '건강 관리', checklist: '일상점검 항목', intro: '안내 문장',
   body: '본문(줄바꿈 그대로 표시)', category: '분류(공지사항 · 삼원소식 · 자료실)', date: '날짜(YYYY-MM-DD)', pinned: '상단 고정(Y 또는 비움)', link: '첨부·관련 링크 URL', id: '고유 번호(변경 금지)', partnershipTitle: '제휴문의 제목', partnershipLead: '제휴문의 리드 문장', notices: '공지사항 글',
+  facts: '핵심 지표', unit: '단위', businessTitle: '사업영역 제목', businessLead: '사업영역 리드 문장', contactLead: '상담 안내 문구', visionBandImage: '비전 밴드 사진',
   default: '기본 담당자(해당 없음 시)', managers: '담당자 목록', clients: '담당 거래처 키워드',
   corporate: '기업물류', distribution: '유통물류', brokerage: '주선 · 에스원퀵', warehouse: '창고운영', consulting: '물류컨설팅',
 }

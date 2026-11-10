@@ -4,6 +4,7 @@ import { BrowserRouter, HashRouter } from 'react-router-dom'
 import App from './App'
 import { ContentProvider } from './context/ContentContext'
 import './styles.css'
+import './v7.css'
 
 // 미리보기(단일 파일) 빌드에서는 HashRouter, 배포 빌드에서는 BrowserRouter
 const Router = import.meta.env.VITE_PREVIEW ? HashRouter : BrowserRouter

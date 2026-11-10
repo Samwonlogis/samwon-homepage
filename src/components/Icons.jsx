@@ -18,7 +18,8 @@ export const Clock = (p) => <I {...p}><circle cx="12" cy="12" r="9"/><path d="M1
 export const Leaf = (p) => <I {...p}><path d="M4 20c0-9 6-15 16-16-1 10-7 16-16 16z"/><path d="M4 20c4-5 8-8 12-10"/></I>
 export const Target = (p) => <I {...p}><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></I>
 export const Handshake = (p) => <I {...p}><path d="M3 10l4-4 5 2 5-2 4 4-4 8H7L3 10z"/><path d="M12 8l-3 4 2 2 3-3"/></I>
-export const Spark = (p) => <I {...p}><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/></I>
+// Spark: 과거 '반짝이' 아이콘 → 속도·즉시성을 뜻하는 번개(볼트)로 교체 (퀵서비스·디지털 공통)
+export const Spark = (p) => <I {...p}><path d="M13 3L5 13.5h6L10 21l9-11.5h-6.2L13 3z"/></I>
 export const Star = (p) => <I {...p}><path d="M12 3l2.8 6 6.2.7-4.6 4.3 1.3 6.3L12 17l-5.7 3.3 1.3-6.3L3 9.7 9.2 9z"/></I>
 export const Menu = (p) => <I {...p}><path d="M4 7h16M4 12h16M4 17h16"/></I>
 export const X = (p) => <I {...p}><path d="M6 6l12 12M18 6L6 18"/></I>

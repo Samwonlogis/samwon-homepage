@@ -33,14 +33,28 @@ export const defaultContent = {
   hero: {
     kicker: '',
     enTitle: 'Total Logistics\nPartner',
-    eyebrow: 'SINCE 1992 · INTEGRATED LOGISTICS GROUP',
+    eyebrow: 'Total Logistics Partner · Since 1992',
     title: '공급망의 시작부터 끝까지\n삼원이 설계하고, 삼원이 책임집니다',
-    subtitle: '미들마일 간선 수송부터 라스트마일 배송, HACCP 콜드체인, 창고운영, SCM 컨설팅까지. 6개 전문 계열사와 1,000대 이상의 운송 네트워크가 귀사의 물류를 하나의 창구로 완결합니다.',
+    subtitle: '공장 출하부터 점포 납품, 콜드체인, 창고 운영까지. 6개 전문 법인과 1,000대 이상의 운송 네트워크가 귀사의 물류를 하나의 창구로 맡습니다.',
     primaryCta: '물류 상담 신청',
     secondaryCta: '사업영역 보기',
     video: 'video/hero.mp4',
     poster: 'video/poster.jpg',
     images: ['img/hero_1.jpg', 'img/hero_2.jpg', 'img/hero_3.jpg'],
+  },
+
+  // 메인 화면 — 히어로 하단 핵심 지표, 사업영역 머리말, 상담 안내 문구
+  home: {
+    facts: [
+      { value: '1992', unit: '년', label: '창립' },
+      { value: '6', unit: '개', label: '전문 계열 법인' },
+      { value: '1,000', unit: '대+', label: '운송 네트워크' },
+      { value: '5', unit: '개', label: '국가 · 국제 인증' },
+    ],
+    businessTitle: '화주의 공급망 전 구간을\n다섯 개 사업으로 맡습니다',
+    businessLead: '공장 출하부터 고객 문 앞까지, 구간마다 전문 법인이 운영하고 삼원종합물류가 하나의 창구로 관리합니다.',
+    contactLead: '물동량과 배송 권역을 알려 주시면 담당자가 차량 편성과 견적을 안내해 드립니다.',
+    visionBandImage: 'img/hero_3.jpg',
   },
 
   stats: [
@@ -58,7 +72,7 @@ export const defaultContent = {
       { num: '01', icon: 'truck', image: 'img/hero_2.jpg', stat: '1,000대+', statLabel: '운영 차량', title: '즉시 투입 가능한 운송력', desc: '기업물류와 유통물류 차량을 품목⁠·톤수별로 편성해 성수기와 돌발 물량에도 차량 공백 없이 대응합니다.' },
       { num: '02', icon: 'building', image: 'img/banner_company.jpg', stat: '6개 법인', statLabel: '원스톱 창구', title: '하나의 계약, 하나의 담당자', desc: '운송⁠·배송⁠·창고⁠·인력⁠·플랫폼을 담당하는 계열사가 하나의 창구로 연결되어 관리 비용을 줄입니다.' },
       { num: '03', icon: 'shield', image: 'img/fleet/reefer.jpg', stat: '5개 인증', statLabel: '국가⁠·국제 표준', title: '검증된 운영 품질', desc: '우수물류기업 인증, HACCP, ISO 9001⁠·14001⁠·45001 체계로 품질⁠·환경⁠·안전보건 감사 기준에 대응합니다.' },
-      { num: '04', icon: 'chart', image: 'img/biz_consulting.jpg', stat: '데이터', statLabel: '기반 물류비 설계', title: '수치로 제시하는 절감안', desc: 'TMS⁠·WMS 운영 데이터와 시뮬레이션으로 거점⁠·경로⁠·차종을 재설계해 물류비 절감안을 수치로 제시합니다.' },
+      { num: '04', icon: 'chart', image: 'img/biz_consulting.jpg', stat: '34년', statLabel: '현장 운영 데이터', title: '수치로 제시하는 절감안', desc: '34년간 쌓인 노선⁠·차종⁠·적재 데이터를 바탕으로 거점과 경로를 다시 설계해 물류비 절감안을 수치로 제시합니다.' },
     ],
   },
 
