@@ -5,7 +5,7 @@ import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
 import { asset } from '../../utils/storage'
 import { COMPANY_NAV } from './companyNav'
-import { Leaf, Building, Box, Pin, Globe, Phone, ArrowRight } from '../../components/Icons'
+import { Building, Box, Pin, Globe } from '../../components/Icons'
 
 const cat = (name) => {
   if (name.includes('본사')) return { label: '본사 (HQ)', type: 'hq', Icon: Building }
@@ -69,7 +69,7 @@ export default function Intro() {
             {(it.coreValues || []).map((v, i) => (
               <li key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
                 <span className="lc__no">{String(i + 1).padStart(2, '0')}</span>
-                {v.logo ? <div className="lc__logo"><img src={asset(v.logo)} alt={v.title} /></div> : <div className="lc__ic"><Leaf /></div>}
+                {v.logo && <div className="lc__logo"><img src={asset(v.logo)} alt="" /></div>}
                 <h3>{v.title}</h3><p>{v.desc}</p>
               </li>
             ))}

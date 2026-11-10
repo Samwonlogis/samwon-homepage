@@ -464,3 +464,6 @@ b, strong { font-weight: 700; }
 .dp-login__benefit { font-size: 15.5px; color: rgba(255,255,255,.76); }
 .dp-card.dp-login__form { border-radius: var(--r-sm); box-shadow: none; }
 .dp-login__form input:not([type=checkbox]) { border-radius: var(--r-sm); }
+
+/* 푸터: 바로 위가 네이비 섹션일 때 경계가 보이도록 윗선 추가 */
+.ft { border-top: 1px solid rgba(255,255,255,.1); }
