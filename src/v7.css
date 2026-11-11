@@ -499,3 +499,14 @@ a.ct__kakao:hover b { text-decoration: underline; text-underline-offset: 3px; }
 .lg-sum dd { margin: 0; color: var(--ink-2); }
 .lg-sum p { margin-top: 12px; font-size: 14.5px; color: var(--ink-3); }
 @media (max-width: 767px) { .lg-sum { padding: 20px 16px; } .lg-sum dl { grid-template-columns: 1fr; } .lg-sum dl > div { grid-template-columns: 78px minmax(0, 1fr); } }
+
+/* 네이버 지도 */
+.nmap { position: relative; width: 100%; height: 100%; min-height: 260px; background: var(--bg-soft); }
+.nmap__canvas { position: absolute; inset: 0; }
+.nmap[data-state="off"] .nmap__canvas, .nmap[data-state="loading"] .nmap__canvas { visibility: hidden; }
+.nmap__fallback { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 6px; padding: 28px 32px; border: var(--hair);
+  background-color: var(--bg-soft); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 40px 40px; }
+.nmap__fallback b { font-size: 1.25rem; letter-spacing: -.03em; color: var(--ink); background: var(--bg-soft); }
+.nmap__fallback span { font-size: 15.5px; color: var(--ink-2); background: var(--bg-soft); }
+.nmap__fallback a { margin-top: 12px; padding: 10px 16px; border-radius: var(--r-sm); background: #03c75a; color: #fff; font-size: 15px; font-weight: 700; }
+.nmap__fallback a:hover { background: #02b351; }

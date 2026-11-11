@@ -20,6 +20,7 @@ export const defaultContent = {
     ceo: '정삼희',
     representative: '정종혁',
     kakaoChannel: 'https://pf.kakao.com/_xgRnBX',
+    naverMapClientId: '',
     founded: '1992년',
     website: 'www.3won.kr',
     driverUrl: '/driver',

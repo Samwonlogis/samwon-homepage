@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import PageHead from '../../components/PageHead'
 import { useContent } from '../../context/ContentContext'
 import { COMPANY_NAV } from './companyNav'
+import NaverMap from '../../components/NaverMap'
 import { Building, Box, Pin, Globe } from '../../components/Icons'
 
 const TYPES = [
@@ -67,7 +68,7 @@ export default function Offices() {
             {cur && (
               <aside className="ofy-view">
                 <div className="ofy-map">
-                  <iframe key={cur.name} title={`${cur.name} 지도`} src={`https://www.google.com/maps?q=${enc(cur.address)}&z=${cur.address.length > 12 ? 16 : 12}&output=embed&hl=ko`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                  <NaverMap key={cur.name} clientId={co.naverMapClientId} title={cur.name} address={cur.address} lat={cur.lat} lng={cur.lng} zoom={cur.address.length > 12 ? 16 : 11} />
                 </div>
                 <div className="ofy-info">
                   <span className="ofy-info__en">{curType.en}</span>
@@ -99,7 +100,7 @@ export default function Offices() {
             </div>
           </header>
           <div className="ofy-loc__grid" data-reveal="">
-            <div className="ofy-map ofy-map--lg"><iframe title="삼원종합물류 본사 지도" src={`https://www.google.com/maps?q=${q}&z=17&output=embed&hl=ko`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen /></div>
+            <div className="ofy-map ofy-map--lg"><NaverMap clientId={co.naverMapClientId} title="삼원종합물류 본사" address={co.address} query={d.mapQuery} lat={d.lat} lng={d.lng} zoom={17} /></div>
             <dl className="ofy-way">
               <div><dt>주소</dt><dd>{co.address}</dd></div>
               <div><dt>연락처</dt><dd>대표전화 {co.phone}<br />팩스 {co.fax}</dd></div>

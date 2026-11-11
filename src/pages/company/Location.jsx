@@ -2,6 +2,7 @@ import PageHead from '../../components/PageHead'
 import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
 import { COMPANY_NAV } from './companyNav'
+import NaverMap from '../../components/NaverMap'
 import { Pin, Route, Building, Truck } from '../../components/Icons'
 
 export default function Location() {
@@ -14,7 +15,7 @@ export default function Location() {
         <div className="wrap" style={{ maxWidth: 1000 }}>
           <SectionHead center eyebrow="LOCATION & MAP" title="본사 오시는 길" />
           <div className="map-embed map-embed--wide" data-reveal="">
-            <iframe title="삼원종합물류 본사 지도" src={`https://www.google.com/maps?q=${q}&z=17&output=embed&hl=ko`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+            <NaverMap clientId={co.naverMapClientId} title="삼원종합물류 본사" address={co.address} query={d.mapQuery} zoom={17} />
           </div>
           <div className="map-links" data-reveal="">
             <a className="btn btn--naver" href={`https://map.naver.com/p/search/${q}`} target="_blank" rel="noreferrer">네이버 지도로 열기</a>
