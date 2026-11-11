@@ -46,12 +46,7 @@ export const defaultContent = {
 
   // 메인 화면 — 히어로 하단 핵심 지표, 사업영역 머리말, 상담 안내 문구
   home: {
-    facts: [
-      { value: '1992', unit: '년', label: '창립' },
-      { value: '6', unit: '개', label: '전문 계열 법인' },
-      { value: '1,000', unit: '대 이상', label: '운송 네트워크' },
-      { value: '5', unit: '개', label: '국가 · 국제 인증' },
-    ],
+    facts: [],
     businessTitle: '화주의 공급망 전 구간을\n다섯 개 사업으로 맡습니다',
     businessLead: '공장 출하부터 고객 문 앞까지, 구간마다 전문 법인이 운영하고 삼원종합물류가 하나의 창구로 관리합니다.',
     contactLead: '물동량과 배송 권역을 알려 주시면 담당자가 차량 편성과 견적을 안내해 드립니다.',
