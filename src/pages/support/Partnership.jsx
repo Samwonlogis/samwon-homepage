@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PageHead from '../../components/PageHead'
 import { SectionHead } from '../../components/Section'
 import { useContent } from '../../context/ContentContext'
@@ -41,7 +42,7 @@ export default function Partnership() {
               <li><span className="card__icon"><Phone /></span><div><b>대표 전화</b><p className="big"><a href={`tel:${co.phone}`}>{co.phone}</a></p></div></li>
               <li><span className="card__icon"><Mail /></span><div><b>이메일</b><p className="t-blue"><a href={`mailto:${co.email}`}>{co.email}</a></p></div></li>
             </ul>
-            <p className="small muted">평일 09:00~18:00 · 접수 후 영업일 기준 1일 이내 담당 컨설턴트가 연락드립니다.</p>
+            <p className="small muted">평일 09:00~18:00 · 접수 후 영업일 기준 1일 이내 담당자가 연락드립니다.</p>
           </div>
           <form className="form" onSubmit={submit} data-reveal="" style={{ transitionDelay: '.1s' }}>
             <h3 className="h-sub">온라인 제휴 문의 신청</h3>
@@ -57,6 +58,15 @@ export default function Partnership() {
               {['기업물류', '유통물류', '주선 · 에스원퀵 서비스', '창고운영', '물류컨설팅', '기타 제휴 문의'].map(x => <option key={x}>{x}</option>)}
             </select></label>
             <label>상세 내용 *<textarea rows="6" required value={f.msg} onChange={on('msg')} placeholder="문의하실 구체적인 물동량, 주기, 보관 요건 등을 남겨주십시오." /></label>
+            <div className="consent">
+              <dl>
+                <div><dt>수집 항목</dt><dd>담당자 성함, 연락처, 이메일, 문의 분야, 문의 내용 (회사명은 선택)</dd></div>
+                <div><dt>이용 목적</dt><dd>물류 상담·제휴 문의 응대 및 결과 안내</dd></div>
+                <div><dt>보유 기간</dt><dd>문의 처리 완료 후 1년</dd></div>
+              </dl>
+              <p>동의를 거부하실 수 있으나, 거부 시 온라인 문의 접수가 제한됩니다. 전화와 이메일 문의는 그대로 이용하실 수 있습니다. <Link to="/privacy">개인정보처리방침 보기</Link></p>
+              <label className="consent__check"><input type="checkbox" required /> 개인정보 수집·이용에 동의합니다 (필수)</label>
+            </div>
             <button className="btn btn--primary btn--lg" type="submit" style={{ width: '100%' }}>제휴 문의 신청하기 <ArrowRight /></button>
             <p className="small muted" style={{ textAlign: 'center' }}>작성하신 내용은 메일 프로그램을 통해 담당자에게 전달됩니다.</p>
           </form>

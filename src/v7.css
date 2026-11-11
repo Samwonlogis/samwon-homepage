@@ -470,3 +470,32 @@ b, strong { font-weight: 700; }
 
 /* 섹션 제목 크기 통일(복리후생 제목이 다른 섹션보다 크게 잡혀 있던 것) */
 .tb__head h2 { font-size: clamp(1.75rem, 2.9vw, 2.45rem); letter-spacing: -.035em; line-height: 1.3; }
+
+/* 푸터: 카카오톡 채널 링크 */
+.ft__side { flex-wrap: wrap; align-items: center; }
+.ft__side .ft__kakao { color: #fff; }
+.ft__side .ft__kakao:hover { border-bottom-color: rgba(255,255,255,.6); }
+
+/* 고객센터: 카카오톡 채널 박스(링크) */
+a.ct__kakao { color: inherit; text-decoration: none; transition: border-color .2s; }
+a.ct__kakao:hover b { text-decoration: underline; text-underline-offset: 3px; }
+
+/* 제휴문의: 개인정보 수집·이용 동의 */
+.consent { margin: 4px 0 18px; padding: 18px 20px; border: var(--hair); background: var(--bg-soft); font-size: 14.5px; line-height: 1.65; color: var(--ink-2); }
+.consent dl { margin: 0 0 10px; display: grid; gap: 4px; }
+.consent dl > div { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 10px; }
+.consent dt { font-weight: 700; color: var(--ink); }
+.consent dd { margin: 0; }
+.consent p a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+.consent__check { display: flex !important; align-items: center; gap: 8px; margin-top: 12px; font-size: 15.5px; font-weight: 700; color: var(--ink); }
+.consent__check input { width: 18px; height: 18px; margin: 0; accent-color: var(--blue); }
+
+/* 개인정보처리방침: 처리 요약 */
+.lg-sum { margin-bottom: 40px; padding: 26px 28px; border-top: 2px solid var(--ink); background: var(--bg-soft); }
+.lg-sum h2 { font-size: 1.25rem; letter-spacing: -.03em; margin: 0 0 14px; }
+.lg-sum dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+.lg-sum dl > div { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: var(--hair); font-size: 15.5px; line-height: 1.6; }
+.lg-sum dt { font-weight: 700; color: var(--ink); }
+.lg-sum dd { margin: 0; color: var(--ink-2); }
+.lg-sum p { margin-top: 12px; font-size: 14.5px; color: var(--ink-3); }
+@media (max-width: 767px) { .lg-sum { padding: 20px 16px; } .lg-sum dl { grid-template-columns: 1fr; } .lg-sum dl > div { grid-template-columns: 78px minmax(0, 1fr); } }

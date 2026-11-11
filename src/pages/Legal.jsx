@@ -30,6 +30,13 @@ export function Privacy() {
     <section className="section"><div className="wrap lg">
       <nav className="lg-toc" aria-label="목차">{d.sections.filter(s => s.h.startsWith('제')).map(s => <a key={s.h} href={'#' + s.h.replace(/\s/g, '')}>{s.h.replace(/\s*\(.*\)/, '')}</a>)}</nav>
       <div className="lg-body">
+        {d.summary && (
+          <section className="lg-sum" aria-label="개인정보 처리 요약">
+            <h2>개인정보 처리 요약</h2>
+            <dl>{d.summary.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+            <p>세부 내용은 아래 각 조항에서 확인하실 수 있습니다.</p>
+          </section>
+        )}
         {d.sections.map((s, i) => <Block key={i} s={{ ...s, p: (s.p || []).map(x => x.replace('삼원종합물류㈜', c.company.name || '삼원종합물류㈜')) }} cpo={d.cpo} />)}
         <p className="lg-foot">본 방침에 대한 문의: {d.cpo.dept} {d.cpo.phone} · {d.cpo.email}</p>
       </div>

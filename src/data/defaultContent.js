@@ -18,6 +18,8 @@ export const defaultContent = {
     address: '서울특별시 서초구 효령로 328 아트리트21 6층',
     bizNumber: '126-81-17267',
     ceo: '정삼희',
+    representative: '정종혁',
+    kakaoChannel: 'https://pf.kakao.com/_xgRnBX',
     founded: '1992년',
     website: 'www.3won.kr',
     driverUrl: '/driver',

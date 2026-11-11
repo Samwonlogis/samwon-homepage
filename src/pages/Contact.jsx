@@ -32,7 +32,7 @@ export default function Contact() {
               <div><dt>점심</dt><dd>12:30 – 13:30</dd></div>
               <div><dt>휴무</dt><dd>토 · 일 · 공휴일</dd></div>
             </dl>
-            {cp.kakao && <div className="ct__kakao"><span>talk</span><div><b>{cp.kakao.title}</b><p>{cp.kakao.desc}</p></div></div>}
+            {co.kakaoChannel && <a className="ct__kakao" href={co.kakaoChannel} target="_blank" rel="noopener noreferrer"><span>talk</span><div><b>카카오톡 채널 문의</b><p>삼원종합물류(주) 카카오톡 채널에서 상담하실 수 있습니다.</p></div></a>}
           </div>
           <ul className="ct__list" data-reveal="" style={{ transitionDelay: '.08s' }}>
             {rows.map((r, i) => (
