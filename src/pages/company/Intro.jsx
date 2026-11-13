@@ -35,7 +35,6 @@ export default function Intro() {
         <div className="wrap">
           <div className="ov" data-reveal="">
             <div className="ov__head">
-              <span className="sh-en">Overview</span>
               <h2 className="pre">{it.title}</h2>
             </div>
             <div className="ov__text">{it.desc.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}</div>
@@ -49,7 +48,7 @@ export default function Intro() {
           <SectionHead eyebrow="MESSAGE FROM THE CHAIRMAN" title="회장 인사말" />
           <div className="ceo">
             <div className="ceo__photo" data-reveal="">
-              <div className="photo photo--portrait">{ceo.photo ? <img src={asset(ceo.photo)} alt={`${ceo.name} ${ceo.title}`} /> : <img src={asset('img/hero_3.jpg')} alt="삼원종합물류 운송 차량" />}</div>
+              <div className="photo photo--portrait">{ceo.photo ? <img loading="lazy" decoding="async" src={asset(ceo.photo)} alt={`${ceo.name} ${ceo.title}`} /> : <img loading="lazy" decoding="async" src={asset('img/hero_3.jpg')} alt="삼원종합물류 운송 차량" />}</div>
               <div className="ceo__tag"><b>{ceo.name}</b><span>{ceo.title}</span></div>
             </div>
             <div className="ceo__body" data-reveal="" style={{ transitionDelay: '.1s' }}>
@@ -69,7 +68,7 @@ export default function Intro() {
             {(it.coreValues || []).map((v, i) => (
               <li key={i} data-reveal="" style={{ transitionDelay: `${i * .08}s` }}>
                 <span className="lc__no">{String(i + 1).padStart(2, '0')}</span>
-                {v.logo && <div className="lc__logo"><img src={asset(v.logo)} alt="" /></div>}
+                {v.logo && <div className="lc__logo"><img loading="lazy" decoding="async" src={asset(v.logo)} alt="" /></div>}
                 <h3>{v.title}</h3><p>{v.desc}</p>
               </li>
             ))}

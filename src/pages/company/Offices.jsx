@@ -41,7 +41,7 @@ export default function Offices() {
       <section className="section ofy-sec">
         <div className="wrap">
           <header className="ofy-head" data-reveal="">
-            <div className="title-block" style={{ textAlign: 'left', marginBottom: 0 }}><span className="title-block__en">Our Offices</span><h3>사무소 현황</h3></div>
+            <div className="title-block" style={{ textAlign: 'left', marginBottom: 0 }}><h2>사무소 현황</h2></div>
             <p className="ofy-head__lead">서울 본사와 수도권 물류 거점, 백화점 상주 사무소, 지역 사무소를 운영합니다. 목록에서 선택하면 위치를 확인할 수 있습니다.</p>
           </header>
 
@@ -71,8 +71,7 @@ export default function Offices() {
                   <NaverMap key={cur.name} clientId={co.naverMapClientId} title={cur.name} address={cur.address} lat={cur.lat} lng={cur.lng} zoom={cur.address.length > 12 ? 16 : 11} />
                 </div>
                 <div className="ofy-info">
-                  <span className="ofy-info__en">{curType.en}</span>
-                  <h4>{cur.name}</h4>
+                  <h3>{cur.name}</h3>
                   <dl>
                     <div><dt>주소</dt><dd>{cur.address}</dd></div>
                     {cur.type === 'hq' && <div><dt>대표전화</dt><dd><a href={`tel:${co.phone}`}>{co.phone}</a></dd></div>}
@@ -93,7 +92,7 @@ export default function Offices() {
       <section className="section section--soft ofy-loc" id="location">
         <div className="wrap">
           <header className="ofy-head" data-reveal="">
-            <div className="title-block" style={{ textAlign: 'left', marginBottom: 0 }}><span className="title-block__en">Location</span><h3>본사 오시는 길</h3></div>
+            <div className="title-block" style={{ textAlign: 'left', marginBottom: 0 }}><h2>본사 오시는 길</h2></div>
             <div className="ofy-loc__btns">
               <a className="btn btn--naver" href={`https://map.naver.com/p/search/${q}`} target="_blank" rel="noreferrer">네이버 지도</a>
               <a className="btn btn--kakao" href={`https://map.kakao.com/?q=${q}`} target="_blank" rel="noreferrer">카카오맵</a>

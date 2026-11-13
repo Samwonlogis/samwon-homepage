@@ -10,7 +10,6 @@ export function SectionHead({ eyebrow, title, lead, light }) {
   return (
     <header className={`section-head${lead ? ' has-lead' : ''}${light ? ' is-light' : ''}`} data-reveal="">
       <div className="section-head__main">
-        {eyebrow && <span className="sh-en">{eyebrow}</span>}
         <h2 className="h-section pre">{title}</h2>
       </div>
       {lead && <p className="lead">{lead}</p>}

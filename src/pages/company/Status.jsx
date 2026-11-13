@@ -37,7 +37,7 @@ export default function Status() {
         <div className="wrap">
           <SectionHead eyebrow="Partners" title="주요 거래처 및 파트너" lead="대한민국을 대표하는 유통⁠·제조⁠·제약⁠·식품 기업들이 삼원종합물류의 물류 역량을 신뢰하고 있습니다." />
           <div className="partner-grid">
-            {partners.map((p, i) => <div className="logo-tile" key={i} data-reveal="" style={{ transitionDelay: `${(i % 5) * .05}s` }}><img src={asset(p.logo)} alt={p.name} /></div>)}
+            {partners.map((p, i) => <div className="logo-tile" key={i} data-reveal="" style={{ transitionDelay: `${(i % 5) * .05}s` }}><img loading="lazy" decoding="async" src={asset(p.logo)} alt={p.name} /></div>)}
           </div>
           <p className="clients__note">{c.partnersSection.note}</p>
         </div>

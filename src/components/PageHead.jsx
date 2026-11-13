@@ -1,7 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { asset } from '../utils/storage'
-import { titleCase } from './Section'
 
 // logo: 회사소개 계열 SAMWON 로고 배너 — logo="zoom"(회사소개: 클로즈업→줌아웃) / 그 외 true(최종 배치 상태로 고정, 광택만)
 // slides: [{ src, tag, cap }] — 여러 현장 사진이 교차 전환되는 배너(사업영역 전체소개)
@@ -25,7 +24,6 @@ export default function PageHead({ label, title, desc, crumb = [], subnav, docTi
           <img key={s.src} className={`page-head__img ph-slide${i === cur ? ' is-on' : ''}`} src={asset(s.src)} alt={s.cap || ''} loading={i < 2 ? 'eager' : 'lazy'} />
         ))}
         <div className="wrap page-head__in">
-          {label && <div className="page-head__label">{titleCase(label)}</div>}
           <h1>{title}</h1>
           {desc && <p>{String(desc).replace(/\n/g, ' ')}</p>}
           <div className="page-head__crumb"><Link to="/">HOME</Link>{crumb.map((c, i) => <span key={i}>{c}</span>)}</div>

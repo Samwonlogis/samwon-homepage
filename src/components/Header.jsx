@@ -53,7 +53,7 @@ export default function Header() {
         <div className="drawer__bg" onClick={() => setOpen(false)} />
         <div className="drawer__panel" role="dialog" aria-label="모바일 메뉴">
           <div className="drawer__head">
-            <img src={asset('samwon_logo.svg')} alt="SAMWON" style={{ height: 34 }} />
+            <img loading="lazy" decoding="async" src={asset('samwon_logo.svg')} alt="SAMWON" style={{ height: 34 }} />
             <button className="burger" aria-label="닫기" onClick={() => setOpen(false)}><X /></button>
           </div>
           <div className="drawer__portals">

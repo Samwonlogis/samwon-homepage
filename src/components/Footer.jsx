@@ -12,7 +12,7 @@ export default function Footer() {
       <footer className="footer ft">
         <div className="wrap">
           <div className="ft__top">
-            <img className="ft__logo" src={asset('samwon_logo.svg')} alt="SAMWON" />
+            <img loading="lazy" decoding="async" className="ft__logo" src={asset('samwon_logo.svg')} alt="SAMWON" />
             <nav className="ft__nav" aria-label="푸터 바로가기">
               <Link to="/company/offices#location">오시는 길</Link>
               <Link to="/company/status">주요현황</Link>

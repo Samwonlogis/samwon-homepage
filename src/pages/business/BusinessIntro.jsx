@@ -42,7 +42,7 @@ export default function BusinessIntro() {
           <div className="principles">
             {c.principles.items.map((p, i) => (
               <div className="principle" key={i} data-reveal="" style={{ transitionDelay: `${i * .06}s` }}>
-                <div className="en">{p.en}</div><h3>{p.title}</h3><ul>{p.points.map((x, k) => <li key={k}>{x}</li>)}</ul>
+                <h3>{p.title}</h3><ul>{p.points.map((x, k) => <li key={k}>{x}</li>)}</ul>
               </div>
             ))}
           </div>

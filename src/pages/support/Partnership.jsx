@@ -36,7 +36,6 @@ export default function Partnership() {
       <section className="section section--soft">
         <div className="wrap contact-grid contact-grid--13">
           <div className="info-card" data-reveal="">
-            <span className="sh-en">Direct Contact</span>
             <h2 className="h-sub">담당자 직접 문의</h2>
             <ul className="info-list">
               <li><span className="card__icon"><Phone /></span><div><b>대표 전화</b><p className="big"><a href={`tel:${co.phone}`}>{co.phone}</a></p></div></li>

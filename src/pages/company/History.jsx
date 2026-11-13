@@ -26,8 +26,7 @@ export default function History() {
       <section className="section hz-sec">
         <div className="wrap">
           <div className="title-block" data-reveal="">
-            <span className="title-block__en">Our History</span>
-            <h3>삼원종합물류가 걸어온 길</h3>
+            <h2>삼원종합물류가 걸어온 길</h2>
           </div>
           <ol className="hz">
             {years.map(({ y, list }, i) => { const era = eraStart(y); return (

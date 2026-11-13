@@ -19,7 +19,6 @@ export default function Vision() {
         <div className="wrap">
           <div className="ov" data-reveal="">
             <div className="ov__head">
-              <span className="sh-en">Vision</span>
               <h2 className="pre">{`${v.statementMain || ''}\n${v.statementAccent || ''}`}</h2>
             </div>
             <div className="ov__text">{body.map((p, i) => <p key={i}>{p}</p>)}</div>
@@ -29,10 +28,9 @@ export default function Vision() {
 
       {/* 2. 미션 밴드 */}
       <section className="vs-band">
-        <img src={asset(v.bandImage || 'img/vision.jpg')} alt="" />
+        <img loading="lazy" decoding="async" src={asset(v.bandImage || 'img/vision.jpg')} alt="" />
         <div className="wrap">
           <div className="vs-band__in" data-reveal="">
-            <span className="vs-band__label">{v.bandLabel}</span>
             <h3 className="pre">{v.bandTitle}</h3>
             <p>{v.bandDesc}</p>
           </div>
@@ -46,7 +44,6 @@ export default function Vision() {
           <ul className="vgrid" data-reveal="">
             {(v.values || []).map((x, i) => (
               <li key={i}>
-                <span className="vgrid__en">{x.en}</span>
                 <h3>{x.title}</h3>
                 <p>{x.desc}</p>
               </li>

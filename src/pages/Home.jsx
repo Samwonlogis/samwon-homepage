@@ -5,7 +5,9 @@ import { asset } from '../utils/storage'
 import KoreaMap from '../components/KoreaMap'
 import { SectionHead } from '../components/Section'
 import { partners } from '../data/partners'
-import { ArrowRight } from '../components/Icons'
+import { ArrowRight, Pause, Play } from '../components/Icons'
+
+const mq = (q) => typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia(q).matches
 
 const groupHubs = (hubs = []) => {
   const m = new Map()
@@ -17,10 +19,17 @@ function Hero({ hero, facts = [] }) {
   const imgs = (hero.images || []).filter(Boolean)
   const [i, setI] = useState(0)
   const [videoOk, setVideoOk] = useState(!!hero.video)
+  // 동작 줄이기 설정이거나 휴대폰 폭이면 영상 대신 사진(데이터 절약·접근성)
+  const [reduce] = useState(() => mq('(prefers-reduced-motion: reduce)'))
+  const [small] = useState(() => mq('(max-width: 767px)'))
+  const [paused, setPaused] = useState(reduce)
+  const useVideo = videoOk && !!hero.video && !small && !reduce
   const vref = useRef(null)
-  useEffect(() => { if (videoOk || imgs.length < 2) return; const t = setInterval(() => setI(v => (v + 1) % imgs.length), 8000); return () => clearInterval(t) }, [imgs.length, videoOk])
+  useEffect(() => { if (useVideo || paused || imgs.length < 2) return; const t = setInterval(() => setI(v => (v + 1) % imgs.length), 8000); return () => clearInterval(t) }, [imgs.length, useVideo, paused])
+  useEffect(() => { const v = vref.current; if (!v) return; if (paused) v.pause(); else v.play().catch(() => {}) }, [paused])
+  const canToggle = useVideo || imgs.length > 1
   useEffect(() => {
-    const v = vref.current; if (!v) return
+    const v = vref.current; if (!v || paused) return
     if (navigator.connection && navigator.connection.saveData) { setVideoOk(false); return }
     // 재생 거부(NotAllowedError)일 때만 이미지로 대체 — 로딩 중 play() 중단 같은 일시 오류로 영상이 사라지지 않도록 함
     const tryPlay = () => v.play().catch(e => { if (e && e.name === 'NotAllowedError') setVideoOk(false) })
@@ -29,8 +38,8 @@ function Hero({ hero, facts = [] }) {
   return (
     <section className="hero hero--v7">
       <div className="hero__media">
-        {videoOk && hero.video
-          ? <video ref={vref} autoPlay muted loop playsInline poster={asset(hero.poster || imgs[0])} onError={() => setVideoOk(false)}>
+        {useVideo
+          ? <video ref={vref} autoPlay={!paused} muted loop playsInline poster={asset(hero.poster || imgs[0])} onError={() => setVideoOk(false)}>
               <source src={asset(hero.video)} type="video/mp4" />
             </video>
           : imgs.map((src, k) => <img key={k} src={asset(src)} alt="" className={k === i ? 'is-active' : ''} loading={k === 0 ? 'eager' : 'lazy'} />)}
@@ -44,6 +53,11 @@ function Hero({ hero, facts = [] }) {
           <Link className="btn btn--ghost-white" to="/business">{hero.secondaryCta || '사업영역 보기'}</Link>
         </div>
       </div>
+      {canToggle && (
+        <button type="button" className="motion-btn motion-btn--hero" aria-pressed={paused} onClick={() => setPaused(p => !p)}>
+          {paused ? <Play /> : <Pause />}<span>{paused ? (useVideo ? '영상 재생' : '사진 넘김 재생') : (useVideo ? '영상 멈춤' : '사진 넘김 멈춤')}</span>
+        </button>
+      )}
       {facts.length > 0 && (
         <div className="hero__facts">
           <div className="wrap">
@@ -62,7 +76,6 @@ function Services({ items = [] }) {
     <div className="svc" data-reveal="">
       <div className="svc__photo" aria-hidden="true">
         {items.map((b, k) => <img key={b.id} src={asset(b.image)} alt="" className={k === on ? 'is-on' : ''} loading={k === 0 ? 'eager' : 'lazy'} />)}
-        <span className="svc__cap">{String(on + 1).padStart(2, '0')} — {items[on]?.en}</span>
       </div>
       <ol className="svc__list">
         {items.map((b, k) => (
@@ -86,6 +99,7 @@ export default function Home() {
   const { content: c } = useContent()
   const co = c.company
   const loop = [...partners, ...partners]
+  const [logoPaused, setLogoPaused] = useState(false)
   const news = [...(c.notices || [])].filter(n => n && n.title).sort((x, y) => String(y.date).localeCompare(String(x.date))).slice(0, 4)
 
   return (
@@ -105,7 +119,6 @@ export default function Home() {
         <img src={asset(c.home?.visionBandImage || 'img/hero_3.jpg')} alt="" loading="lazy" />
         <div className="wrap">
           <div className="vband__in" data-reveal="">
-            <span className="vband__en">Vision</span>
             <h2>고객의 공급망을<br />끝까지 책임지는 통합물류</h2>
             <p>현장에서 쌓아 온 운영 역량과 6개 계열 법인의 통합 인프라로 <br className="br-pc" />대한민국 대표 통합물류 그룹을 지향합니다.</p>
             <Link className="btn btn--ghost-white" to="/company/vision">기업비전 보기 <ArrowRight /></Link>
@@ -145,7 +158,6 @@ export default function Home() {
       <section className="nx">
         <div className="wrap nx__in">
           <div className="nx__copy" data-reveal="">
-            <span className="nx__en">Nationwide Network</span>
             <h2 className="pre">{c.network.title}</h2>
             <p className="nx__lead">{c.network.lead}</p>
             <ol className="nx__pts">
@@ -166,10 +178,15 @@ export default function Home() {
       </section>
 
       {/* 5. 거래처 */}
-      <section className="section section--soft clients">
-        <div className="wrap"><SectionHead eyebrow={c.partnersSection.eyebrow} title={c.partnersSection.title} lead={c.partnersSection.lead} /></div>
-        <div className="marquee"><div className="marquee__track">{loop.map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt={p.name} /></div>)}</div></div>
-        <div className="marquee marquee--rev"><div className="marquee__track">{[...loop].reverse().map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt={p.name} /></div>)}</div></div>
+      <section className={`section section--soft clients${logoPaused ? ' is-paused' : ''}`}>
+        <div className="wrap"><SectionHead title={c.partnersSection.title} lead={c.partnersSection.lead} /></div>
+        <div className="wrap clients__ctl">
+          <button type="button" className="motion-btn" aria-pressed={logoPaused} onClick={() => setLogoPaused(p => !p)}>
+            {logoPaused ? <Play /> : <Pause />}<span>{logoPaused ? '로고 흐름 재생' : '로고 흐름 멈춤'}</span>
+          </button>
+        </div>
+        <div className="marquee"><div className="marquee__track">{loop.map((p, i) => <div className="logo-tile" key={i} aria-hidden={i >= partners.length || undefined}><img src={asset(p.logo)} alt={i >= partners.length ? '' : p.name} loading="lazy" decoding="async" /></div>)}</div></div>
+        <div className="marquee marquee--rev" aria-hidden="true"><div className="marquee__track">{[...loop].reverse().map((p, i) => <div className="logo-tile" key={i}><img src={asset(p.logo)} alt="" loading="lazy" decoding="async" /></div>)}</div></div>
         <div className="wrap"><p className="clients__note">{c.partnersSection.note}</p></div>
       </section>
 
@@ -178,7 +195,7 @@ export default function Home() {
         <div className="wrap hn">
           <div className="hn__news" data-reveal="">
             <header className="hn__head">
-              <div><span className="sh-en">News</span><h2 className="h-section">새 소식</h2></div>
+              <div><h2 className="h-section">새 소식</h2></div>
               <Link className="link" to="/support/notice">전체 보기 <ArrowRight /></Link>
             </header>
             <ul className="hn__list">
@@ -194,7 +211,6 @@ export default function Home() {
             </ul>
           </div>
           <aside className="hn__cta" data-reveal="" style={{ transitionDelay: '.1s' }}>
-            <span className="sh-en">Contact</span>
             <h2>물류 상담</h2>
             <p>{c.home?.contactLead || '물동량과 배송 권역을 알려 주시면 담당자가 차량 편성과 견적을 안내해 드립니다.'}</p>
             <a className="hn__tel" href={`tel:${co.phone}`}>{co.phone}</a>

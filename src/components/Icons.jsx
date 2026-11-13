@@ -21,6 +21,8 @@ export const Handshake = (p) => <I {...p}><path d="M3 10l4-4 5 2 5-2 4 4-4 8H7L3
 // Spark: 과거 '반짝이' 아이콘 → 속도·즉시성을 뜻하는 번개(볼트)로 교체 (퀵서비스·디지털 공통)
 export const Spark = (p) => <I {...p}><path d="M13 3L5 13.5h6L10 21l9-11.5h-6.2L13 3z"/></I>
 export const Star = (p) => <I {...p}><path d="M12 3l2.8 6 6.2.7-4.6 4.3 1.3 6.3L12 17l-5.7 3.3 1.3-6.3L3 9.7 9.2 9z"/></I>
+export const Pause = (p) => <I {...p}><path d="M9 5v14M15 5v14"/></I>
+export const Play = (p) => <I {...p}><path d="M8 5l11 7-11 7z"/></I>
 export const Menu = (p) => <I {...p}><path d="M4 7h16M4 12h16M4 17h16"/></I>
 export const X = (p) => <I {...p}><path d="M6 6l12 12M18 6L6 18"/></I>
 export const Globe = (p) => <I {...p}><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></I>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
@@ -12,5 +12,5 @@ export default function Layout() {
     return () => clearTimeout(t)
   }, [pathname, hash])
   useReveal([pathname])
-  return (<><Header /><main><Outlet /></main><Footer /></>)
+  return (<><Header /><main><Suspense fallback={<div className="route-loading" role="status" aria-live="polite">불러오는 중입니다</div>}><Outlet /></Suspense></main><Footer /></>)
 }

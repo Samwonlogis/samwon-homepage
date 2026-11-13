@@ -46,7 +46,6 @@ export default function BusinessPage({ id: fixedId }) {
       <section className="section">
         <div className="wrap bo">
           <div className="bo__text" data-reveal="">
-            <span className="sh-en">Overview</span>
             <h2 className="h-section pre">{p.slogan}</h2>
             <p className="lead pre">{p.overview}</p>
           </div>
@@ -54,7 +53,7 @@ export default function BusinessPage({ id: fixedId }) {
             ? <dl className="bo__facts" data-reveal="">
                 {p.metrics.map((m, i) => <div key={i}><dt><b>{m.label}</b>{m.desc}</dt><dd>{m.value}</dd></div>)}
               </dl>
-            : <div className="photo" data-reveal=""><img src={asset(p.image)} alt={p.title} /></div>}
+            : <div className="photo" data-reveal=""><img loading="lazy" decoding="async" src={asset(p.image)} alt={p.title} /></div>}
         </div>
       </section>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState , Suspense } from 'react'
 import { Link, NavLink, Navigate, Outlet, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useContent } from '../../context/ContentContext'
 import { asset } from '../../utils/storage'
@@ -60,7 +60,6 @@ export function DriverLogin() {
       <div className="dp-login__bg"><img src={asset('img/hero_3.jpg')} alt="" /></div>
       <div className="wrap dp-login__in">
         <div className="dp-login__intro" data-reveal="">
-          <span className="sh-en">Driver Partners</span>
           <h1>삼원종합물류<br />차주정보</h1>
           <p>월별 운송료내역서 조회·출력, 보험·할부·공과금 확인, 차주 공지와 구인 정보를 한곳에서 확인하는 차주 전용 공간입니다.</p>
           <ul className="dp-login__feat">{MENUS.map(m => <li key={m.to}><Ic d={m.d} /><b>{m.label}</b></li>)}</ul>
@@ -163,7 +162,7 @@ export function Checklist() {
   const items = (g.checklist || [])
   return (
     <section className="dp-sec">
-      <header className="dp-head"><div><span className="sh-en">Daily Check</span><h1>일상점검표</h1></div><span className="dp-head__page">매일 운행 전 작성</span></header>
+      <header className="dp-head"><div><h1>일상점검표</h1></div><span className="dp-head__page">매일 운행 전 작성</span></header>
       <DailyCheck onDone={() => tick(t => t + 1)} />
       <div className="dp-cl-info">
         <h3>운수종사자 일상점검표란</h3>
@@ -257,7 +256,7 @@ export function DriverShell() {
             </div>
           </aside>
         )}
-        <main className="dp-main"><Outlet context={{ driver: d, company: c.company }} /></main>
+        <main className="dp-main"><Suspense fallback={null}><Outlet context={{ driver: d, company: c.company }} /></Suspense></main>
       </div>
       <nav className="dp-mtabs" aria-label="차주정보 하단 메뉴">{MENUS.map(m => <NavLink key={m.to} to={m.to}><Ic d={m.d} /><span>{m.short || m.label}</span></NavLink>)}</nav>
     </div>
@@ -271,7 +270,7 @@ export function Statements() {
   return (
     <section className="dp-sec">
       <CheckReminder />
-      <header className="dp-head"><div><span className="sh-en">Statements</span><h1>운송료내역서</h1></div>{d && <span className="dp-head__page">Page ( {d.page} / {d.pages} )</span>}</header>
+      <header className="dp-head"><div><h1>운송료내역서</h1></div>{d && <span className="dp-head__page">Page ( {d.page} / {d.pages} )</span>}</header>
       <State st={st}>{d && (<>
         {d.page === 1 && d.items[0] && (
           <div className="dp-hl">
@@ -434,7 +433,7 @@ export function Insurance() {
   const w = (v) => (v == null || v === '' ? '' : `${num(v)} 원`)
   return (
     <section className="dp-sec">
-      <header className="dp-head"><div><span className="sh-en">Insurance</span><h1>보험 / 할부 / 공과금</h1></div><button type="button" className="dp-print" onClick={() => window.print()}>인쇄 · PDF 저장</button></header>
+      <header className="dp-head"><div><h1>보험 / 할부 / 공과금</h1></div><button type="button" className="dp-print" onClick={() => window.print()}>인쇄 · PDF 저장</button></header>
       <State st={st}>{d && (<>
         {(d.accidentContacts || []).length > 0 && (
           <div className="dp-acc"><b>🚨 사고 접수</b>{d.accidentContacts.map((x, i) => <a key={i} href={`tel:${x.value}`}><span>{x.label}</span><strong>{x.value}</strong></a>)}</div>
@@ -482,7 +481,7 @@ export function Board() {
   const go = (o) => setSp({ c: cat, ...(q && { q }), ...o })
   return (
     <section className="dp-sec">
-      <header className="dp-head"><div><span className="sh-en">Board</span><h1>게시판</h1></div>
+      <header className="dp-head"><div><h1>게시판</h1></div>
         <form className="dp-search" onSubmit={e => { e.preventDefault(); setSp({ c: cat, q: kw }) }}><input value={kw} onChange={e => setKw(e.target.value)} placeholder="제목 검색" /><button type="submit">검색</button></form></header>
       <div className="dp-cats">{CATS.map(k => <button key={k} type="button" className={k === cat ? 'is-on' : ''} onClick={() => setSp({ c: k })}>{k}</button>)}</div>
       <State st={st}>{d && (<>
@@ -530,7 +529,7 @@ export function Guide() {
   const { content: c } = useContent(); const g = c.driverGuide || {}
   return (
     <section className="dp-sec dp-guide-page">
-      <header className="dp-head"><div><span className="sh-en">For Drivers</span><h1>기사님 안내</h1></div></header>
+      <header className="dp-head"><div><h1>기사님 안내</h1></div></header>
       <div className="dp-gd-hero"><span className="dp-gd-hero__ic"><Truck /></span><div><b>삼원종합물류 임직원 일동</b><p>{g.greeting}</p></div></div>
       <CheckReminder />
 

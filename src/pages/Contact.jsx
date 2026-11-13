@@ -24,7 +24,6 @@ export default function Contact() {
       <section className="section ct">
         <div className="wrap ct__grid">
           <div className="ct__intro" data-reveal="">
-            <span className="sh-en">Contact</span>
             <h2 className="pre">{'무엇이든\n문의해 주십시오'}</h2>
             <p>전담 담당자가 직접 답변드립니다. 긴급 배차·운행 문의는 대표 전화로 연결됩니다.</p>
             <dl className="ct__hours">

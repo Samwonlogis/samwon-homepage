@@ -1,3 +1,4 @@
+import { lazy } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
@@ -13,9 +14,14 @@ import DriverJobs from './pages/recruitment/DriverJobs'
 import Contact from './pages/Contact'
 import Partnership from './pages/support/Partnership'
 import { Notice, NoticePost } from './pages/support/Notice'
-import { DriverLogin, DriverShell, Statements, StatementDetail, Insurance, Board, Post, Guide, ManualInvoice, Checklist } from './pages/driver/DriverPortal'
-import Admin from './pages/Admin'
-import { Privacy, Terms, NotFound } from './pages/Legal'
+// 차주 포털·관리자·약관 화면은 따로 불러와 첫 화면 용량을 줄인다
+const dp = () => import('./pages/driver/DriverPortal')
+const lg = () => import('./pages/Legal')
+const pick = (load, name) => lazy(() => load().then(m => ({ default: m[name] })))
+const DriverLogin = pick(dp, 'DriverLogin'), DriverShell = pick(dp, 'DriverShell'), Statements = pick(dp, 'Statements'), StatementDetail = pick(dp, 'StatementDetail')
+const Insurance = pick(dp, 'Insurance'), Board = pick(dp, 'Board'), Post = pick(dp, 'Post'), Guide = pick(dp, 'Guide'), ManualInvoice = pick(dp, 'ManualInvoice'), Checklist = pick(dp, 'Checklist')
+const Admin = lazy(() => import('./pages/Admin'))
+const Privacy = pick(lg, 'Privacy'), Terms = pick(lg, 'Terms'), NotFound = pick(lg, 'NotFound')
 
 export default function App() {
   return (
