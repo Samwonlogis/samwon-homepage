@@ -4,8 +4,8 @@ const CF = !!process.env.CF_PAGES
 const GH = 'https://samwonlogis.github.io/samwon-homepage'
 // Cloudflare Pages는 404.html이 없으면 SPA로 자동 처리하므로 GitHub Pages에서만 복제
 if (!CF) copyFileSync('dist/index.html', 'dist/404.html')
-// 대표 주소: SITE_URL 환경변수 > Cloudflare(samwon-homepage.pages.dev) > GitHub Pages
-const SITE = (process.env.SITE_URL || (CF ? 'https://samwon-homepage.pages.dev' : GH)).replace(/\/$/, '')
+// 대표 주소: SITE_URL 환경변수 > Cloudflare(www.3won.kr) > GitHub Pages
+const SITE = (process.env.SITE_URL || (CF ? 'https://www.3won.kr' : GH)).replace(/\/$/, '')
 if (SITE !== GH) for (const f of ['dist/index.html', 'dist/m/index.html', 'dist/s1/index.html']) {
   if (existsSync(f)) writeFileSync(f, readFileSync(f, 'utf8').split(GH).join(SITE))
 }
