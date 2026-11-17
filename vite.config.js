@@ -7,8 +7,8 @@ const REPO_NAME = 'samwon-homepage'
 
 export default defineConfig(({ mode }) => {
   const isPreview = mode === 'preview'
-  // Cloudflare Pages 빌드(CF_PAGES=1)는 도메인 루트('/'), GitHub Pages는 저장소 경로
-  const onCloudflare = !!process.env.CF_PAGES
+  // Cloudflare 빌드(Pages: CF_PAGES=1, Workers: WORKERS_CI=1)는 도메인 루트('/'), GitHub Pages는 저장소 경로
+  const onCloudflare = !!(process.env.CF_PAGES || process.env.WORKERS_CI)
   return {
     base: isPreview ? './' : onCloudflare ? '/' : `/${REPO_NAME}/`,
     plugins: isPreview ? [react(), viteSingleFile()] : [react()],

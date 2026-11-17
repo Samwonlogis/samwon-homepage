@@ -1,0 +1,9 @@
+{
+  // Cloudflare Workers(정적 자산) 배포 설정 — 빌드 결과(dist)를 그대로 제공하고 SPA 경로는 index.html로 처리
+  "name": "samwon-homepage",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}

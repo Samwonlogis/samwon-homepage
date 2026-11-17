@@ -1,6 +1,6 @@
 // GitHub Pages에서 새로고침·직접 접속 시 404를 막기 위해 index.html을 404.html로 복제 + sitemap.xml/robots.txt 생성
 import { copyFileSync, writeFileSync, readFileSync, existsSync } from 'node:fs'
-const CF = !!process.env.CF_PAGES
+const CF = !!(process.env.CF_PAGES || process.env.WORKERS_CI)
 const GH = 'https://samwonlogis.github.io/samwon-homepage'
 // Cloudflare Pages는 404.html이 없으면 SPA로 자동 처리하므로 GitHub Pages에서만 복제
 if (!CF) copyFileSync('dist/index.html', 'dist/404.html')
