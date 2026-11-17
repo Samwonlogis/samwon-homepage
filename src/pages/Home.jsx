@@ -45,10 +45,10 @@ function Hero({ hero, facts = [] }) {
           : imgs.map((src, k) => <img key={k} src={asset(src)} alt="" className={k === i ? 'is-active' : ''} loading={k === 0 ? 'eager' : 'lazy'} />)}
       </div>
       <div className="wrap hero__body">
-        {hero.eyebrow && <span className="hero__kicker" data-reveal="">{hero.eyebrow}</span>}
-        <h1 className="hero__title pre" data-reveal="" style={{ transitionDelay: '.06s' }}>{hero.title}</h1>
-        {hero.subtitle && <p className="hero__sub" data-reveal="" style={{ transitionDelay: '.12s' }}>{hero.subtitle}</p>}
-        <div className="hero__cta" data-reveal="" style={{ transitionDelay: '.18s' }}>
+        {hero.eyebrow && <span className="hero__kicker hero-in">{hero.eyebrow}</span>}
+        <h1 className="hero__title hero-in" style={{ animationDelay: '.06s' }}>{String(hero.title || '').split('\n').map((ln, k) => <span key={k} className="hero__line">{ln}</span>)}</h1>
+        {hero.subtitle && <p className="hero__sub hero-in" style={{ animationDelay: '.12s' }}>{hero.subtitle}</p>}
+        <div className="hero__cta hero-in" style={{ animationDelay: '.18s' }}>
           <Link className="btn btn--white" to="/contact/partnership">{hero.primaryCta || '물류 상담 신청'} <ArrowRight /></Link>
           <Link className="btn btn--ghost-white" to="/business">{hero.secondaryCta || '사업영역 보기'}</Link>
         </div>

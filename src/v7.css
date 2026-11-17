@@ -497,3 +497,18 @@ a.ct__kakao:hover b { text-decoration: underline; text-underline-offset: 3px; }/
 input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-color: var(--blue); flex: none; }
 /* 예시 안내: 카드 안의 카드 대신 평면 안내문(브랜드 색) */
 .dp-demo { border: 0; border-radius: 0; background: var(--blue-50); color: var(--ink-2); }
+
+/* ═══ 2611 점검 반영 ═══ */
+/* 스크롤 등장 효과: 빈 화면이 보이지 않도록 더 짧고 가볍게 */
+[data-reveal] { transform: translateY(14px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+[data-reveal].is-in { opacity: 1; transform: none; }
+[data-reveal="fade"] { transform: none; }
+/* 메인 첫 화면 문구: 스크롤 감지 없이 접속 즉시 표시 */
+.hero-in { animation: hero-in .6s var(--ease) both; }
+@keyframes hero-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.hero__title .hero__line { display: block; text-wrap: balance; word-break: keep-all; }
+/* 회사소개 배너 로고: 모바일에서 소개 문구와 겹치지 않게 제목 오른쪽 위로 */
+@media (max-width: 767px) {
+  .ph-logo { right: 5%; left: auto; top: calc(var(--header-h) + 28px); width: 42vw; transform: none; animation: none; }
+}
+@media (prefers-reduced-motion: reduce) { .hero-in { animation: none; } [data-reveal] { opacity: 1; transform: none; transition: none; } }
